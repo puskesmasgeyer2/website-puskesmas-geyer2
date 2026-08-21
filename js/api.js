@@ -10,6 +10,11 @@ async function getData(namaFile){
 
     try{
 
+        console.log(
+            "MENGAMBIL DATA:",
+            API_BASE + namaFile + ".json"
+        );
+
         const response = await fetch(
             API_BASE + namaFile + ".json"
         );
@@ -23,7 +28,13 @@ async function getData(namaFile){
 
         }
 
-        const data = await response.json();
+        const data =
+            await response.json();
+
+        console.log(
+            "DATA BERHASIL:",
+            data
+        );
 
         return data;
 
@@ -31,7 +42,6 @@ async function getData(namaFile){
 
         console.error(
             "GAGAL MENGAMBIL DATA:",
-            namaFile,
             error
         );
 
