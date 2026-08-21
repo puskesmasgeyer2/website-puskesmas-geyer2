@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1">
+
+<title>Test API Puskesmas Geyer 2</title>
+
+</head>
+
+<body>
+
+<h1>Test API Website Puskesmas Geyer 2</h1>
+
+<div id="hasil">
+Memuat data...
+</div>
+
+
+<script src="js/api.js"></script>
+
+
+<script>
+
+async function testBerita(){
+
+    console.log("=== TEST API BERITA ===");
+
+    const data =
+        await getData("berita");
+
+    console.log(
+        "HASIL DATA BERITA:",
+        data
+    );
+
+
+    const container =
+        document.getElementById("hasil");
+
+
+    if(!data.length){
+
+        container.innerHTML = `
+            <p>
+                Data berita tidak ditemukan.
+            </p>
+        `;
+
+        return;
+
+    }
+
+
+    let html = "";
+
+
+    data.forEach(function(item){
+
+        html += `
+
+            <article>
+
+                <h2>
+                    ${item.judul}
+                </h2>
+
+                <p>
+                    <strong>Tanggal:</strong>
+                    ${item.tanggal}
+                </p>
+
+                <p>
+                    ${item.ringkasan}
+                </p>
+
+            </article>
+
+            <hr>
+
+        `;
+
+    });
+
+
+    container.innerHTML = html;
+
+}
+
+
+testBerita();
+
+</script>
+
+</body>
+
+</html>
