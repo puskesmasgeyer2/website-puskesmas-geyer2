@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>API Test - Puskesmas Geyer 2</title>
+
+<style>
+
+body {
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    margin: 0;
+
+    padding: 30px;
+
+    background:
+        #f5f7f9;
+
+}
+
+h1 {
+
+    margin-bottom: 10px;
+
+}
+
+.status {
+
+    padding: 15px;
+
+    margin-bottom: 20px;
+
+    border-radius: 8px;
+
+    background: white;
+
+}
+
+.berita {
+
+    background: white;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 8px
+        rgba(0,0,0,.08);
+
+}
+
+.berita h2 {
+
+    margin-top: 0;
+
+}
+
+.tanggal {
+
+    color: #666;
+
+    font-size: 14px;
+
+}
+
+.error {
+
+    color: #b00020;
+
+}
+
+.success {
+
+    color: #087f23;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<h1>
+    Test API Puskesmas Geyer 2
+</h1>
+
+
+<div
+    id="status"
+    class="status">
+
+    Mengambil data...
+
+</div>
+
+
+<div id="hasil"></div>
+
+
+<script src="js/api.js"></script>
+
+
+<script>
+
+async function testAPI() {
+
+    const status =
+        document.getElementById("status");
+
+    const hasil =
+        document.getElementById("hasil");
+
+
+    try {
+
+        status.innerHTML =
+            "Menghubungkan ke API GitHub...";
+
+
+        const berita =
+            await getBerita();
+
+
+        console.log(
+            "DATA BERITA:",
+            berita
+        );
+
+
+        // =========================================
+        // VALIDASI
+        // =========================================
+
+        if (!Array.isArray(berita)) {
+
+            throw new Error(
+                "Format data berita bukan array."
+            );
+
+        }
+
+
+        // =========================================
+        // STATUS
+        // =========================================
+
+        status.innerHTML =
+
+            "<strong class='success'>" +
+            "✓ API berhasil terhubung" +
+            "</strong><br>" +
+
+            "Jumlah berita: " +
+            berita.length;
+
+
+        // =========================================
+        // RENDER
+        // =========================================
+
+        let html = "";
+
+
+        berita.forEach(function(item) {
+
+            html += `
+
+                <article class="berita">
+
+                    <h2>
+                        ${item.judul || ""}
+                    </h2>
+
+                    <div class="tanggal">
+
+                        Tanggal:
+                        ${item.tanggal || ""}
+
+                    </div>
+
+                    <p>
+
+                        ${item.ringkasan || ""}
+
+                    </p>
+
+                </article>
+
+            `;
+
+        });
+
+
+        hasil.innerHTML =
+            html;
+
+
+    } catch(error) {
+
+        console.error(
+            "API ERROR:",
+            error
+        );
+
+
+        status.innerHTML =
+
+            "<strong class='error'>" +
+            "✕ API gagal" +
+            "</strong><br>" +
+
+            error.message;
+
+    }
+
+}
+
+
+testAPI();
+
+</script>
+
+
+</body>
+
+</html>
