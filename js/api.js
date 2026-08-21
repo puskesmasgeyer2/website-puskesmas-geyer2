@@ -1,5 +1,5 @@
 const API_BASE =
-    "https://raw.githubusercontent.com/USERNAME/website-puskesmas-geyer2/main/data/";
+    "https://raw.githubusercontent.com/puskesmasgeyer2/website-puskesmas-geyer2/main/data/";
 
 
 // ========================================
