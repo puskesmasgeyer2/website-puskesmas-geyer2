@@ -148,6 +148,134 @@
 
     </style>
 
+    <style>
+
+/* =========================================
+   NAVBAR PUSKESMAS GEYER 2
+   SAMA DENGAN BERITA.HTML
+   ========================================= */
+
+.navbar {
+    background-color: #273765 !important;
+    min-height: 90px;
+    padding: 14px 0 !important;
+}
+
+/* Container */
+.navbar .container {
+    max-width: 1200px;
+}
+
+/* Logo + nama */
+.navbar-brand {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none !important;
+    margin-right: 35px;
+}
+
+/* Logo */
+.navbar-brand img {
+    width: 58px !important;
+    height: 58px !important;
+    object-fit: contain;
+}
+
+/* Nama Puskesmas */
+.navbar-brand .brand-text {
+    color: #ffffff !important;
+    font-size: 17px;
+    line-height: 1.15;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* MENU */
+.navbar-nav {
+    align-items: center;
+    gap: 3px;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff !important;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 10px !important;
+    white-space: nowrap;
+    transition: 0.2s ease;
+}
+
+/* Hover */
+.navbar-nav .nav-link:hover {
+    color: #20c4e8 !important;
+}
+
+/* Menu aktif */
+.navbar-nav .nav-link.active {
+    color: #20c4e8 !important;
+}
+
+/* Tombol layanan darurat */
+.navbar-nav .custom-btn {
+    background-color: #1677ff !important;
+    color: #ffffff !important;
+    border-radius: 30px;
+    padding: 10px 18px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    margin-left: 8px;
+}
+
+.navbar-nav .custom-btn:hover {
+    background-color: #0d63d8 !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 991px) {
+
+    .navbar {
+        padding: 10px 15px !important;
+    }
+
+    .navbar-brand {
+        margin-right: 0;
+    }
+
+    .navbar-brand img {
+        width: 52px !important;
+        height: 52px !important;
+    }
+
+    .navbar-brand .brand-text {
+        font-size: 16px;
+    }
+
+    .navbar-nav {
+        gap: 0;
+        margin-top: 10px;
+        align-items: flex-start;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 9px 0 !important;
+        font-size: 14px;
+    }
+
+    .navbar-nav .custom-btn {
+        margin-left: 0;
+        margin-top: 8px;
+    }
+
+}
+
+</style>
+
 </head>
 
 
