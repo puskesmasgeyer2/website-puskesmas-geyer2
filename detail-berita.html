@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <title>
+        Detail Berita - Puskesmas Geyer 2
+    </title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+    ====================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+         BOOTSTRAP ICONS
+    ====================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+
+    <style>
+
+        body {
+
+            background:#f5f7fa;
+
+            color:#222;
+
+        }
+
+
+        .header {
+
+            background:#27345f;
+
+            padding:25px 0;
+
+        }
+
+
+        .article {
+
+            background:#fff;
+
+            border-radius:15px;
+
+            padding:30px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0,0,0,0.08);
+
+        }
+
+
+        .article-image {
+
+            width:100%;
+
+            max-height:500px;
+
+            object-fit:cover;
+
+            border-radius:12px;
+
+            margin-bottom:25px;
+
+        }
+
+
+        .article-title {
+
+            font-size:36px;
+
+            font-weight:700;
+
+            line-height:1.25;
+
+            margin-bottom:15px;
+
+        }
+
+
+        .article-meta {
+
+            color:#777;
+
+            margin-bottom:25px;
+
+        }
+
+
+        .article-content {
+
+            font-size:17px;
+
+            line-height:1.8;
+
+            white-space:pre-line;
+
+        }
+
+
+        .back-button {
+
+            margin-bottom:25px;
+
+        }
+
+
+        @media(max-width:768px){
+
+            .article {
+
+                padding:20px;
+
+            }
+
+
+            .article-title {
+
+                font-size:28px;
+
+            }
+
+
+            .article-content {
+
+                font-size:16px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header class="header">
+
+    <div
+        class="container
+               d-flex
+               justify-content-between
+               align-items-center">
+
+        <h2
+            class="text-white mb-0">
+
+            Puskesmas Geyer 2
+
+        </h2>
+
+
+        <a
+            href="index.html"
+            class="btn btn-light">
+
+            <i class="bi bi-house"></i>
+
+            Beranda
+
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     CONTENT
+====================================================== -->
+
+<main
+    class="container py-5">
+
+
+    <!-- TOMBOL KEMBALI -->
+
+    <a
+        href="berita.html"
+        class="btn btn-outline-success back-button">
+
+        <i class="bi bi-arrow-left"></i>
+
+        Kembali ke Berita
+
+    </a>
+
+
+
+    <!-- =================================================
+         DETAIL BERITA
+    ================================================== -->
+
+    <article
+        id="detail-container"
+        class="article">
+
+
+        <!-- LOADING -->
+
+        <div
+            class="text-center py-5">
+
+            <div
+                class="spinner-border text-success"
+                role="status">
+
+            </div>
+
+
+            <p class="mt-3">
+
+                Memuat berita...
+
+            </p>
+
+        </div>
+
+
+    </article>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     API
+====================================================== -->
+
+<script src="js/api.js"></script>
+
+
+<!-- =====================================================
+     DETAIL BERITA
+====================================================== -->
+
+<script src="js/detail-berita.js"></script>
+
+
+</body>
+
+</html>
