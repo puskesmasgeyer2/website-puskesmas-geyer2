@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "id": "GL-2026-001",
+    "tanggal": "2026-08-23",
+    "judul": "Kegiatan Pelayanan Puskesmas",
+    "kategori": "Pelayanan",
+    "gambar": "images/galeri-pelayanan.jpg",
+    "deskripsi": "Dokumentasi kegiatan pelayanan kesehatan UPTD Puskesmas Geyer 2."
+  },
+  {
+    "id": "GL-2026-002",
+    "tanggal": "2026-08-20",
+    "judul": "Kegiatan Posyandu ILP",
+    "kategori": "Posyandu",
+    "gambar": "images/galeri-posyandu.jpg",
+    "deskripsi": "Dokumentasi kegiatan Posyandu Integrasi Layanan Primer di wilayah kerja Puskesmas Geyer 2."
+  },
+  {
+    "id": "GL-2026-003",
+    "tanggal": "2026-08-18",
+    "judul": "Promosi Kesehatan",
+    "kategori": "Promosi Kesehatan",
+    "gambar": "images/galeri-promkes.jpg",
+    "deskripsi": "Dokumentasi kegiatan promosi kesehatan kepada masyarakat."
+  },
+  {
+    "id": "GL-2026-004",
+    "tanggal": "2026-08-15",
+    "judul": "Kegiatan Puskesmas Geyer 2",
+    "kategori": "Kegiatan",
+    "gambar": "images/galeri-kegiatan.jpg",
+    "deskripsi": "Dokumentasi kegiatan UPTD Puskesmas Geyer 2."
+  }
+]
