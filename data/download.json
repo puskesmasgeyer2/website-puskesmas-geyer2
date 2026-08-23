@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "id": "DL-2026-001",
+    "tanggal": "2026-08-23",
+    "judul": "Jadwal Pelayanan Puskesmas Geyer 2",
+    "kategori": "Jadwal Pelayanan",
+    "deskripsi": "Dokumen informasi jadwal pelayanan UPTD Puskesmas Geyer 2.",
+    "file": "documents/jadwal-pelayanan.pdf",
+    "format": "PDF"
+  },
+  {
+    "id": "DL-2026-002",
+    "tanggal": "2026-08-20",
+    "judul": "Formulir Pelayanan Puskesmas",
+    "kategori": "Formulir",
+    "deskripsi": "Formulir yang dapat digunakan masyarakat untuk keperluan pelayanan.",
+    "file": "documents/formulir-pelayanan.pdf",
+    "format": "PDF"
+  },
+  {
+    "id": "DL-2026-003",
+    "tanggal": "2026-08-18",
+    "judul": "Informasi Pelayanan UPTD Puskesmas Geyer 2",
+    "kategori": "Informasi",
+    "deskripsi": "Dokumen informasi mengenai pelayanan yang tersedia di Puskesmas Geyer 2.",
+    "file": "documents/informasi-pelayanan.pdf",
+    "format": "PDF"
+  }
+]
