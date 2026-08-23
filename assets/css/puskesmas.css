@@ -542,3 +542,86 @@ body{color:var(--pkm-text);background:#fff}
   line-height: 1.7;
   margin-bottom: 0;
 }
+/* =========================================================
+   DOWNLOAD
+   ========================================================= */
+
+.pkm-download-card {
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #e1eaf2;
+  border-radius: 20px;
+  padding: 25px;
+  display: flex;
+  gap: 20px;
+  box-shadow: 0 10px 30px rgba(15, 61, 105, 0.06);
+  transition: all 0.25s ease;
+}
+
+
+.pkm-download-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(15, 61, 105, 0.12);
+}
+
+
+.pkm-download-icon {
+  width: 62px;
+  height: 72px;
+  min-width: 62px;
+  border-radius: 12px;
+  background: #fff0f0;
+  color: #d73535;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+
+.pkm-download-content {
+  flex: 1;
+}
+
+
+.pkm-download-date {
+  color: #7890aa;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+
+.pkm-download-content h3 {
+  color: #123b6d;
+  font-size: 20px;
+  line-height: 1.35;
+  margin: 9px 0 10px;
+}
+
+
+.pkm-download-content p {
+  color: #67809c;
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+
+
+.pkm-download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 17px;
+  background: #0f9d58;
+  color: #ffffff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+
+.pkm-download-btn:hover {
+  background: #087b44;
+  color: #ffffff;
+}
