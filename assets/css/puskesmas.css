@@ -445,3 +445,100 @@ body{color:var(--pkm-text);background:#fff}
   }
 
 }
+/* =========================================================
+   GALERI
+   ========================================================= */
+
+.pkm-gallery-card {
+  background: #ffffff;
+  border: 1px solid #e1eaf2;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(15, 61, 105, 0.06);
+  transition: all 0.25s ease;
+}
+
+
+.pkm-gallery-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(15, 61, 105, 0.12);
+}
+
+
+.pkm-gallery-image {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+  background: #eef7f2;
+}
+
+
+.pkm-gallery-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+
+.pkm-gallery-card:hover .pkm-gallery-image img {
+  transform: scale(1.06);
+}
+
+
+.pkm-gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 48, 91, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+
+.pkm-gallery-card:hover .pkm-gallery-overlay {
+  opacity: 1;
+}
+
+
+.pkm-gallery-overlay span {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0f9d58;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+
+.pkm-gallery-body {
+  padding: 24px;
+}
+
+
+.pkm-gallery-date {
+  margin-top: 12px;
+  color: #7890aa;
+  font-size: 14px;
+}
+
+
+.pkm-gallery-body h3 {
+  color: #123b6d;
+  font-size: 21px;
+  line-height: 1.35;
+  margin: 10px 0;
+}
+
+
+.pkm-gallery-body p {
+  color: #67809c;
+  line-height: 1.7;
+  margin-bottom: 0;
+}
