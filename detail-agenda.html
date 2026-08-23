@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Detail Agenda - UPTD Puskesmas Geyer 2</title>
+
+  <meta
+    name="description"
+    content="Detail agenda kegiatan UPTD Puskesmas Geyer 2."
+  >
+
+  <link
+    rel="icon"
+    href="images/logo-puskesmas.PNG"
+  >
+
+  <link
+    href="assets/vendor/bootstrap/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <link
+    href="assets/css/main.css"
+    rel="stylesheet"
+  >
+
+  <link
+    href="assets/css/puskesmas.css"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    .detail-agenda-page {
+      background: #f7faff;
+      min-height: 100vh;
+    }
+
+    .detail-agenda-wrapper {
+      padding-top: 145px;
+      padding-bottom: 80px;
+    }
+
+    .detail-back {
+      display: inline-block;
+      margin-bottom: 25px;
+      padding: 10px 16px;
+      border: 1px solid #159447;
+      border-radius: 8px;
+      color: #159447;
+      text-decoration: none;
+      font-weight: 600;
+      background: #fff;
+    }
+
+    .detail-back:hover {
+      background: #159447;
+      color: #fff;
+    }
+
+    .detail-agenda-card {
+      background: #fff;
+      border: 1px solid #e2eaf2;
+      border-radius: 20px;
+      padding: 45px;
+      box-shadow: 0 10px 35px rgba(16,48,90,.07);
+    }
+
+    .detail-category {
+      display: inline-block;
+      padding: 7px 14px;
+      border-radius: 30px;
+      background: #e7f8ef;
+      color: #159447;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .detail-agenda-card h1 {
+      color: #092f63;
+      font-size: 44px;
+      line-height: 1.2;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .detail-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      padding-bottom: 22px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid #e4ebf2;
+      color: #71839a;
+    }
+
+    .detail-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .detail-summary {
+      background: #f3f8fc;
+      border-left: 4px solid #159447;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 30px;
+    }
+
+    .detail-summary strong {
+      display: block;
+      color: #092f63;
+      margin-bottom: 8px;
+    }
+
+    .detail-summary p {
+      color: #687c94;
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .detail-content {
+      color: #526b86;
+      font-size: 17px;
+      line-height: 1.9;
+    }
+
+    .detail-info-box {
+      margin-top: 30px;
+      padding-top: 25px;
+      border-top: 1px solid #e4ebf2;
+    }
+
+    .detail-info-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 14px;
+      color: #61758c;
+    }
+
+    .detail-info-row strong {
+      color: #092f63;
+    }
+
+    .detail-status {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 7px 14px;
+      border-radius: 30px;
+      background: #e8f8f0;
+      color: #159447;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .detail-error {
+      text-align: center;
+      padding: 80px 20px;
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid #e2eaf2;
+    }
+
+    .detail-error h2 {
+      color: #092f63;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .detail-error p {
+      color: #71839a;
+    }
+
+    @media (max-width: 767px) {
+
+      .detail-agenda-wrapper {
+        padding-top: 120px;
+      }
+
+      .detail-agenda-card {
+        padding: 25px;
+      }
+
+      .detail-agenda-card h1 {
+        font-size: 32px;
+      }
+
+      .detail-meta {
+        gap: 12px;
+        flex-direction: column;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body class="detail-agenda-page">
+
+
+<!-- HEADER -->
+
+<header
+  id="header"
+  class="header fixed-top pkm-header"
+>
+
+  <div class="branding d-flex align-items-center">
+
+    <div
+      class="container d-flex align-items-center justify-content-between"
+    >
+
+      <a
+        href="index.html"
+        class="logo pkm-logo"
+      >
+
+        <img
+          src="images/logo-puskesmas.PNG"
+          alt="Logo Puskesmas Geyer 2"
+        >
+
+        <span>
+          UPTD Puskesmas<br>
+          <strong>Geyer 2</strong>
+        </span>
+
+      </a>
+
+
+      <nav
+        id="navmenu"
+        class="navmenu pkm-navmenu"
+      >
+
+        <ul>
+
+          <li>
+            <a href="index.html#beranda">
+              Beranda
+            </a>
+          </li>
+
+          <li>
+            <a href="pengumuman.html">
+              Pengumuman
+            </a>
+          </li>
+
+          <li>
+            <a href="berita.html">
+              Berita
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="agenda.html"
+              class="active"
+            >
+              Agenda
+            </a>
+          </li>
+
+          <li>
+            <a href="galeri.html">
+              Galeri
+            </a>
+          </li>
+
+          <li>
+            <a href="download.html">
+              Download
+            </a>
+          </li>
+
+          <li>
+            <a href="index.html#tentang">
+              Tentang Kami
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="index.html#darurat"
+              class="emergency-link"
+            >
+              Layanan Darurat
+            </a>
+          </li>
+
+        </ul>
+
+        <button
+          class="mobile-nav-toggle"
+          type="button"
+          aria-label="Buka menu"
+        >
+          ☰
+        </button>
+
+      </nav>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- CONTENT -->
+
+<main>
+
+  <section class="detail-agenda-wrapper">
+
+    <div class="container">
+
+      <a
+        href="agenda.html"
+        class="detail-back"
+      >
+        ← Kembali ke Agenda
+      </a>
+
+
+      <div id="detail-agenda">
+
+        <div class="detail-error">
+
+          <p>
+            Memuat detail agenda...
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="pkm-footer">
+
+  <div class="container">
+
+    <div class="row g-4">
+
+      <div class="col-lg-6">
+
+        <div class="pkm-footer-brand">
+
+          <img
+            src="images/logo-puskesmas.PNG"
+            alt="Logo Puskesmas Geyer 2"
+          >
+
+          <div>
+
+            <strong>
+              UPTD Puskesmas Geyer 2
+            </strong>
+
+            <span>
+              Kecamatan Geyer, Kabupaten Grobogan
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-lg-6 text-lg-end">
+
+        <p>
+          Website Informasi Resmi
+          Puskesmas Geyer 2
+        </p>
+
+        <small>
+          ©
+          <span id="current-year"></span>
+          UPTD Puskesmas Geyer 2
+        </small>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script src="assets/js/puskesmas.js"></script>
+
+<script src="assets/js/detail-agenda.js"></script>
+
+
+</body>
+
+</html>
