@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Detail Pengumuman - UPTD Puskesmas Geyer 2</title>
+
+  <meta
+    name="description"
+    content="Detail pengumuman resmi UPTD Puskesmas Geyer 2 Kabupaten Grobogan."
+  >
+
+  <link rel="icon" href="images/logo-puskesmas.PNG">
+
+  <link
+    href="assets/vendor/bootstrap/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <link
+    href="assets/css/main.css"
+    rel="stylesheet"
+  >
+
+  <link
+    href="assets/css/puskesmas.css"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    /* =========================================
+       DETAIL PENGUMUMAN
+       ========================================= */
+
+    .detail-pengumuman-page {
+      background: #f7faff;
+      min-height: 100vh;
+    }
+
+    .pengumuman-detail-wrapper {
+      padding-top: 150px;
+      padding-bottom: 80px;
+    }
+
+    .pengumuman-detail-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .back-pengumuman {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 25px;
+
+      color: #159447;
+      border: 1px solid #159447;
+      background: #ffffff;
+
+      padding: 10px 18px;
+      border-radius: 8px;
+
+      text-decoration: none;
+      font-weight: 600;
+
+      transition: all .2s ease;
+    }
+
+    .back-pengumuman:hover {
+      background: #159447;
+      color: #ffffff;
+    }
+
+    .pengumuman-detail-card {
+      background: #ffffff;
+      border-radius: 20px;
+
+      padding: 45px;
+
+      box-shadow:
+        0 10px 35px rgba(16, 48, 90, .08);
+
+      border: 1px solid #e5edf5;
+    }
+
+    .detail-category {
+      display: inline-block;
+
+      background: #e7f8ef;
+      color: #159447;
+
+      padding: 7px 14px;
+
+      border-radius: 30px;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      margin-bottom: 18px;
+    }
+
+    .detail-title {
+      font-size: 42px;
+      line-height: 1.2;
+      font-weight: 800;
+
+      color: #092f63;
+
+      margin-bottom: 18px;
+    }
+
+    .detail-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+
+      color: #71829a;
+
+      font-size: 15px;
+
+      padding-bottom: 25px;
+      margin-bottom: 30px;
+
+      border-bottom: 1px solid #e5edf5;
+    }
+
+    .detail-summary {
+      background: #f6f9fc;
+
+      border-left: 4px solid #159447;
+
+      padding: 20px 22px;
+
+      border-radius: 8px;
+
+      margin-bottom: 35px;
+    }
+
+    .detail-summary strong {
+      display: block;
+
+      color: #092f63;
+
+      margin-bottom: 8px;
+    }
+
+    .detail-summary p {
+      margin: 0;
+
+      color: #5f7188;
+
+      line-height: 1.8;
+    }
+
+    .detail-content {
+      color: #40556d;
+
+      font-size: 17px;
+      line-height: 1.9;
+    }
+
+    .detail-content p {
+      margin-bottom: 20px;
+    }
+
+    .detail-content h3 {
+      color: #092f63;
+      font-weight: 700;
+
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+
+    .detail-footer {
+      margin-top: 40px;
+      padding-top: 25px;
+
+      border-top: 1px solid #e5edf5;
+
+      color: #7b8da3;
+
+      font-size: 14px;
+    }
+
+    .detail-loading {
+      text-align: center;
+      padding: 100px 20px;
+
+      color: #6d7f95;
+    }
+
+    .detail-error {
+      text-align: center;
+
+      background: #ffffff;
+
+      border-radius: 15px;
+
+      padding: 50px 25px;
+
+      border: 1px solid #e5edf5;
+    }
+
+    .detail-error h2 {
+      color: #092f63;
+      margin-bottom: 10px;
+    }
+
+    .detail-error p {
+      color: #71829a;
+    }
+
+    @media (max-width: 767px) {
+
+      .pengumuman-detail-wrapper {
+        padding-top: 120px;
+        padding-bottom: 50px;
+      }
+
+      .pengumuman-detail-card {
+        padding: 25px 20px;
+        border-radius: 15px;
+      }
+
+      .detail-title {
+        font-size: 30px;
+      }
+
+      .detail-content {
+        font-size: 16px;
+      }
+
+      .detail-meta {
+        gap: 10px;
+        flex-direction: column;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body class="detail-pengumuman-page">
+
+<header id="header" class="header fixed-top pkm-header">
+
+  <div class="branding d-flex align-items-center">
+
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo pkm-logo">
+
+        <img
+          src="images/logo-puskesmas.PNG"
+          alt="Logo Puskesmas Geyer 2"
+        >
+
+        <span>
+          UPTD Puskesmas<br>
+          <strong>Geyer 2</strong>
+        </span>
+
+      </a>
+
+      <nav id="navmenu" class="navmenu pkm-navmenu">
+
+        <ul>
+
+          <li>
+            <a href="index.html#beranda">
+              Beranda
+            </a>
+          </li>
+
+          <li>
+            <a href="pengumuman.html" class="active">
+              Pengumuman
+            </a>
+          </li>
+
+          <li>
+            <a href="berita.html">
+              Berita
+            </a>
+          </li>
+
+          <li>
+            <a href="agenda.html">
+              Agenda
+            </a>
+          </li>
+
+          <li>
+            <a href="galeri.html">
+              Galeri
+            </a>
+          </li>
+
+          <li>
+            <a href="download.html">
+              Download
+            </a>
+          </li>
+
+          <li>
+            <a href="index.html#tentang">
+              Tentang Kami
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="index.html#darurat"
+              class="emergency-link"
+            >
+              Layanan Darurat
+            </a>
+          </li>
+
+        </ul>
+
+        <button
+          class="mobile-nav-toggle"
+          type="button"
+          aria-label="Buka menu"
+        >
+          ☰
+        </button>
+
+      </nav>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<main>
+
+  <section class="pengumuman-detail-wrapper">
+
+    <div class="container">
+
+      <div class="pengumuman-detail-container">
+
+        <a
+          href="pengumuman.html"
+          class="back-pengumuman"
+        >
+          ← Kembali ke Pengumuman
+        </a>
+
+
+        <div id="detail-pengumuman">
+
+          <div class="detail-loading">
+            Memuat pengumuman...
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer class="pkm-footer">
+
+  <div class="container">
+
+    <div class="row g-4">
+
+      <div class="col-lg-6">
+
+        <div class="pkm-footer-brand">
+
+          <img
+            src="images/logo-puskesmas.PNG"
+            alt="Logo Puskesmas Geyer 2"
+          >
+
+          <div>
+
+            <strong>
+              UPTD Puskesmas Geyer 2
+            </strong>
+
+            <span>
+              Kecamatan Geyer, Kabupaten Grobogan
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-lg-6 text-lg-end">
+
+        <p>
+          Website Informasi Resmi Puskesmas Geyer 2
+        </p>
+
+        <small>
+          ©
+          <span id="current-year"></span>
+          UPTD Puskesmas Geyer 2
+        </small>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script src="assets/js/puskesmas.js"></script>
+
+<script src="assets/js/detail-pengumuman.js"></script>
+
+</body>
+</html>
