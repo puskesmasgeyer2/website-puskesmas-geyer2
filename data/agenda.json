@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "id": "AG-2026-001",
+    "judul": "Pelayanan Posyandu ILP Desa Ngrandu",
+    "kategori": "Posyandu",
+    "tanggal": "2026-08-25",
+    "waktu": "08.00 WIB - selesai",
+    "tempat": "Posyandu Desa Ngrandu",
+    "deskripsi": "Kegiatan pelayanan Posyandu Integrasi Layanan Primer (ILP) bagi masyarakat Desa Ngrandu wilayah kerja UPTD Puskesmas Geyer 2.",
+    "status": "Terjadwal"
+  },
+  {
+    "id": "AG-2026-002",
+    "judul": "Pertemuan Lintas Program Puskesmas",
+    "kategori": "Pertemuan",
+    "tanggal": "2026-08-27",
+    "waktu": "09.00 WIB - selesai",
+    "tempat": "Aula UPTD Puskesmas Geyer 2",
+    "deskripsi": "Pertemuan koordinasi lintas program dalam rangka evaluasi pelaksanaan program dan pelayanan kesehatan.",
+    "status": "Terjadwal"
+  },
+  {
+    "id": "AG-2026-003",
+    "judul": "Kegiatan Promosi Kesehatan",
+    "kategori": "Promosi Kesehatan",
+    "tanggal": "2026-08-29",
+    "waktu": "08.00 WIB - selesai",
+    "tempat": "Wilayah Kerja Puskesmas Geyer 2",
+    "deskripsi": "Kegiatan promosi kesehatan dan edukasi masyarakat mengenai perilaku hidup bersih dan sehat.",
+    "status": "Terjadwal"
+  }
+]
