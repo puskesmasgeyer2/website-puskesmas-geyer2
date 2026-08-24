@@ -2,8 +2,13 @@
 <html lang="id">
 
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Tentang Kami - UPTD Puskesmas Geyer 2</title>
 
@@ -12,7 +17,10 @@
     content="Profil dan informasi UPTD Puskesmas Geyer 2 Kabupaten Grobogan."
   >
 
-  <link rel="icon" href="images/logo-puskesmas.PNG">
+  <link
+    rel="icon"
+    href="images/logo-puskesmas.PNG"
+  >
 
   <!-- BOOTSTRAP -->
   <link
@@ -36,6 +44,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
   >
+
 
   <!-- =========================================================
        CSS KHUSUS TENTANG KAMI
@@ -155,7 +164,8 @@
 
       border-radius: 22px;
 
-      box-shadow: 0 12px 35px rgba(15, 48, 88, .05);
+      box-shadow:
+        0 12px 35px rgba(15, 48, 88, .05);
     }
 
     .pkm-contact-card-header h3 {
@@ -207,7 +217,8 @@
 
       transform: translateY(-2px);
 
-      box-shadow: 0 8px 22px rgba(15, 48, 88, .08);
+      box-shadow:
+        0 8px 22px rgba(15, 48, 88, .08);
     }
 
     .pkm-contact-icon {
@@ -276,22 +287,33 @@
        ========================================================= */
 
     .pkm-social-section {
-      margin-top: 30px;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+      justify-content: center;
 
       text-align: center;
     }
 
-    .pkm-social-section h3 {
+    .pkm-footer .pkm-social-section .pkm-eyebrow {
+      color: #11b7c9;
+    }
+
+    .pkm-footer .pkm-social-section h3 {
       margin: 8px 0 18px;
 
-      color: #0d315f;
+      color: #ffffff;
+
+      font-size: 18px;
     }
 
     .pkm-social-links {
       display: flex;
 
       justify-content: center;
-
       align-items: center;
 
       gap: 12px;
@@ -341,6 +363,34 @@
 
 
     /* =========================================================
+       FOOTER
+       ========================================================= */
+
+    .pkm-footer .row {
+      align-items: center;
+    }
+
+    .pkm-footer-brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .pkm-footer .footer-info {
+      display: flex;
+      flex-direction: column;
+
+      align-items: flex-end;
+      justify-content: center;
+
+      text-align: right;
+    }
+
+    .pkm-footer .footer-info p {
+      margin-bottom: 5px;
+    }
+
+
+    /* =========================================================
        MOBILE
        ========================================================= */
 
@@ -358,6 +408,19 @@
         padding: 22px;
       }
 
+      .pkm-social-section {
+        padding: 10px 0;
+      }
+
+      .pkm-footer .footer-info {
+        align-items: center;
+        text-align: center;
+      }
+
+      .pkm-footer-brand {
+        justify-content: center;
+      }
+
     }
 
   </style>
@@ -372,13 +435,21 @@
      HEADER
      ========================================================= -->
 
-<header id="header" class="header fixed-top pkm-header">
+<header
+  id="header"
+  class="header fixed-top pkm-header"
+>
 
   <div class="branding d-flex align-items-center">
 
-    <div class="container d-flex align-items-center justify-content-between">
+    <div
+      class="container d-flex align-items-center justify-content-between"
+    >
 
-      <a href="index.html" class="logo pkm-logo">
+      <a
+        href="index.html"
+        class="logo pkm-logo"
+      >
 
         <img
           src="images/logo-puskesmas.PNG"
@@ -393,7 +464,10 @@
       </a>
 
 
-      <nav id="navmenu" class="navmenu pkm-navmenu">
+      <nav
+        id="navmenu"
+        class="navmenu pkm-navmenu"
+      >
 
         <ul>
 
@@ -434,13 +508,19 @@
           </li>
 
           <li>
-            <a href="tentang.html" class="active">
+            <a
+              href="tentang.html"
+              class="active"
+            >
               Tentang Kami
             </a>
           </li>
 
           <li>
-            <a href="darurat.html" class="emergency-link">
+            <a
+              href="darurat.html"
+              class="emergency-link"
+            >
               Layanan Darurat
             </a>
           </li>
@@ -482,9 +562,13 @@
 
       <div class="pkm-section-heading">
 
-        <span>TENTANG KAMI</span>
+        <span>
+          TENTANG KAMI
+        </span>
 
-        <h1>UPTD Puskesmas Geyer 2</h1>
+        <h1>
+          UPTD Puskesmas Geyer 2
+        </h1>
 
         <p>
           Informasi profil, wilayah kerja, visi, misi,
@@ -521,7 +605,9 @@
               style="max-width:180px; margin-bottom:25px;"
             >
 
-            <h2>Profil Puskesmas</h2>
+            <h2>
+              Profil Puskesmas
+            </h2>
 
             <p>
               UPTD Puskesmas Geyer 2 merupakan fasilitas pelayanan
@@ -556,12 +642,16 @@
           >
 
             <div class="pkm-location-icon">
+
               <i class="fa-solid fa-location-dot"></i>
+
             </div>
 
             <div class="pkm-location-content">
 
-              <small>LOKASI PUSKESMAS</small>
+              <small>
+                LOKASI PUSKESMAS
+              </small>
 
               <strong>
                 UPTD Puskesmas Geyer 2
@@ -592,13 +682,21 @@
 
             <div class="pkm-villages">
 
-              <span>Ngrandu</span>
+              <span>
+                Ngrandu
+              </span>
 
-              <span>Bangsri</span>
+              <span>
+                Bangsri
+              </span>
 
-              <span>Asemrudung</span>
+              <span>
+                Asemrudung
+              </span>
 
-              <span>Karanganyar</span>
+              <span>
+                Karanganyar
+              </span>
 
             </div>
 
@@ -618,22 +716,30 @@
        VISI
        ======================================================= -->
 
-  <section class="section pkm-section light-background">
+  <section
+    class="section pkm-section light-background"
+  >
 
     <div class="container">
 
       <div class="pkm-section-heading">
 
-        <span>VISI</span>
+        <span>
+          VISI
+        </span>
 
-        <h2>Visi Puskesmas Geyer 2</h2>
+        <h2>
+          Visi Puskesmas Geyer 2
+        </h2>
 
       </div>
 
 
       <div class="pkm-feature-card text-center">
 
-        <p style="font-size:1.25rem; font-weight:600;">
+        <p
+          style="font-size:1.25rem; font-weight:600;"
+        >
 
           “Terwujudnya Masyarakat Geyer 2 Yang Sehat
           Melalui Pelayanan Yang Bermutu”
@@ -657,9 +763,13 @@
 
       <div class="pkm-section-heading">
 
-        <span>MISI</span>
+        <span>
+          MISI
+        </span>
 
-        <h2>Misi Puskesmas Geyer 2</h2>
+        <h2>
+          Misi Puskesmas Geyer 2
+        </h2>
 
         <p>
           Upaya strategis dalam mewujudkan visi Puskesmas Geyer 2.
@@ -810,15 +920,21 @@
        WILAYAH KERJA
        ======================================================= -->
 
-  <section class="section pkm-section light-background">
+  <section
+    class="section pkm-section light-background"
+  >
 
     <div class="container">
 
       <div class="pkm-section-heading">
 
-        <span>WILAYAH KERJA</span>
+        <span>
+          WILAYAH KERJA
+        </span>
 
-        <h2>Desa Wilayah Kerja</h2>
+        <h2>
+          Desa Wilayah Kerja
+        </h2>
 
         <p>
           Wilayah pelayanan UPTD Puskesmas Geyer 2.
@@ -1067,7 +1183,11 @@
     <div class="row g-4">
 
 
-      <div class="col-lg-6">
+      <!-- =====================================================
+           KOLOM KIRI
+           ===================================================== -->
+
+      <div class="col-lg-4">
 
         <div class="pkm-footer-brand">
 
@@ -1090,8 +1210,14 @@
 
         </div>
 
+      </div>
 
-        <!-- MEDIA SOSIAL -->
+
+      <!-- =====================================================
+           KOLOM TENGAH
+           ===================================================== -->
+
+      <div class="col-lg-4">
 
         <div class="pkm-social-section">
 
@@ -1178,7 +1304,11 @@
       </div>
 
 
-      <div class="col-lg-6 text-lg-end">
+      <!-- =====================================================
+           KOLOM KANAN
+           ===================================================== -->
+
+      <div class="col-lg-4 footer-info">
 
         <p>
           Website Informasi Resmi Puskesmas Geyer 2
@@ -1207,14 +1337,19 @@
 
 <script>
 
-  const year = document.getElementById('current-year');
+  const year =
+    document.getElementById('current-year');
 
   if (year) {
-    year.textContent = new Date().getFullYear();
+
+    year.textContent =
+      new Date().getFullYear();
+
   }
 
 </script>
 
 
 </body>
+
 </html>
