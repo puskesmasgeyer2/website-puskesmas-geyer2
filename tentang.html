@@ -14,16 +14,363 @@
 
   <link rel="icon" href="images/logo-puskesmas.PNG">
 
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/css/main.css" rel="stylesheet">
-  <link href="assets/css/puskesmas.css" rel="stylesheet">
+  <!-- BOOTSTRAP -->
   <link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
->
+    href="assets/vendor/bootstrap/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- CSS UTAMA -->
+  <link
+    href="assets/css/main.css"
+    rel="stylesheet"
+  >
+
+  <link
+    href="assets/css/puskesmas.css"
+    rel="stylesheet"
+  >
+
+  <!-- FONT AWESOME -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  >
+
+  <!-- =========================================================
+       CSS KHUSUS TENTANG KAMI
+       ========================================================= -->
+
+  <style>
+
+    /* =========================================================
+       LOCATION CARD
+       ========================================================= */
+
+    .pkm-location-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+
+      padding: 24px;
+
+      background: #ffffff;
+
+      border: 1px solid #e3eaf0;
+
+      border-radius: 18px;
+
+      text-decoration: none;
+      color: inherit;
+
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+    }
+
+    .pkm-location-card:hover {
+      color: inherit;
+
+      transform: translateY(-3px);
+
+      border-color: #0f9d58;
+
+      box-shadow:
+        0 14px 35px rgba(15, 157, 88, .12);
+    }
+
+    .pkm-location-icon {
+      width: 52px;
+      height: 52px;
+
+      flex: 0 0 52px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 14px;
+
+      background: #e9f8f0;
+
+      color: #0f9d58;
+
+      font-size: 21px;
+    }
+
+    .pkm-location-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .pkm-location-content small {
+      color: #7890a8;
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      letter-spacing: .8px;
+    }
+
+    .pkm-location-content strong {
+      color: #0d315f;
+
+      font-size: 18px;
+    }
+
+    .pkm-location-content span {
+      color: #7187a0;
+
+      line-height: 1.6;
+    }
+
+    .pkm-location-content em {
+      margin-top: 6px;
+
+      color: #0f9d58;
+
+      font-size: 14px;
+
+      font-style: normal;
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       CONTACT CARD
+       ========================================================= */
+
+    .pkm-contact-card {
+      margin-top: 30px;
+
+      padding: 32px;
+
+      background: #ffffff;
+
+      border: 1px solid #e5ebf1;
+
+      border-radius: 22px;
+
+      box-shadow: 0 12px 35px rgba(15, 48, 88, .05);
+    }
+
+    .pkm-contact-card-header h3 {
+      margin: 8px 0;
+
+      color: #0d315f;
+
+      font-size: 25px;
+    }
+
+    .pkm-contact-card-header p {
+      max-width: 720px;
+
+      color: #7187a0;
+
+      margin-bottom: 25px;
+    }
+
+    .pkm-contact-grid {
+      display: grid;
+
+      grid-template-columns: repeat(2, 1fr);
+
+      gap: 14px;
+    }
+
+    .pkm-contact-item {
+      display: flex;
+
+      align-items: center;
+
+      gap: 15px;
+
+      padding: 18px;
+
+      border: 1px solid #e6edf2;
+
+      border-radius: 15px;
+
+      text-decoration: none;
+
+      color: inherit;
+
+      transition: all .25s ease;
+    }
+
+    .pkm-contact-item:hover {
+      color: inherit;
+
+      transform: translateY(-2px);
+
+      box-shadow: 0 8px 22px rgba(15, 48, 88, .08);
+    }
+
+    .pkm-contact-icon {
+      width: 46px;
+      height: 46px;
+
+      flex: 0 0 46px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 13px;
+
+      font-size: 19px;
+    }
+
+    .pkm-contact-icon.phone {
+      background: #eaf2ff;
+      color: #0d6efd;
+    }
+
+    .pkm-contact-icon.whatsapp {
+      background: #e9f8f0;
+      color: #0f9d58;
+    }
+
+    .pkm-contact-icon.email {
+      background: #fff3e8;
+      color: #f07c00;
+    }
+
+    .pkm-contact-icon.maps {
+      background: #ffedf0;
+      color: #e63950;
+    }
+
+    .pkm-contact-item small {
+      display: block;
+
+      color: #7890a8;
+
+      font-size: 11px;
+
+      font-weight: 700;
+
+      letter-spacing: .7px;
+
+      margin-bottom: 3px;
+    }
+
+    .pkm-contact-item strong {
+      display: block;
+
+      color: #0d315f;
+
+      font-size: 15px;
+
+      word-break: break-word;
+    }
+
+
+    /* =========================================================
+       SOCIAL MEDIA
+       ========================================================= */
+
+    .pkm-social-section {
+      margin-top: 30px;
+
+      text-align: center;
+    }
+
+    .pkm-social-section h3 {
+      margin: 8px 0 18px;
+
+      color: #0d315f;
+    }
+
+    .pkm-social-links {
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      gap: 12px;
+    }
+
+    .pkm-social-links a {
+      width: 48px;
+      height: 48px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      text-decoration: none;
+
+      font-size: 20px;
+
+      transition: all .25s ease;
+    }
+
+    .pkm-social-links a:hover {
+      transform: translateY(-3px) scale(1.05);
+    }
+
+    .pkm-social-links .instagram {
+      background: #fce8f0;
+      color: #d62976;
+    }
+
+    .pkm-social-links .x {
+      background: #eef1f3;
+      color: #111111;
+    }
+
+    .pkm-social-links .facebook {
+      background: #e8f0ff;
+      color: #1877f2;
+    }
+
+    .pkm-social-links .youtube {
+      background: #ffebeb;
+      color: #ff0000;
+    }
+
+
+    /* =========================================================
+       MOBILE
+       ========================================================= */
+
+    @media (max-width: 768px) {
+
+      .pkm-contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pkm-location-card {
+        padding: 20px;
+      }
+
+      .pkm-contact-card {
+        padding: 22px;
+      }
+
+    }
+
+  </style>
+
 </head>
 
+
 <body>
+
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
 
 <header id="header" class="header fixed-top pkm-header">
 
@@ -44,6 +391,7 @@
         </span>
 
       </a>
+
 
       <nav id="navmenu" class="navmenu pkm-navmenu">
 
@@ -99,6 +447,7 @@
 
         </ul>
 
+
         <button
           class="mobile-nav-toggle"
           type="button"
@@ -116,9 +465,17 @@
 </header>
 
 
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
 <main class="main">
 
-  <!-- HERO -->
+
+  <!-- =======================================================
+       HERO
+       ======================================================= -->
+
   <section class="pkm-page-hero">
 
     <div class="container">
@@ -141,12 +498,18 @@
   </section>
 
 
-  <!-- PROFIL -->
+  <!-- =======================================================
+       PROFIL
+       ======================================================= -->
+
   <section class="section pkm-section">
 
     <div class="container">
 
       <div class="row align-items-center g-5">
+
+
+        <!-- PROFIL PUSKESMAS -->
 
         <div class="col-lg-6">
 
@@ -178,54 +541,69 @@
         </div>
 
 
+        <!-- LOKASI + WILAYAH -->
+
         <div class="col-lg-6">
 
+
+          <!-- LOKASI GOOGLE MAPS -->
+
           <a
-  href="https://maps.app.goo.gl/GZ7XJQU9rBcfAoop7"
-  target="_blank"
-  rel="noopener noreferrer"
-  class="pkm-location-card"
->
+            href="https://maps.app.goo.gl/GZ7XJQU9rBcfAoop7"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="pkm-location-card"
+          >
 
-  <div class="pkm-location-icon">
-    <i class="fa-solid fa-location-dot"></i>
-  </div>
+            <div class="pkm-location-icon">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
 
-  <div class="pkm-location-content">
+            <div class="pkm-location-content">
 
-    <small>LOKASI PUSKESMAS</small>
+              <small>LOKASI PUSKESMAS</small>
 
-    <strong>UPTD Puskesmas Geyer 2</strong>
+              <strong>
+                UPTD Puskesmas Geyer 2
+              </strong>
 
-    <span>
-      Desa Bangsri, Kecamatan Geyer,
-      Kabupaten Grobogan, Jawa Tengah
-    </span>
+              <span>
+                Desa Bangsri, Kecamatan Geyer,
+                Kabupaten Grobogan, Jawa Tengah
+              </span>
 
-    <em>
-      <i class="fa-solid fa-map-location-dot"></i>
-      Buka lokasi di Google Maps →
-    </em>
+              <em>
+                <i class="fa-solid fa-map-location-dot"></i>
+                Buka lokasi di Google Maps →
+              </em>
 
-  </div>
+            </div>
 
-</a>
-          <br>
+          </a>
 
-          <div class="pkm-about-box">
 
-            <strong>Desa Wilayah Kerja</strong>
+          <!-- DESA WILAYAH KERJA -->
+
+          <div class="pkm-about-box mt-4">
+
+            <strong>
+              Desa Wilayah Kerja
+            </strong>
 
             <div class="pkm-villages">
 
               <span>Ngrandu</span>
+
               <span>Bangsri</span>
+
               <span>Asemrudung</span>
+
               <span>Karanganyar</span>
 
             </div>
 
           </div>
+
 
         </div>
 
@@ -236,7 +614,10 @@
   </section>
 
 
-  <!-- VISI -->
+  <!-- =======================================================
+       VISI
+       ======================================================= -->
+
   <section class="section pkm-section light-background">
 
     <div class="container">
@@ -248,6 +629,7 @@
         <h2>Visi Puskesmas Geyer 2</h2>
 
       </div>
+
 
       <div class="pkm-feature-card text-center">
 
@@ -265,7 +647,10 @@
   </section>
 
 
-  <!-- MISI -->
+  <!-- =======================================================
+       MISI
+       ======================================================= -->
+
   <section class="section pkm-section">
 
     <div class="container">
@@ -282,69 +667,137 @@
 
       </div>
 
+
       <div class="row g-4">
 
+
         <div class="col-md-6">
+
           <div class="pkm-feature-card">
-            <div class="feature-number">01</div>
-            <h3>Pelayanan Bermutu</h3>
+
+            <div class="feature-number">
+              01
+            </div>
+
+            <h3>
+              Pelayanan Bermutu
+            </h3>
+
             <p>
               Memberikan pelayanan yang bermutu.
             </p>
+
           </div>
+
         </div>
 
+
         <div class="col-md-6">
+
           <div class="pkm-feature-card">
-            <div class="feature-number">02</div>
-            <h3>Kemandirian Hidup Sehat</h3>
+
+            <div class="feature-number">
+              02
+            </div>
+
+            <h3>
+              Kemandirian Hidup Sehat
+            </h3>
+
             <p>
               Mendorong kemandirian hidup sehat bagi keluarga
               dan masyarakat.
             </p>
+
           </div>
+
         </div>
 
+
         <div class="col-md-6">
+
           <div class="pkm-feature-card">
-            <div class="feature-number">03</div>
-            <h3>Peningkatan SDM</h3>
+
+            <div class="feature-number">
+              03
+            </div>
+
+            <h3>
+              Peningkatan SDM
+            </h3>
+
             <p>
               Meningkatkan kualitas sumber daya manusia.
             </p>
+
           </div>
+
         </div>
 
+
         <div class="col-md-6">
+
           <div class="pkm-feature-card">
-            <div class="feature-number">04</div>
-            <h3>Sarana dan Prasarana</h3>
+
+            <div class="feature-number">
+              04
+            </div>
+
+            <h3>
+              Sarana dan Prasarana
+            </h3>
+
             <p>
               Meningkatkan kualitas sarana dan prasarana pelayanan.
             </p>
+
           </div>
+
         </div>
 
+
         <div class="col-md-6">
+
           <div class="pkm-feature-card">
-            <div class="feature-number">05</div>
-            <h3>Akses Pelayanan</h3>
+
+            <div class="feature-number">
+              05
+            </div>
+
+            <h3>
+              Akses Pelayanan
+            </h3>
+
             <p>
               Meningkatkan akses masyarakat terhadap pelayanan kesehatan.
             </p>
+
           </div>
+
         </div>
 
+
         <div class="col-md-6">
+
           <div class="pkm-feature-card">
-            <div class="feature-number">06</div>
-            <h3>Partisipasi Masyarakat</h3>
+
+            <div class="feature-number">
+              06
+            </div>
+
+            <h3>
+              Partisipasi Masyarakat
+            </h3>
+
             <p>
               Meningkatkan peran serta dan partisipasi masyarakat
               dalam pembangunan kesehatan.
             </p>
+
           </div>
+
         </div>
+
 
       </div>
 
@@ -353,7 +806,10 @@
   </section>
 
 
-  <!-- WILAYAH KERJA -->
+  <!-- =======================================================
+       WILAYAH KERJA
+       ======================================================= -->
+
   <section class="section pkm-section light-background">
 
     <div class="container">
@@ -370,153 +826,246 @@
 
       </div>
 
+
       <div class="row g-4">
 
-        <div class="col-md-3">
-          <div class="pkm-feature-card text-center">
-            <div class="feature-number">01</div>
-            <h3>Ngrandu</h3>
-          </div>
-        </div>
 
         <div class="col-md-3">
+
           <div class="pkm-feature-card text-center">
-            <div class="feature-number">02</div>
-            <h3>Bangsri</h3>
+
+            <div class="feature-number">
+              01
+            </div>
+
+            <h3>
+              Ngrandu
+            </h3>
+
           </div>
+
         </div>
 
-        <div class="col-md-3">
-          <div class="pkm-feature-card text-center">
-            <div class="feature-number">03</div>
-            <h3>Asemrudung</h3>
-          </div>
-        </div>
 
         <div class="col-md-3">
+
           <div class="pkm-feature-card text-center">
-            <div class="feature-number">04</div>
-            <h3>Karanganyar</h3>
+
+            <div class="feature-number">
+              02
+            </div>
+
+            <h3>
+              Bangsri
+            </h3>
+
           </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+          <div class="pkm-feature-card text-center">
+
+            <div class="feature-number">
+              03
+            </div>
+
+            <h3>
+              Asemrudung
+            </h3>
+
+          </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+          <div class="pkm-feature-card text-center">
+
+            <div class="feature-number">
+              04
+            </div>
+
+            <h3>
+              Karanganyar
+            </h3>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- =====================================================
+           KONTAK RESMI
+           ===================================================== -->
+
+      <div class="pkm-contact-card">
+
+        <div class="pkm-contact-card-header">
+
+          <span class="pkm-eyebrow">
+            KONTAK RESMI
+          </span>
+
+          <h3>
+            Hubungi UPTD Puskesmas Geyer 2
+          </h3>
+
+          <p>
+            Gunakan salah satu kanal komunikasi resmi
+            berikut untuk mendapatkan informasi pelayanan.
+          </p>
+
+        </div>
+
+
+        <div class="pkm-contact-grid">
+
+
+          <!-- TELEPON -->
+
+          <a
+            href="tel:+6282135019777"
+            class="pkm-contact-item"
+          >
+
+            <div class="pkm-contact-icon phone">
+
+              <i class="fa-solid fa-phone"></i>
+
+            </div>
+
+            <div>
+
+              <small>
+                TELEPON
+              </small>
+
+              <strong>
+                0821-3501-9777
+              </strong>
+
+            </div>
+
+          </a>
+
+
+          <!-- WHATSAPP -->
+
+          <a
+            href="https://wa.me/6282135019777?text=Halo%20UPTD%20Puskesmas%20Geyer%202%2C%20saya%20ingin%20mendapatkan%20informasi%20pelayanan."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="pkm-contact-item"
+          >
+
+            <div class="pkm-contact-icon whatsapp">
+
+              <i class="fa-brands fa-whatsapp"></i>
+
+            </div>
+
+            <div>
+
+              <small>
+                WHATSAPP
+              </small>
+
+              <strong>
+                0821-3501-9777
+              </strong>
+
+            </div>
+
+          </a>
+
+
+          <!-- EMAIL -->
+
+          <a
+            href="mailto:puskesmasgeyer2bangsri@gmail.com"
+            class="pkm-contact-item"
+          >
+
+            <div class="pkm-contact-icon email">
+
+              <i class="fa-solid fa-envelope"></i>
+
+            </div>
+
+            <div>
+
+              <small>
+                EMAIL
+              </small>
+
+              <strong>
+                puskesmasgeyer2bangsri@gmail.com
+              </strong>
+
+            </div>
+
+          </a>
+
+
+          <!-- GOOGLE MAPS -->
+
+          <a
+            href="https://maps.app.goo.gl/GZ7XJQU9rBcfAoop7"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="pkm-contact-item"
+          >
+
+            <div class="pkm-contact-icon maps">
+
+              <i class="fa-solid fa-location-dot"></i>
+
+            </div>
+
+            <div>
+
+              <small>
+                LOKASI
+              </small>
+
+              <strong>
+                Google Maps
+              </strong>
+
+            </div>
+
+          </a>
+
+
         </div>
 
       </div>
 
     </div>
 
-    <div class="pkm-contact-card">
-
-  <div class="pkm-contact-card-header">
-
-    <span class="pkm-eyebrow">
-      KONTAK RESMI
-    </span>
-
-    <h3>
-      Hubungi UPTD Puskesmas Geyer 2
-    </h3>
-
-    <p>
-      Gunakan salah satu kanal komunikasi resmi
-      berikut untuk mendapatkan informasi pelayanan.
-    </p>
-
-  </div>
-
-
-  <div class="pkm-contact-grid">
-
-    <!-- TELEPON -->
-    <a
-      href="tel:+6282135019777"
-      class="pkm-contact-item"
-    >
-
-      <div class="pkm-contact-icon phone">
-        <i class="fa-solid fa-phone"></i>
-      </div>
-
-      <div>
-        <small>TELEPON</small>
-        <strong>0821-3501-9777</strong>
-      </div>
-
-    </a>
-
-
-    <!-- WHATSAPP -->
-    <a
-      href="https://wa.me/6282135019777?text=Halo%20UPTD%20Puskesmas%20Geyer%202%2C%20saya%20ingin%20mendapatkan%20informasi%20pelayanan."
-      target="_blank"
-      rel="noopener noreferrer"
-      class="pkm-contact-item"
-    >
-
-      <div class="pkm-contact-icon whatsapp">
-        <i class="fa-brands fa-whatsapp"></i>
-      </div>
-
-      <div>
-        <small>WHATSAPP</small>
-        <strong>0821-3501-9777</strong>
-      </div>
-
-    </a>
-
-
-    <!-- EMAIL -->
-    <a
-      href="mailto:puskesmasgeyer2bangsri@gmail.com"
-      class="pkm-contact-item"
-    >
-
-      <div class="pkm-contact-icon email">
-        <i class="fa-solid fa-envelope"></i>
-      </div>
-
-      <div>
-        <small>EMAIL</small>
-        <strong>
-          puskesmasgeyer2bangsri@gmail.com
-        </strong>
-      </div>
-
-    </a>
-
-
-    <!-- GOOGLE MAPS -->
-    <a
-      href="https://maps.app.goo.gl/GZ7XJQU9rBcfAoop7"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="pkm-contact-item"
-    >
-
-      <div class="pkm-contact-icon maps">
-        <i class="fa-solid fa-location-dot"></i>
-      </div>
-
-      <div>
-        <small>LOKASI</small>
-        <strong>Google Maps</strong>
-      </div>
-
-    </a>
-
-  </div>
-
-</div>
-
   </section>
+
 
 </main>
 
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
 
 <footer class="pkm-footer">
 
   <div class="container">
 
     <div class="row g-4">
+
 
       <div class="col-lg-6">
 
@@ -541,74 +1090,93 @@
 
         </div>
 
+
+        <!-- MEDIA SOSIAL -->
+
         <div class="pkm-social-section">
 
-  <span class="pkm-eyebrow">
-    MEDIA SOSIAL
-  </span>
+          <span class="pkm-eyebrow">
+            MEDIA SOSIAL
+          </span>
 
-  <h3>
-    Ikuti Informasi Puskesmas
-  </h3>
-
-  <div class="pkm-social-links">
-
-    <!-- INSTAGRAM -->
-    <a
-      href="https://www.instagram.com/puskesmasgeyer2/"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Instagram Puskesmas Geyer 2"
-      title="Instagram"
-      class="instagram"
-    >
-      <i class="fa-brands fa-instagram"></i>
-    </a>
+          <h3>
+            Ikuti Informasi Puskesmas
+          </h3>
 
 
-    <!-- X -->
-    <a
-      href="https://x.com/puskesmasgeyer2"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="X Puskesmas Geyer 2"
-      title="X"
-      class="x"
-    >
-      <i class="fa-brands fa-x-twitter"></i>
-    </a>
+          <div class="pkm-social-links">
 
 
-    <!-- FACEBOOK -->
-    <a
-      href="https://www.facebook.com/puskesmasgeyer2"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Facebook Puskesmas Geyer II"
-      title="Facebook"
-      class="facebook"
-    >
-      <i class="fa-brands fa-facebook-f"></i>
-    </a>
+            <!-- INSTAGRAM -->
+
+            <a
+              href="https://www.instagram.com/puskesmasgeyer2/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram Puskesmas Geyer 2"
+              title="Instagram"
+              class="instagram"
+            >
+
+              <i class="fa-brands fa-instagram"></i>
+
+            </a>
 
 
-    <!-- YOUTUBE -->
-    <a
-      href="https://www.youtube.com/results?search_query=Puskesmas+Geyer+II"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="YouTube Puskesmas Geyer II"
-      title="YouTube"
-      class="youtube"
-    >
-      <i class="fa-brands fa-youtube"></i>
-    </a>
+            <!-- X -->
 
-  </div>
+            <a
+              href="https://x.com/puskesmasgeyer2"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X Puskesmas Geyer 2"
+              title="X"
+              class="x"
+            >
 
-</div>
+              <i class="fa-brands fa-x-twitter"></i>
+
+            </a>
+
+
+            <!-- FACEBOOK -->
+
+            <a
+              href="https://www.facebook.com/puskesmasgeyer2"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook Puskesmas Geyer II"
+              title="Facebook"
+              class="facebook"
+            >
+
+              <i class="fa-brands fa-facebook-f"></i>
+
+            </a>
+
+
+            <!-- YOUTUBE -->
+
+            <a
+              href="https://www.youtube.com/results?search_query=Puskesmas+Geyer+II"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube Puskesmas Geyer II"
+              title="YouTube"
+              class="youtube"
+            >
+
+              <i class="fa-brands fa-youtube"></i>
+
+            </a>
+
+
+          </div>
+
+        </div>
 
       </div>
+
 
       <div class="col-lg-6 text-lg-end">
 
@@ -623,6 +1191,7 @@
 
       </div>
 
+
     </div>
 
   </div>
@@ -630,330 +1199,22 @@
 </footer>
 
 
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
 <script src="assets/js/puskesmas.js"></script>
 
 <script>
+
   const year = document.getElementById('current-year');
 
   if (year) {
     year.textContent = new Date().getFullYear();
   }
+
 </script>
-/* =========================================================
-   LOCATION CARD
-   ========================================================= */
 
-.pkm-location-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 18px;
 
-  padding: 24px;
-
-  background: #ffffff;
-
-  border: 1px solid #e3eaf0;
-
-  border-radius: 18px;
-
-  text-decoration: none;
-  color: inherit;
-
-  transition:
-    transform .25s ease,
-    box-shadow .25s ease,
-    border-color .25s ease;
-}
-
-.pkm-location-card:hover {
-  color: inherit;
-
-  transform: translateY(-3px);
-
-  border-color: #0f9d58;
-
-  box-shadow:
-    0 14px 35px rgba(15, 157, 88, .12);
-}
-
-.pkm-location-icon {
-  width: 52px;
-  height: 52px;
-
-  flex: 0 0 52px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 14px;
-
-  background: #e9f8f0;
-
-  color: #0f9d58;
-
-  font-size: 21px;
-}
-
-.pkm-location-content {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.pkm-location-content small {
-  color: #7890a8;
-
-  font-size: 12px;
-
-  font-weight: 700;
-
-  letter-spacing: .8px;
-}
-
-.pkm-location-content strong {
-  color: #0d315f;
-
-  font-size: 18px;
-}
-
-.pkm-location-content span {
-  color: #7187a0;
-
-  line-height: 1.6;
-}
-
-.pkm-location-content em {
-  margin-top: 6px;
-
-  color: #0f9d58;
-
-  font-size: 14px;
-
-  font-style: normal;
-
-  font-weight: 700;
-}
-
-
-/* =========================================================
-   CONTACT CARD
-   ========================================================= */
-
-.pkm-contact-card {
-  margin-top: 30px;
-
-  padding: 32px;
-
-  background: #ffffff;
-
-  border: 1px solid #e5ebf1;
-
-  border-radius: 22px;
-
-  box-shadow: 0 12px 35px rgba(15, 48, 88, .05);
-}
-
-.pkm-contact-card-header h3 {
-  margin: 8px 0;
-
-  color: #0d315f;
-
-  font-size: 25px;
-}
-
-.pkm-contact-card-header p {
-  max-width: 720px;
-
-  color: #7187a0;
-
-  margin-bottom: 25px;
-}
-
-.pkm-contact-grid {
-  display: grid;
-
-  grid-template-columns: repeat(2, 1fr);
-
-  gap: 14px;
-}
-
-.pkm-contact-item {
-  display: flex;
-
-  align-items: center;
-
-  gap: 15px;
-
-  padding: 18px;
-
-  border: 1px solid #e6edf2;
-
-  border-radius: 15px;
-
-  text-decoration: none;
-
-  color: inherit;
-
-  transition: all .25s ease;
-}
-
-.pkm-contact-item:hover {
-  color: inherit;
-
-  transform: translateY(-2px);
-
-  box-shadow: 0 8px 22px rgba(15, 48, 88, .08);
-}
-
-.pkm-contact-icon {
-  width: 46px;
-  height: 46px;
-
-  flex: 0 0 46px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 13px;
-
-  font-size: 19px;
-}
-
-.pkm-contact-icon.phone {
-  background: #eaf2ff;
-  color: #0d6efd;
-}
-
-.pkm-contact-icon.whatsapp {
-  background: #e9f8f0;
-  color: #0f9d58;
-}
-
-.pkm-contact-icon.email {
-  background: #fff3e8;
-  color: #f07c00;
-}
-
-.pkm-contact-icon.maps {
-  background: #ffedf0;
-  color: #e63950;
-}
-
-.pkm-contact-item small {
-  display: block;
-
-  color: #7890a8;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: .7px;
-
-  margin-bottom: 3px;
-}
-
-.pkm-contact-item strong {
-  display: block;
-
-  color: #0d315f;
-
-  font-size: 15px;
-
-  word-break: break-word;
-}
-
-
-/* =========================================================
-   SOCIAL MEDIA
-   ========================================================= */
-
-.pkm-social-section {
-  margin-top: 30px;
-
-  text-align: center;
-}
-
-.pkm-social-section h3 {
-  margin: 8px 0 18px;
-
-  color: #0d315f;
-}
-
-.pkm-social-links {
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  gap: 12px;
-}
-
-.pkm-social-links a {
-  width: 48px;
-  height: 48px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  text-decoration: none;
-
-  font-size: 20px;
-
-  transition: all .25s ease;
-}
-
-.pkm-social-links a:hover {
-  transform: translateY(-3px) scale(1.05);
-}
-
-.pkm-social-links .instagram {
-  background: #fce8f0;
-  color: #d62976;
-}
-
-.pkm-social-links .x {
-  background: #eef1f3;
-  color: #111111;
-}
-
-.pkm-social-links .facebook {
-  background: #e8f0ff;
-  color: #1877f2;
-}
-
-.pkm-social-links .youtube {
-  background: #ffebeb;
-  color: #ff0000;
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 768px) {
-
-  .pkm-contact-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .pkm-location-card {
-    padding: 20px;
-  }
-
-  .pkm-contact-card {
-    padding: 22px;
-  }
-
-}
 </body>
 </html>
