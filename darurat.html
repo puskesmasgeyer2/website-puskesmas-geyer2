@@ -17,24 +17,302 @@
     content="Informasi layanan darurat UPTD Puskesmas Geyer 2."
   >
 
-  <link rel="icon" href="images/logo-puskesmas.PNG">
+  <link
+    rel="icon"
+    href="images/logo-puskesmas.PNG"
+  >
 
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/css/main.css" rel="stylesheet">
-  <link href="assets/css/puskesmas.css" rel="stylesheet">
+  <!-- BOOTSTRAP -->
+  <link
+    href="assets/vendor/bootstrap/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- CSS UTAMA -->
+  <link
+    href="assets/css/main.css"
+    rel="stylesheet"
+  >
+
+  <!-- CSS PUSKESMAS -->
+  <link
+    href="assets/css/puskesmas.css"
+    rel="stylesheet"
+  >
+
+  <!-- FONT AWESOME -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  >
+
+
+  <!-- =========================================================
+       CSS KHUSUS LAYANAN DARURAT
+       ========================================================= -->
+
+  <style>
+
+    /* =========================================================
+       EMERGENCY BOX
+       ========================================================= */
+
+    .pkm-emergency-box {
+
+      background: #ffffff;
+
+      border: 1px solid #e5ebf1;
+
+      border-radius: 24px;
+
+      padding: 45px 40px;
+
+      text-align: center;
+
+      box-shadow:
+        0 15px 40px rgba(15, 48, 88, .08);
+
+    }
+
+
+    /* =========================================================
+       ICON DARURAT
+       ========================================================= */
+
+    .pkm-emergency-box .emergency-icon {
+
+      width: 72px;
+      height: 72px;
+
+      margin: 0 auto 22px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: #fff0ee;
+
+      color: #f45b4d;
+
+      font-size: 30px;
+
+    }
+
+
+    /* =========================================================
+       LABEL
+       ========================================================= */
+
+    .pkm-emergency-box > span {
+
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: #0f9d58;
+
+      font-size: 13px;
+
+      font-weight: 800;
+
+      letter-spacing: 1.5px;
+
+    }
+
+
+    /* =========================================================
+       JUDUL
+       ========================================================= */
+
+    .pkm-emergency-box h2 {
+
+      margin-bottom: 14px;
+
+      color: #0d315f;
+
+      font-size: 30px;
+
+      font-weight: 700;
+
+    }
+
+
+    /* =========================================================
+       DESKRIPSI
+       ========================================================= */
+
+    .pkm-emergency-box p {
+
+      max-width: 650px;
+
+      margin: 0 auto 28px;
+
+      color: #7187a0;
+
+      line-height: 1.7;
+
+    }
+
+
+    /* =========================================================
+       TOMBOL DARURAT
+       ========================================================= */
+
+    .pkm-emergency-actions {
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      gap: 14px;
+
+      flex-wrap: wrap;
+
+    }
+
+
+    .pkm-emergency-btn {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 9px;
+
+      min-width: 210px;
+
+      padding: 15px 24px;
+
+      border-radius: 12px;
+
+      text-decoration: none;
+
+      font-weight: 700;
+
+      transition: all .25s ease;
+
+    }
+
+
+    /* TELEPON */
+
+    .pkm-emergency-btn.phone {
+
+      background: #f45b4d;
+
+      color: #ffffff;
+
+    }
+
+
+    .pkm-emergency-btn.phone:hover {
+
+      background: #e34b3e;
+
+      color: #ffffff;
+
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 10px 25px rgba(244, 91, 77, .25);
+
+    }
+
+
+    /* WHATSAPP */
+
+    .pkm-emergency-btn.whatsapp {
+
+      background: #0f9d58;
+
+      color: #ffffff;
+
+    }
+
+
+    .pkm-emergency-btn.whatsapp:hover {
+
+      background: #0c874b;
+
+      color: #ffffff;
+
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 10px 25px rgba(15, 157, 88, .25);
+
+    }
+
+
+    /* =========================================================
+       MOBILE
+       ========================================================= */
+
+    @media (max-width: 576px) {
+
+      .pkm-emergency-box {
+
+        padding: 32px 22px;
+
+      }
+
+      .pkm-emergency-box h2 {
+
+        font-size: 25px;
+
+      }
+
+      .pkm-emergency-actions {
+
+        flex-direction: column;
+
+      }
+
+      .pkm-emergency-btn {
+
+        width: 100%;
+
+      }
+
+    }
+
+  </style>
 
 </head>
 
 
 <body>
 
-<header id="header" class="header fixed-top pkm-header">
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+
+<header
+  id="header"
+  class="header fixed-top pkm-header"
+>
 
   <div class="branding d-flex align-items-center">
 
-    <div class="container d-flex align-items-center justify-content-between">
+    <div
+      class="container d-flex align-items-center justify-content-between"
+    >
 
-      <a href="index.html" class="logo pkm-logo">
+
+      <!-- LOGO -->
+
+      <a
+        href="index.html"
+        class="logo pkm-logo"
+      >
 
         <img
           src="images/logo-puskesmas.PNG"
@@ -49,7 +327,12 @@
       </a>
 
 
-      <nav id="navmenu" class="navmenu pkm-navmenu">
+      <!-- NAVIGASI -->
+
+      <nav
+        id="navmenu"
+        class="navmenu pkm-navmenu"
+      >
 
         <ul>
 
@@ -96,13 +379,18 @@
           </li>
 
           <li>
-            <a href="darurat.html" class="active emergency-link">
+            <a
+              href="darurat.html"
+              class="active emergency-link"
+            >
               Layanan Darurat
             </a>
           </li>
 
         </ul>
 
+
+        <!-- MOBILE MENU -->
 
         <button
           class="mobile-nav-toggle"
@@ -121,20 +409,32 @@
 </header>
 
 
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
 <main class="main">
 
 
-  <!-- HERO DARURAT -->
+  <!-- =======================================================
+       HERO DARURAT
+       ======================================================= -->
 
-  <section class="pkm-page-hero pkm-emergency-page">
+  <section
+    class="pkm-page-hero pkm-emergency-page"
+  >
 
     <div class="container">
 
       <div class="pkm-section-heading">
 
-        <span>LAYANAN DARURAT</span>
+        <span>
+          LAYANAN DARURAT
+        </span>
 
-        <h1>Butuh Bantuan Kesehatan Segera?</h1>
+        <h1>
+          Butuh Bantuan Kesehatan Segera?
+        </h1>
 
         <p>
           Informasi kontak dan langkah yang dapat dilakukan
@@ -148,7 +448,9 @@
   </section>
 
 
-  <!-- KONTAK UTAMA -->
+  <!-- =======================================================
+       KONTAK UTAMA
+       ======================================================= -->
 
   <section class="section pkm-section">
 
@@ -160,17 +462,31 @@
 
           <div class="pkm-emergency-box">
 
+
+            <!-- ICON -->
+
             <div class="emergency-icon">
-              ☎
+
+              <i class="fa-solid fa-phone-volume"></i>
+
             </div>
+
+
+            <!-- LABEL -->
 
             <span>
               HUBUNGI PUSKESMAS
             </span>
 
+
+            <!-- NAMA -->
+
             <h2>
               UPTD Puskesmas Geyer 2
             </h2>
+
+
+            <!-- DESKRIPSI -->
 
             <p>
               Untuk kondisi kegawatdaruratan,
@@ -178,12 +494,46 @@
               atau fasilitas kesehatan terdekat.
             </p>
 
-            <a
-              href="tel:+6282135019777"
-              class="pkm-emergency-btn"
-            >
-              ☎ Hubungi Puskesmas
-            </a>
+
+            <!-- =================================================
+                 TOMBOL KONTAK
+                 ================================================= -->
+
+            <div class="pkm-emergency-actions">
+
+
+              <!-- TELEPON -->
+
+              <a
+                href="tel:+6282135019777"
+                class="pkm-emergency-btn phone"
+              >
+
+                <i class="fa-solid fa-phone"></i>
+
+                Hubungi via Telepon
+
+              </a>
+
+
+              <!-- WHATSAPP -->
+
+              <a
+                href="https://wa.me/6282135019777?text=Halo%20UPTD%20Puskesmas%20Geyer%202%2C%20saya%20membutuhkan%20bantuan%20kesehatan."
+                target="_blank"
+                rel="noopener noreferrer"
+                class="pkm-emergency-btn whatsapp"
+              >
+
+                <i class="fa-brands fa-whatsapp"></i>
+
+                Hubungi via WhatsApp
+
+              </a>
+
+
+            </div>
+
 
           </div>
 
@@ -196,22 +546,33 @@
   </section>
 
 
-  <!-- INFORMASI -->
+  <!-- =======================================================
+       INFORMASI
+       ======================================================= -->
 
-  <section class="section pkm-section light-background">
+  <section
+    class="section pkm-section light-background"
+  >
 
     <div class="container">
 
       <div class="pkm-section-heading">
 
-        <span>INFORMASI</span>
+        <span>
+          INFORMASI
+        </span>
 
-        <h2>Dalam Kondisi Darurat</h2>
+        <h2>
+          Dalam Kondisi Darurat
+        </h2>
 
       </div>
 
 
       <div class="row g-4">
+
+
+        <!-- INFORMASI 01 -->
 
         <div class="col-md-4">
 
@@ -221,7 +582,9 @@
               01
             </div>
 
-            <h3>Segera Cari Bantuan</h3>
+            <h3>
+              Segera Cari Bantuan
+            </h3>
 
             <p>
               Jangan menunda mendapatkan pertolongan
@@ -233,6 +596,8 @@
         </div>
 
 
+        <!-- INFORMASI 02 -->
+
         <div class="col-md-4">
 
           <div class="pkm-feature-card">
@@ -241,7 +606,9 @@
               02
             </div>
 
-            <h3>Hubungi Petugas</h3>
+            <h3>
+              Hubungi Petugas
+            </h3>
 
             <p>
               Hubungi Puskesmas atau fasilitas pelayanan
@@ -253,6 +620,8 @@
         </div>
 
 
+        <!-- INFORMASI 03 -->
+
         <div class="col-md-4">
 
           <div class="pkm-feature-card">
@@ -261,7 +630,9 @@
               03
             </div>
 
-            <h3>Berikan Informasi</h3>
+            <h3>
+              Berikan Informasi
+            </h3>
 
             <p>
               Sampaikan lokasi dan kondisi pasien secara
@@ -273,6 +644,7 @@
 
         </div>
 
+
       </div>
 
     </div>
@@ -283,11 +655,20 @@
 </main>
 
 
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
 <footer class="pkm-footer">
 
   <div class="container">
 
     <div class="row g-4">
+
+
+      <!-- =====================================================
+           IDENTITAS PUSKESMAS
+           ===================================================== -->
 
       <div class="col-lg-6">
 
@@ -315,6 +696,10 @@
       </div>
 
 
+      <!-- =====================================================
+           INFORMASI WEBSITE
+           ===================================================== -->
+
       <div class="col-lg-6 text-lg-end">
 
         <p>
@@ -328,6 +713,7 @@
 
       </div>
 
+
     </div>
 
   </div>
@@ -335,17 +721,27 @@
 </footer>
 
 
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
 <script src="assets/js/puskesmas.js"></script>
 
 <script>
 
-  const year = document.getElementById('current-year');
+  const year =
+    document.getElementById('current-year');
 
   if (year) {
-    year.textContent = new Date().getFullYear();
+
+    year.textContent =
+      new Date().getFullYear();
+
   }
 
 </script>
 
+
 </body>
+
 </html>
