@@ -60,7 +60,10 @@
      ========================================================= */
 
   const year =
-    document.getElementById('current-year');
+    document.getElementById(
+      'current-year'
+    );
+
 
   if (year) {
 
@@ -98,6 +101,7 @@
 
     }
 
+
     return fallback;
 
   }
@@ -105,10 +109,12 @@
 
 
   /* =========================================================
-     NORMALISASI DATA JSON
+     NORMALIZE JSON
      ========================================================= */
 
-  function normalizeList(payload) {
+  function normalizeList(
+    payload
+  ) {
 
     if (
       Array.isArray(payload)
@@ -189,7 +195,9 @@
      ESCAPE HTML
      ========================================================= */
 
-  function escapeHtml(value) {
+  function escapeHtml(
+    value
+  ) {
 
     return String(
       value ?? ''
@@ -215,10 +223,12 @@
 
 
   /* =========================================================
-     BERSIHKAN TEXT
+     CLEAN TEXT
      ========================================================= */
 
-  function cleanText(value) {
+  function cleanText(
+    value
+  ) {
 
     return String(
       value ?? ''
@@ -238,15 +248,12 @@
 
 
   /* =========================================================
-     PARSE TANGGAL
-     Mendukung:
-     YYYY-MM-DD
-     YYYY-MM-DDTHH:mm:ss
-     DD/MM/YYYY
-     DD-MM-YYYY
+     PARSE DATE
      ========================================================= */
 
-  function parseDate(value) {
+  function parseDate(
+    value
+  ) {
 
     if (!value) {
 
@@ -259,7 +266,10 @@
       String(value).trim();
 
 
-    /* YYYY-MM-DD */
+    /*
+      YYYY-MM-DD
+      YYYY-MM-DDTHH:mm:ss
+    */
 
     let match =
       raw.match(
@@ -276,6 +286,7 @@
           Number(match[3])
         );
 
+
       if (
         !Number.isNaN(
           date.getTime()
@@ -289,7 +300,10 @@
     }
 
 
-    /* DD/MM/YYYY atau DD-MM-YYYY */
+    /*
+      DD/MM/YYYY
+      DD-MM-YYYY
+    */
 
     match =
       raw.match(
@@ -306,6 +320,7 @@
           Number(match[1])
         );
 
+
       if (
         !Number.isNaN(
           date.getTime()
@@ -319,7 +334,9 @@
     }
 
 
-    /* fallback native */
+    /*
+      Fallback
+    */
 
     const date =
       new Date(raw);
@@ -343,10 +360,12 @@
 
 
   /* =========================================================
-     FORMAT TANGGAL
+     FORMAT DATE
      ========================================================= */
 
-  function formatDate(value) {
+  function formatDate(
+    value
+  ) {
 
     const date =
       parseDate(value);
@@ -375,65 +394,12 @@
 
 
   /* =========================================================
-     FORMAT TANGGAL PENDEK
+     STATUS
      ========================================================= */
 
-  function formatAgendaDate(value) {
-
-    const date =
-      parseDate(value);
-
-
-    if (!date) {
-
-      return {
-
-        day: '--',
-        month: '',
-        year: ''
-
-      };
-
-    }
-
-
-    return {
-
-      day:
-        date.toLocaleDateString(
-          'id-ID',
-          {
-            day: '2-digit'
-          }
-        ),
-
-      month:
-        date.toLocaleDateString(
-          'id-ID',
-          {
-            month: 'short'
-          }
-        ),
-
-      year:
-        date.toLocaleDateString(
-          'id-ID',
-          {
-            year: 'numeric'
-          }
-        )
-
-    };
-
-  }
-
-
-
-  /* =========================================================
-     STATUS DATA
-     ========================================================= */
-
-  function isPublished(item) {
+  function isPublished(
+    item
+  ) {
 
     const status =
       String(
@@ -448,13 +414,13 @@
           ''
         )
       )
-        .trim()
-        .toLowerCase();
+      .trim()
+      .toLowerCase();
 
 
     /*
       Jika tidak ada kolom status,
-      data tetap ditampilkan.
+      data tetap dianggap aktif.
     */
 
     if (!status) {
@@ -464,22 +430,19 @@
     }
 
 
-    const allowed = [
+    return [
 
       'publish',
       'published',
       'aktif',
       'active',
+      'tayang',
       'ya',
       'yes',
       '1',
-      'true',
-      'tayang'
+      'true'
 
-    ];
-
-
-    return allowed.includes(
+    ].includes(
       status
     );
 
@@ -491,7 +454,9 @@
      IMAGE URL
      ========================================================= */
 
-  function imageUrl(value) {
+  function imageUrl(
+    value
+  ) {
 
     if (!value) {
 
@@ -504,29 +469,32 @@
       String(value).trim();
 
 
-    /* URL biasa */
+    /*
+      URL eksternal
+    */
 
     if (
       /^https?:\/\//i.test(image)
     ) {
 
+
       /*
-        Google Drive file URL
-        diubah menjadi thumbnail
+        Google Drive:
+        /file/d/ID/
       */
 
-      const driveMatch =
+      const driveFile =
         image.match(
           /drive\.google\.com\/file\/d\/([^/]+)/
         );
 
 
-      if (driveMatch) {
+      if (driveFile) {
 
         return (
           'https://drive.google.com/thumbnail?id=' +
           encodeURIComponent(
-            driveMatch[1]
+            driveFile[1]
           ) +
           '&sz=w1200'
         );
@@ -534,7 +502,12 @@
       }
 
 
-      const idMatch =
+      /*
+        Google Drive:
+        ?id=ID
+      */
+
+      const driveId =
         image.match(
           /[?&]id=([^&]+)/
         );
@@ -544,13 +517,13 @@
         image.includes(
           'drive.google.com'
         ) &&
-        idMatch
+        driveId
       ) {
 
         return (
           'https://drive.google.com/thumbnail?id=' +
           encodeURIComponent(
-            idMatch[1]
+            driveId[1]
           ) +
           '&sz=w1200'
         );
@@ -563,7 +536,9 @@
     }
 
 
-    /* Root path */
+    /*
+      Root relative
+    */
 
     if (
       image.startsWith('/')
@@ -574,15 +549,13 @@
     }
 
 
-    /* Path yang sudah benar */
+    /*
+      Sudah mempunyai folder
+    */
 
     if (
-      image.startsWith(
-        'images/'
-      ) ||
-      image.startsWith(
-        'assets/'
-      )
+      image.startsWith('images/') ||
+      image.startsWith('assets/')
     ) {
 
       return image;
@@ -590,18 +563,16 @@
     }
 
 
-    /* Path relatif */
-
-    image =
-      image.replace(
-        /^\.\/+/,
-        ''
-      );
-
+    /*
+      File gambar biasa
+    */
 
     return (
       'images/' +
-      image
+      image.replace(
+        /^\.\/+/,
+        ''
+      )
     );
 
   }
@@ -612,7 +583,9 @@
      FILE URL
      ========================================================= */
 
-  function fileUrl(value) {
+  function fileUrl(
+    value
+  ) {
 
     if (!value) {
 
@@ -621,9 +594,13 @@
     }
 
 
-    let file =
+    const file =
       String(value).trim();
 
+
+    /*
+      URL eksternal
+    */
 
     if (
       /^https?:\/\//i.test(file)
@@ -634,6 +611,10 @@
     }
 
 
+    /*
+      Root relative
+    */
+
     if (
       file.startsWith('/')
     ) {
@@ -643,19 +624,15 @@
     }
 
 
+    /*
+      Sudah mempunyai folder
+    */
+
     if (
-      file.startsWith(
-        'files/'
-      ) ||
-      file.startsWith(
-        'assets/'
-      ) ||
-      file.startsWith(
-        'documents/'
-      ) ||
-      file.startsWith(
-        'download/'
-      )
+      file.startsWith('files/') ||
+      file.startsWith('assets/') ||
+      file.startsWith('documents/') ||
+      file.startsWith('download/')
     ) {
 
       return file;
@@ -664,8 +641,7 @@
 
 
     /*
-      Jika hanya nama file,
-      diasumsikan berada di folder files.
+      Nama file saja
     */
 
     return (
@@ -681,7 +657,7 @@
 
 
   /* =========================================================
-     FETCH JSON
+     LOAD JSON
      ========================================================= */
 
   async function loadJson(
@@ -717,7 +693,7 @@
 
 
   /* =========================================================
-     RENDER EMPTY
+     EMPTY
      ========================================================= */
 
   function renderEmpty(
@@ -737,7 +713,7 @@
 
       <div class="col-12">
 
-        <div class="home-data-empty">
+        <div class="pkm-placeholder">
 
           <strong>
             ${escapeHtml(title)}
@@ -758,7 +734,7 @@
 
 
   /* =========================================================
-     RENDER ERROR
+     ERROR
      ========================================================= */
 
   function renderError(
@@ -767,41 +743,18 @@
     message
   ) {
 
-    if (!element) {
-
-      return;
-
-    }
-
-
-    element.innerHTML = `
-
-      <div class="col-12">
-
-        <div class="home-data-empty">
-
-          <strong>
-            ${escapeHtml(title)}
-          </strong>
-
-          <span>
-            ${escapeHtml(message)}
-          </span>
-
-        </div>
-
-      </div>
-
-    `;
+    renderEmpty(
+      element,
+      title,
+      message
+    );
 
   }
 
 
 
   /* =========================================================
-     =========================================================
      BERITA
-     =========================================================
      ========================================================= */
 
   const newsBox =
@@ -824,10 +777,6 @@
           );
 
 
-        /*
-          Hanya berita yang tayang
-        */
-
         list =
           list.filter(
             isPublished
@@ -835,7 +784,7 @@
 
 
         /*
-          Urutkan terbaru
+          Terbaru terlebih dahulu
         */
 
         list.sort(
@@ -854,6 +803,7 @@
                 )
               );
 
+
             const dateB =
               parseDate(
                 pick(
@@ -866,16 +816,6 @@
                   ''
                 )
               );
-
-
-            if (
-              !dateA &&
-              !dateB
-            ) {
-
-              return 0;
-
-            }
 
 
             if (!dateA) {
@@ -901,10 +841,6 @@
         );
 
 
-        /*
-          Ambil 3 berita
-        */
-
         list =
           list.slice(
             0,
@@ -928,7 +864,6 @@
         newsBox.innerHTML =
           list.map(
             function (item) {
-
 
               const id =
                 pick(
@@ -1002,9 +937,9 @@
                   pick(
                     item,
                     [
-                      'foto',
                       'gambar',
                       'image',
+                      'foto',
                       'thumbnail'
                     ],
                     ''
@@ -1015,15 +950,15 @@
               const link =
                 id
                   ? (
-                      'detail-berita.html?id=' +
-                      encodeURIComponent(id)
-                    )
+                    'detail-berita.html?id=' +
+                    encodeURIComponent(id)
+                  )
                   : 'berita.html';
 
 
               const shortSummary =
-                summary.length > 150
-                  ? summary.substring(0, 150) + '…'
+                summary.length > 160
+                  ? summary.substring(0, 160) + '…'
                   : summary;
 
 
@@ -1032,15 +967,15 @@
                 <div class="col-lg-4 col-md-6">
 
                   <article
-                    class="home-data-card"
+                    class="pkm-news-card h-100"
                   >
 
                     <div
-                      class="home-news-image-wrap"
+                      class="pkm-news-image-wrap"
                     >
 
                       <img
-                        class="home-news-image"
+                        class="pkm-news-image"
                         src="${escapeHtml(image)}"
                         alt="${escapeHtml(title)}"
                         loading="lazy"
@@ -1051,40 +986,42 @@
 
 
                     <div
-                      class="home-news-body"
+                      class="pkm-news-body"
                     >
 
-                      <span
-                        class="home-news-category"
+                      <div
+                        class="pkm-news-meta"
                       >
-                        ${escapeHtml(category)}
-                      </span>
+
+                        <span
+                          class="pkm-category"
+                        >
+                          ${escapeHtml(category)}
+                        </span>
+
+                      </div>
 
 
                       <div
-                        class="home-news-date"
+                        class="pkm-news-date"
                       >
                         ${escapeHtml(date)}
                       </div>
 
 
-                      <h3
-                        class="home-news-title"
-                      >
+                      <h3>
                         ${escapeHtml(title)}
                       </h3>
 
 
-                      <p
-                        class="home-news-summary"
-                      >
+                      <p>
                         ${escapeHtml(shortSummary)}
                       </p>
 
 
                       <a
-                        class="home-data-link"
-                        href="${link}"
+                        class="pkm-news-link"
+                        href="${escapeHtml(link)}"
                       >
                         Baca selengkapnya →
                       </a>
@@ -1114,7 +1051,7 @@
           renderError(
             newsBox,
             'Berita belum dapat dimuat',
-            'Silakan periksa file data/berita.json.'
+            'Silakan periksa data/berita.json.'
           );
 
         }
@@ -1125,9 +1062,7 @@
 
 
   /* =========================================================
-     =========================================================
      AGENDA
-     =========================================================
      ========================================================= */
 
   const agendaBox =
@@ -1156,12 +1091,20 @@
           );
 
 
-        const now =
+        const today =
           new Date();
 
 
+        const todayOnly =
+          new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate()
+          );
+
+
         /*
-          Pisahkan agenda mendatang
+          Prioritaskan agenda yang belum lewat
         */
 
         const upcoming =
@@ -1188,38 +1131,21 @@
               }
 
 
-              /*
-                Hari ini tetap dianggap
-                agenda mendatang.
-              */
-
-              const today =
-                new Date(
-                  now.getFullYear(),
-                  now.getMonth(),
-                  now.getDate()
-                );
-
-
-              return date >= today;
+              return date >= todayOnly;
 
             }
           );
 
-
-        /*
-          Jika ada agenda mendatang,
-          tampilkan yang mendatang.
-
-          Jika tidak ada,
-          tampilkan agenda terbaru.
-        */
 
         let finalList =
           upcoming.length
             ? upcoming
             : list;
 
+
+        /*
+          Urut terdekat
+        */
 
         finalList.sort(
           function (a, b) {
@@ -1236,6 +1162,7 @@
                 )
               );
 
+
             const dateB =
               parseDate(
                 pick(
@@ -1247,16 +1174,6 @@
                   ''
                 )
               );
-
-
-            if (
-              !dateA &&
-              !dateB
-            ) {
-
-              return 0;
-
-            }
 
 
             if (!dateA) {
@@ -1306,17 +1223,15 @@
           finalList.map(
             function (item) {
 
-
-              const date =
-                formatAgendaDate(
-                  pick(
-                    item,
-                    [
-                      'tanggal',
-                      'date'
-                    ],
-                    ''
-                  )
+              const id =
+                pick(
+                  item,
+                  [
+                    'id',
+                    'ID',
+                    'kode'
+                  ],
+                  ''
                 );
 
 
@@ -1331,6 +1246,44 @@
                   ],
                   'Agenda Puskesmas'
                 );
+
+
+              const category =
+                pick(
+                  item,
+                  [
+                    'kategori',
+                    'category',
+                    'jenis'
+                  ],
+                  'Agenda'
+                );
+
+
+              const dateValue =
+                parseDate(
+                  pick(
+                    item,
+                    [
+                      'tanggal',
+                      'date'
+                    ],
+                    ''
+                  )
+                );
+
+
+              const dateText =
+                dateValue
+                  ? dateValue.toLocaleDateString(
+                      'id-ID',
+                      {
+                        day: '2-digit',
+                        month: 'long',
+                        year: 'numeric'
+                      }
+                    )
+                  : '';
 
 
               const jam =
@@ -1357,7 +1310,7 @@
                 );
 
 
-              const penanggungjawab =
+              const pj =
                 pick(
                   item,
                   [
@@ -1369,100 +1322,152 @@
                 );
 
 
+              const summary =
+                cleanText(
+                  pick(
+                    item,
+                    [
+                      'ringkasan',
+                      'summary',
+                      'deskripsi',
+                      'description',
+                      'keterangan'
+                    ],
+                    ''
+                  )
+                );
+
+
+              const link =
+                id
+                  ? (
+                    'detail-agenda.html?id=' +
+                    encodeURIComponent(id)
+                  )
+                  : 'agenda.html';
+
+
               return `
 
                 <div class="col-lg-4 col-md-6">
 
                   <article
-                    class="home-data-card home-agenda-card"
+                    class="pkm-agenda-card"
                   >
 
+
                     <div
-                      class="home-agenda-top"
+                      class="pkm-agenda-date"
                     >
 
                       <div
-                        class="home-agenda-date"
+                        class="pkm-agenda-date-icon"
                       >
-
-                        <span
-                          class="home-agenda-day"
-                        >
-                          ${escapeHtml(date.day)}
-                        </span>
-
-                        <span
-                          class="home-agenda-month"
-                        >
-                          ${escapeHtml(date.month)}
-                        </span>
-
-                        <span
-                          class="home-agenda-year"
-                        >
-                          ${escapeHtml(date.year)}
-                        </span>
-
+                        📅
                       </div>
 
 
-                      <div
-                        class="home-agenda-content"
-                      >
+                      <div>
 
-                        <h3>
-                          ${escapeHtml(title)}
-                        </h3>
+                        <small>
+                          Tanggal
+                        </small>
 
-
-                        <div
-                          class="home-agenda-meta"
-                        >
-
-                          ${
-                            jam
-                              ? `
-                                <span>
-                                  🕐
-                                  ${escapeHtml(jam)}
-                                </span>
-                              `
-                              : ''
-                          }
-
-
-                          ${
-                            tempat
-                              ? `
-                                <span>
-                                  📍
-                                  ${escapeHtml(tempat)}
-                                </span>
-                              `
-                              : ''
-                          }
-
-                        </div>
-
-
-                        ${
-                          penanggungjawab
-                            ? `
-                              <div
-                                class="home-agenda-person"
-                              >
-                                Penanggung jawab:
-                                <strong>
-                                  ${escapeHtml(penanggungjawab)}
-                                </strong>
-                              </div>
-                            `
-                            : ''
-                        }
+                        <strong>
+                          ${escapeHtml(dateText)}
+                        </strong>
 
                       </div>
 
                     </div>
+
+
+                    <span
+                      class="pkm-agenda-category"
+                    >
+                      ${escapeHtml(category)}
+                    </span>
+
+
+                    <h3>
+                      ${escapeHtml(title)}
+                    </h3>
+
+
+                    ${
+                      summary
+                        ? `
+                          <p>
+                            ${escapeHtml(
+                              summary.length > 140
+                                ? summary.substring(0, 140) + '…'
+                                : summary
+                            )}
+                          </p>
+                        `
+                        : ''
+                    }
+
+
+                    <div
+                      class="pkm-agenda-info"
+                    >
+
+                      ${
+                        jam
+                          ? `
+                            <div>
+                              🕐
+                              <strong>
+                                Jam:
+                              </strong>
+                              ${escapeHtml(jam)}
+                            </div>
+                          `
+                          : ''
+                      }
+
+
+                      ${
+                        tempat
+                          ? `
+                            <div>
+                              📍
+                              <strong>
+                                Tempat:
+                              </strong>
+                              ${escapeHtml(tempat)}
+                            </div>
+                          `
+                          : ''
+                      }
+
+
+                      ${
+                        pj
+                          ? `
+                            <div>
+                              👤
+                              <strong>
+                                Penanggung Jawab:
+                              </strong>
+                              ${escapeHtml(pj)}
+                            </div>
+                          `
+                          : ''
+                      }
+
+
+                    </div>
+
+
+                    <a
+                      href="${escapeHtml(link)}"
+                      class="pkm-agenda-link"
+                    >
+                      Lihat agenda →
+                    </a>
+
 
                   </article>
 
@@ -1487,7 +1492,7 @@
           renderError(
             agendaBox,
             'Agenda belum dapat dimuat',
-            'Silakan periksa file data/agenda.json.'
+            'Silakan periksa data/agenda.json.'
           );
 
         }
@@ -1498,9 +1503,7 @@
 
 
   /* =========================================================
-     =========================================================
      GALERI
-     =========================================================
      ========================================================= */
 
   const galleryBox =
@@ -1530,7 +1533,7 @@
 
 
         /*
-          Terbaru dahulu
+          Terbaru
         */
 
         list.sort(
@@ -1548,6 +1551,7 @@
                 )
               );
 
+
             const dateB =
               parseDate(
                 pick(
@@ -1559,16 +1563,6 @@
                   ''
                 )
               );
-
-
-            if (
-              !dateA &&
-              !dateB
-            ) {
-
-              return 0;
-
-            }
 
 
             if (!dateA) {
@@ -1594,10 +1588,6 @@
         );
 
 
-        /*
-          Maksimal 6 foto
-        */
-
         list =
           list.slice(
             0,
@@ -1621,7 +1611,6 @@
         galleryBox.innerHTML =
           list.map(
             function (item) {
-
 
               const title =
                 pick(
@@ -1699,42 +1688,69 @@
                   >
 
                     <article
-                      class="home-gallery-card"
-                      title="${escapeHtml(description || title)}"
+                      class="pkm-gallery-card"
                     >
-
-                      <img
-                        class="home-gallery-image"
-                        src="${escapeHtml(image)}"
-                        alt="${escapeHtml(title)}"
-                        loading="lazy"
-                        onerror="this.onerror=null;this.src='images/logo-puskesmas.PNG';"
-                      >
 
 
                       <div
-                        class="home-gallery-overlay"
+                        class="pkm-gallery-image"
                       >
 
-                        <span
-                          class="home-gallery-album"
+                        <img
+                          src="${escapeHtml(image)}"
+                          alt="${escapeHtml(title)}"
+                          loading="lazy"
+                          onerror="this.onerror=null;this.src='images/logo-puskesmas.PNG';"
                         >
+
+
+                        <div
+                          class="pkm-gallery-overlay"
+                        >
+
+                          <span>
+                            +
+                          </span>
+
+                        </div>
+
+                      </div>
+
+
+                      <div
+                        class="pkm-gallery-body"
+                      >
+
+                        <small>
                           ${escapeHtml(album)}
-                        </span>
+                        </small>
 
 
-                        <h3
-                          class="home-gallery-title"
-                        >
+                        <h3>
                           ${escapeHtml(title)}
                         </h3>
+
+
+                        ${
+                          description
+                            ? `
+                              <p>
+                                ${escapeHtml(
+                                  description.length > 120
+                                    ? description.substring(0, 120) + '…'
+                                    : description
+                                )}
+                              </p>
+                            `
+                            : ''
+                        }
 
 
                         ${
                           date
                             ? `
                               <div
-                                class="home-gallery-date"
+                                class="pkm-gallery-date"
                               >
                                 ${escapeHtml(date)}
                               </div>
@@ -1743,6 +1759,7 @@
                         }
 
                       </div>
+
 
                     </article>
 
@@ -1769,7 +1786,7 @@
           renderError(
             galleryBox,
             'Galeri belum dapat dimuat',
-            'Silakan periksa file data/galeri.json.'
+            'Silakan periksa data/galeri.json.'
           );
 
         }
@@ -1780,9 +1797,7 @@
 
 
   /* =========================================================
-     =========================================================
      DOWNLOAD
-     =========================================================
      ========================================================= */
 
   const downloadBox =
@@ -1812,56 +1827,6 @@
 
 
         /*
-          Download tidak mempunyai tanggal
-          pada struktur CMS saat ini.
-
-          Karena itu urut berdasarkan
-          nama file / kategori.
-        */
-
-        list.sort(
-          function (a, b) {
-
-            const nameA =
-              String(
-                pick(
-                  a,
-                  [
-                    'namaFile',
-                    'nama',
-                    'judul',
-                    'file'
-                  ],
-                  ''
-                )
-              ).toLowerCase();
-
-
-            const nameB =
-              String(
-                pick(
-                  b,
-                  [
-                    'namaFile',
-                    'nama',
-                    'judul',
-                    'file'
-                  ],
-                  ''
-                )
-              ).toLowerCase();
-
-
-            return nameA.localeCompare(
-              nameB,
-              'id'
-            );
-
-          }
-        );
-
-
-        /*
           Maksimal 4 dokumen
         */
 
@@ -1888,7 +1853,6 @@
         downloadBox.innerHTML =
           list.map(
             function (item) {
-
 
               const category =
                 pick(
@@ -1947,14 +1911,34 @@
                 );
 
 
-              /*
-                Jika file tidak tersedia,
-                arahkan ke halaman download.
-              */
-
               const link =
                 url ||
                 'download.html';
+
+
+              /*
+                Ambil ekstensi file
+              */
+
+              let extension =
+                'FILE';
+
+
+              const extensionMatch =
+                String(
+                  title
+                ).match(
+                  /\.([a-z0-9]{2,5})$/i
+                );
+
+
+              if (extensionMatch) {
+
+                extension =
+                  extensionMatch[1]
+                    .toUpperCase();
+
+              }
 
 
               return `
@@ -1962,70 +1946,62 @@
                 <div class="col-lg-6">
 
                   <article
-                    class="home-data-card home-download-card"
+                    class="pkm-download-card"
                   >
 
+
                     <div
-                      class="d-flex gap-3 align-items-start"
+                      class="pkm-download-icon"
+                    >
+                      ${escapeHtml(extension)}
+                    </div>
+
+
+                    <div
+                      class="pkm-download-content"
                     >
 
-                      <div
-                        class="home-download-icon"
-                      >
-                        ↓
-                      </div>
+
+                      <small>
+                        ${escapeHtml(category)}
+                      </small>
 
 
-                      <div
-                        class="home-download-content flex-grow-1"
-                      >
-
-                        <div
-                          class="home-download-category"
-                        >
-                          ${escapeHtml(category)}
-                        </div>
+                      <h3>
+                        ${escapeHtml(title)}
+                      </h3>
 
 
-                        <h3
-                          class="home-download-title"
-                        >
-                          ${escapeHtml(title)}
-                        </h3>
+                      ${
+                        description
+                          ? `
+                            <p>
+                              ${escapeHtml(
+                                description.length > 130
+                                  ? description.substring(0, 130) + '…'
+                                  : description
+                              )}
+                            </p>
+                          `
+                          : ''
+                      }
 
 
+                      <a
+                        href="${escapeHtml(link)}"
+                        class="pkm-download-btn"
                         ${
-                          description
-                            ? `
-                              <p
-                                class="home-download-description"
-                              >
-                                ${escapeHtml(
-                                  description.length > 100
-                                    ? description.substring(0, 100) + '…'
-                                    : description
-                                )}
-                              </p>
-                            `
+                          /^https?:\/\//i.test(link)
+                            ? 'target="_blank" rel="noopener noreferrer"'
                             : ''
                         }
+                      >
+                        Download →
+                      </a>
 
-
-                        <a
-                          href="${escapeHtml(link)}"
-                          class="home-data-link"
-                          ${
-                            /^https?:\/\//i.test(link)
-                              ? 'target="_blank" rel="noopener noreferrer"'
-                              : ''
-                          }
-                        >
-                          ${url ? 'Download →' : 'Lihat dokumen →'}
-                        </a>
-
-                      </div>
 
                     </div>
+
 
                   </article>
 
@@ -2050,7 +2026,7 @@
           renderError(
             downloadBox,
             'Dokumen belum dapat dimuat',
-            'Silakan periksa file data/download.json.'
+            'Silakan periksa data/download.json.'
           );
 
         }
