@@ -56,28 +56,28 @@
 
 
   /* =========================================================
-     HOME NEWS
+     FALLBACK IMAGE
+     
+     JANGAN menggunakan:
+     assets/img/health/facilities-9.webp
+     
+     karena file tersebut tidak tersedia.
      ========================================================= */
 
-  const newsBox = document.getElementById('home-news');
-
-
-  /*
-   * Jika halaman tidak mempunyai #home-news,
-   * JavaScript tetap berhenti dengan aman.
-   */
-
-  if (!newsBox) {
-    return;
-  }
+  const FALLBACK_IMAGE =
+    'images/logo-puskesmas.PNG';
 
 
 
   /* =========================================================
-     HELPER: AMBIL NILAI OBJECT
+     HELPER: PICK
      ========================================================= */
 
-  function pick(obj, keys, fallback = '') {
+  function pick(
+    obj,
+    keys,
+    fallback = ''
+  ) {
 
     for (const key of keys) {
 
@@ -101,13 +101,15 @@
 
 
   /* =========================================================
-     HELPER: NORMALISASI DATA
+     HELPER: NORMALIZE LIST
      ========================================================= */
 
   function normalizeList(payload) {
 
     if (Array.isArray(payload)) {
+
       return payload;
+
     }
 
 
@@ -115,7 +117,9 @@
       payload &&
       Array.isArray(payload.data)
     ) {
+
       return payload.data;
+
     }
 
 
@@ -123,7 +127,69 @@
       payload &&
       Array.isArray(payload.berita)
     ) {
+
       return payload.berita;
+
+    }
+
+
+    if (
+      payload &&
+      Array.isArray(payload.agenda)
+    ) {
+
+      return payload.agenda;
+
+    }
+
+
+    if (
+      payload &&
+      Array.isArray(payload.galeri)
+    ) {
+
+      return payload.galeri;
+
+    }
+
+
+    if (
+      payload &&
+      Array.isArray(payload.gallery)
+    ) {
+
+      return payload.gallery;
+
+    }
+
+
+    if (
+      payload &&
+      Array.isArray(payload.download)
+    ) {
+
+      return payload.download;
+
+    }
+
+
+    if (
+      payload &&
+      Array.isArray(payload.dokumen)
+    ) {
+
+      return payload.dokumen;
+
+    }
+
+
+    if (
+      payload &&
+      Array.isArray(payload.pengumuman)
+    ) {
+
+      return payload.pengumuman;
+
     }
 
 
@@ -131,7 +197,9 @@
       payload &&
       Array.isArray(payload.items)
     ) {
+
       return payload.items;
+
     }
 
 
@@ -142,29 +210,33 @@
 
 
   /* =========================================================
-     HELPER: URL GAMBAR
+     HELPER: IMAGE URL
      ========================================================= */
 
   function imageUrl(value) {
 
     if (!value) {
 
-      return 'assets/img/health/facilities-9.webp';
+      return FALLBACK_IMAGE;
 
     }
 
 
-    let s = String(value).trim();
+    const s = String(value).trim();
 
 
-    if (/^https?:\/\//i.test(s)) {
+    if (
+      /^https?:\/\//i.test(s)
+    ) {
 
       return s;
 
     }
 
 
-    if (s.startsWith('/')) {
+    if (
+      s.startsWith('/')
+    ) {
 
       return s.slice(1);
 
@@ -172,7 +244,15 @@
 
 
     if (
-      s.startsWith('images/') ||
+      s.startsWith('images/')
+    ) {
+
+      return s;
+
+    }
+
+
+    if (
       s.startsWith('assets/')
     ) {
 
@@ -181,27 +261,34 @@
     }
 
 
-    return 'images/' + s.replace(/^\.\//, '');
+    return (
+      'images/' +
+      s.replace(/^\.\//, '')
+    );
 
   }
 
 
 
   /* =========================================================
-     HELPER: FORMAT TANGGAL
+     HELPER: FORMAT DATE
      ========================================================= */
 
   function formatDate(value) {
 
     if (!value) {
+
       return '';
+
     }
 
 
     const d = new Date(value);
 
 
-    if (Number.isNaN(d.getTime())) {
+    if (
+      Number.isNaN(d.getTime())
+    ) {
 
       return String(value);
 
@@ -232,11 +319,17 @@
       function (ch) {
 
         return {
+
           '&': '&amp;',
+
           '<': '&lt;',
+
           '>': '&gt;',
+
           "'": '&#39;',
+
           '"': '&quot;'
+
         }[ch];
 
       }
@@ -247,326 +340,1015 @@
 
 
   /* =========================================================
-     LOAD BERITA
+     HELPER: CLEAN TEXT
      ========================================================= */
 
-  fetch(
-    'data/berita.json',
-    {
-      cache: 'no-store'
+  function cleanText(value) {
+
+    return String(value || '')
+      .replace(/<[^>]*>/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+  }
+
+
+
+  /* =========================================================
+     HELPER: SHORT TEXT
+     ========================================================= */
+
+  function shortText(
+    value,
+    max = 150
+  ) {
+
+    const text =
+      cleanText(value);
+
+
+    if (
+      text.length > max
+    ) {
+
+      return (
+        text
+          .slice(0, max)
+          .trim() +
+        '…'
+      );
+
     }
-  )
 
-    .then(function (response) {
 
-      if (!response.ok) {
+    return text;
 
-        throw new Error(
-          'Gagal membaca data/berita.json'
+  }
+
+
+
+  /* =========================================================
+     HELPER: SORT TERBARU
+     ========================================================= */
+
+  function sortNewest(list) {
+
+    return list.sort(
+      function (a, b) {
+
+        const dateB =
+          String(
+            pick(
+              b,
+              [
+                'tanggal',
+                'date',
+                'created_at',
+                'tgl'
+              ],
+              ''
+            )
+          );
+
+
+        const dateA =
+          String(
+            pick(
+              a,
+              [
+                'tanggal',
+                'date',
+                'created_at',
+                'tgl'
+              ],
+              ''
+            )
+          );
+
+
+        return dateB.localeCompare(
+          dateA
         );
 
       }
+    );
+
+  }
 
 
-      return response.json();
 
-    })
+  /* =========================================================
+     HELPER: FETCH JSON
+     ========================================================= */
+
+  async function getJson(url) {
+
+    const response =
+      await fetch(
+        url,
+        {
+          cache: 'no-store'
+        }
+      );
 
 
-    .then(function (payload) {
+    if (!response.ok) {
 
-      let list = normalizeList(payload);
+      throw new Error(
+        url +
+        ' (' +
+        response.status +
+        ')'
+      );
+
+    }
 
 
-      /* =====================================================
-         SORT BERITA TERBARU
-         ===================================================== */
+    return response.json();
 
-      list.sort(function (a, b) {
+  }
 
-        const dateB = String(
-          pick(
-            b,
-            [
-              'tanggal',
-              'date',
-              'created_at'
-            ],
-            ''
-          )
+
+
+  /* =========================================================
+     HELPER: COBA BEBERAPA FILE JSON
+     ========================================================= */
+
+  async function loadFirstJson(
+    urls
+  ) {
+
+    for (
+      const url of urls
+    ) {
+
+      try {
+
+        return await getJson(
+          url
+        );
+
+      } catch (error) {
+
+        /*
+         * Coba file berikutnya.
+         */
+
+      }
+
+    }
+
+
+    return null;
+
+  }
+
+
+
+  /* =========================================================
+     HELPER: PESAN
+     ========================================================= */
+
+  function setMessage(
+    box,
+    message
+  ) {
+
+    if (!box) {
+
+      return;
+
+    }
+
+
+    box.innerHTML = `
+
+      <div
+        class="col-12 text-center p-5"
+      >
+
+        <div class="pkm-loading">
+
+          ${escapeHtml(message)}
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+
+  /* =========================================================
+     BERITA
+     ========================================================= */
+
+  async function loadNews() {
+
+    const box =
+      document.getElementById(
+        'home-news'
+      );
+
+
+    if (!box) {
+
+      return;
+
+    }
+
+
+    try {
+
+      const payload =
+        await getJson(
+          'data/berita.json'
         );
 
 
-        const dateA = String(
-          pick(
-            a,
-            [
-              'tanggal',
-              'date',
-              'created_at'
-            ],
-            ''
-          )
+      let list =
+        normalizeList(
+          payload
         );
 
 
-        return dateB.localeCompare(dateA);
+      list =
+        sortNewest(
+          list
+        ).slice(
+          0,
+          3
+        );
 
-      });
-
-
-
-      /* =====================================================
-         AMBIL 3 BERITA TERBARU
-         ===================================================== */
-
-      list = list.slice(0, 3);
-
-
-
-      /* =====================================================
-         JIKA TIDAK ADA DATA
-         ===================================================== */
 
       if (!list.length) {
 
-        newsBox.innerHTML = `
-          <div class="col-12 text-center">
-            <p class="pkm-loading">
-              Belum ada berita yang dapat ditampilkan.
-            </p>
-          </div>
-        `;
+        setMessage(
+          box,
+          'Belum ada berita yang dapat ditampilkan.'
+        );
 
         return;
 
       }
 
 
-
-      /* =====================================================
-         TAMPILKAN BERITA
-         ===================================================== */
-
-      newsBox.innerHTML = list.map(function (item) {
+      box.innerHTML =
+        list.map(
+          function (item) {
 
 
-        /* ---------------------------------------------------
-           ID
-           --------------------------------------------------- */
-
-        const id = pick(
-          item,
-          [
-            'id',
-            'ID',
-            'kode'
-          ],
-          ''
-        );
+            const id =
+              pick(
+                item,
+                [
+                  'id',
+                  'ID',
+                  'kode'
+                ],
+                ''
+              );
 
 
-
-        /* ---------------------------------------------------
-           JUDUL
-           --------------------------------------------------- */
-
-        const title = pick(
-          item,
-          [
-            'judul',
-            'title',
-            'nama'
-          ],
-          'Berita Puskesmas Geyer 2'
-        );
+            const title =
+              pick(
+                item,
+                [
+                  'judul',
+                  'title',
+                  'nama'
+                ],
+                'Berita Puskesmas Geyer 2'
+              );
 
 
-
-        /* ---------------------------------------------------
-           RINGKASAN
-           --------------------------------------------------- */
-
-        const summary = pick(
-          item,
-          [
-            'ringkasan',
-            'summary',
-            'excerpt',
-            'deskripsi',
-            'description',
-            'isi'
-          ],
-          'Informasi terbaru dari UPTD Puskesmas Geyer 2.'
-        );
+            const summary =
+              pick(
+                item,
+                [
+                  'ringkasan',
+                  'summary',
+                  'excerpt',
+                  'deskripsi',
+                  'description',
+                  'isi'
+                ],
+                'Informasi terbaru dari UPTD Puskesmas Geyer 2.'
+              );
 
 
-
-        /* ---------------------------------------------------
-           TANGGAL
-           --------------------------------------------------- */
-
-        const date = formatDate(
-          pick(
-            item,
-            [
-              'tanggal',
-              'date',
-              'created_at'
-            ],
-            ''
-          )
-        );
+            const date =
+              formatDate(
+                pick(
+                  item,
+                  [
+                    'tanggal',
+                    'date',
+                    'created_at',
+                    'tgl'
+                  ],
+                  ''
+                )
+              );
 
 
-
-        /* ---------------------------------------------------
-           KATEGORI
-           --------------------------------------------------- */
-
-        const category = pick(
-          item,
-          [
-            'kategori',
-            'category',
-            'jenis'
-          ],
-          'Berita'
-        );
+            const category =
+              pick(
+                item,
+                [
+                  'kategori',
+                  'category',
+                  'jenis'
+                ],
+                'Berita'
+              );
 
 
-
-        /* ---------------------------------------------------
-           GAMBAR
-           --------------------------------------------------- */
-
-        const image = imageUrl(
-          pick(
-            item,
-            [
-              'gambar',
-              'image',
-              'foto',
-              'thumbnail'
-            ],
-            ''
-          )
-        );
+            const image =
+              imageUrl(
+                pick(
+                  item,
+                  [
+                    'gambar',
+                    'image',
+                    'foto',
+                    'thumbnail'
+                  ],
+                  ''
+                )
+              );
 
 
-
-        /* ---------------------------------------------------
-           LINK
-           --------------------------------------------------- */
-
-        const link = id
-          ? `detail-berita.html?id=${encodeURIComponent(id)}`
-          : 'berita.html';
+            const link =
+              id
+                ? 'detail-berita.html?id=' +
+                  encodeURIComponent(id)
+                : 'berita.html';
 
 
+            return `
 
-        /* ---------------------------------------------------
-           BERSIHKAN RINGKASAN DARI HTML
-           --------------------------------------------------- */
-
-        const cleanSummary = String(summary)
-          .replace(/<[^>]*>/g, '')
-          .trim();
-
-
-        const shortSummary =
-          cleanSummary.length > 150
-            ? cleanSummary.slice(0, 150) + '…'
-            : cleanSummary;
-
-
-
-        /* ---------------------------------------------------
-           TEMPLATE BERITA
-           --------------------------------------------------- */
-
-        return `
-          <div class="col-lg-4 col-md-6">
-
-            <article class="pkm-news-card">
-
-              <img
-                class="pkm-news-image"
-                src="${escapeHtml(image)}"
-                alt="${escapeHtml(title)}"
-                onerror="this.src='assets/img/health/facilities-9.webp'"
+              <div
+                class="col-lg-4 col-md-6"
               >
 
+                <article
+                  class="pkm-news-card"
+                >
 
-              <div class="pkm-news-body">
+
+                  <img
+                    class="pkm-news-image"
+                    src="${escapeHtml(image)}"
+                    alt="${escapeHtml(title)}"
+                    onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"
+                  >
 
 
-                <div class="pkm-news-meta">
+                  <div
+                    class="pkm-news-body"
+                  >
 
-                  ${escapeHtml(date)}
 
-                  ${date ? ' • ' : ''}
+                    <div
+                      class="pkm-news-meta"
+                    >
 
-                  ${escapeHtml(category)}
+                      ${escapeHtml(date)}
+
+                      ${
+                        date
+                          ? ' • '
+                          : ''
+                      }
+
+                      ${escapeHtml(category)}
+
+                    </div>
+
+
+                    <h3>
+
+                      ${escapeHtml(title)}
+
+                    </h3>
+
+
+                    <p>
+
+                      ${escapeHtml(
+                        shortText(
+                          summary,
+                          150
+                        )
+                      )}
+
+                    </p>
+
+
+                    <a
+                      class="pkm-news-link"
+                      href="${escapeHtml(link)}"
+                    >
+                      Baca selengkapnya →
+                    </a>
+
+
+                  </div>
+
+
+                </article>
+
+              </div>
+
+            `;
+
+          }
+        ).join('');
+
+
+    } catch (error) {
+
+      console.error(
+        'Gagal memuat berita:',
+        error
+      );
+
+
+      setMessage(
+        box,
+        'Berita belum dapat dimuat.'
+      );
+
+    }
+
+  }
+
+
+
+  /* =========================================================
+     AGENDA
+     ========================================================= */
+
+  async function loadAgenda() {
+
+    const box =
+      document.getElementById(
+        'home-agenda'
+      );
+
+
+    if (!box) {
+
+      return;
+
+    }
+
+
+    const payload =
+      await loadFirstJson(
+        [
+          'data/agenda.json',
+          'data/agendas.json'
+        ]
+      );
+
+
+    if (!payload) {
+
+      setMessage(
+        box,
+        'Belum ada agenda yang dapat ditampilkan.'
+      );
+
+      return;
+
+    }
+
+
+    let list =
+      normalizeList(
+        payload
+      );
+
+
+    list =
+      sortNewest(
+        list
+      ).slice(
+        0,
+        3
+      );
+
+
+    if (!list.length) {
+
+      setMessage(
+        box,
+        'Belum ada agenda yang dapat ditampilkan.'
+      );
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      list.map(
+        function (item) {
+
+
+          const title =
+            pick(
+              item,
+              [
+                'judul',
+                'title',
+                'nama',
+                'kegiatan'
+              ],
+              'Agenda Puskesmas Geyer 2'
+            );
+
+
+          const date =
+            formatDate(
+              pick(
+                item,
+                [
+                  'tanggal',
+                  'date',
+                  'tgl',
+                  'tanggal_kegiatan'
+                ],
+                ''
+              )
+            );
+
+
+          const time =
+            pick(
+              item,
+              [
+                'waktu',
+                'jam',
+                'time'
+              ],
+              ''
+            );
+
+
+          const place =
+            pick(
+              item,
+              [
+                'tempat',
+                'lokasi',
+                'location'
+              ],
+              ''
+            );
+
+
+          const description =
+            pick(
+              item,
+              [
+                'deskripsi',
+                'description',
+                'keterangan',
+                'ringkasan'
+              ],
+              'Agenda kegiatan UPTD Puskesmas Geyer 2.'
+            );
+
+
+          return `
+
+            <div
+              class="col-lg-4 col-md-6"
+            >
+
+              <div
+                class="pkm-feature-card h-100"
+              >
+
+                <div
+                  class="feature-number"
+                >
+
+                  ${escapeHtml(
+                    date || 'AGENDA'
+                  )}
 
                 </div>
 
 
                 <h3>
+
                   ${escapeHtml(title)}
+
                 </h3>
 
 
                 <p>
-                  ${escapeHtml(shortSummary)}
+
+                  ${escapeHtml(
+                    shortText(
+                      description,
+                      130
+                    )
+                  )}
+
+                </p>
+
+
+                ${
+                  time || place
+                    ? `
+                      <small>
+
+                        ${escapeHtml(time)}
+
+                        ${
+                          time && place
+                            ? ' • '
+                            : ''
+                        }
+
+                        ${escapeHtml(place)}
+
+                      </small>
+                    `
+                    : ''
+                }
+
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      ).join('');
+
+  }
+
+
+
+  /* =========================================================
+     GALERI
+     ========================================================= */
+
+  async function loadGallery() {
+
+    const box =
+      document.getElementById(
+        'home-gallery'
+      );
+
+
+    if (!box) {
+
+      return;
+
+    }
+
+
+    const payload =
+      await loadFirstJson(
+        [
+          'data/galeri.json',
+          'data/gallery.json'
+        ]
+      );
+
+
+    if (!payload) {
+
+      setMessage(
+        box,
+        'Belum ada dokumentasi galeri yang dapat ditampilkan.'
+      );
+
+      return;
+
+    }
+
+
+    let list =
+      normalizeList(
+        payload
+      );
+
+
+    list =
+      sortNewest(
+        list
+      ).slice(
+        0,
+        3
+      );
+
+
+    if (!list.length) {
+
+      setMessage(
+        box,
+        'Belum ada dokumentasi galeri yang dapat ditampilkan.'
+      );
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      list.map(
+        function (item) {
+
+
+          const title =
+            pick(
+              item,
+              [
+                'judul',
+                'title',
+                'nama',
+                'kegiatan'
+              ],
+              'Dokumentasi Puskesmas Geyer 2'
+            );
+
+
+          const image =
+            imageUrl(
+              pick(
+                item,
+                [
+                  'gambar',
+                  'image',
+                  'foto',
+                  'thumbnail',
+                  'url'
+                ],
+                ''
+              )
+            );
+
+
+          const date =
+            formatDate(
+              pick(
+                item,
+                [
+                  'tanggal',
+                  'date',
+                  'created_at',
+                  'tgl'
+                ],
+                ''
+              )
+            );
+
+
+          return `
+
+            <div
+              class="col-lg-4 col-md-6"
+            >
+
+              <article
+                class="pkm-news-card"
+              >
+
+
+                <img
+                  class="pkm-news-image"
+                  src="${escapeHtml(image)}"
+                  alt="${escapeHtml(title)}"
+                  onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"
+                >
+
+
+                <div
+                  class="pkm-news-body"
+                >
+
+
+                  <div
+                    class="pkm-news-meta"
+                  >
+
+                    ${escapeHtml(date)}
+
+                  </div>
+
+
+                  <h3>
+
+                    ${escapeHtml(title)}
+
+                  </h3>
+
+
+                </div>
+
+
+              </article>
+
+            </div>
+
+          `;
+
+        }
+      ).join('');
+
+  }
+
+
+
+  /* =========================================================
+     DOWNLOAD
+     ========================================================= */
+
+  async function loadDownload() {
+
+    const box =
+      document.getElementById(
+        'home-download'
+      );
+
+
+    if (!box) {
+
+      return;
+
+    }
+
+
+    const payload =
+      await loadFirstJson(
+        [
+          'data/download.json',
+          'data/dokumen.json',
+          'data/downloads.json'
+        ]
+      );
+
+
+    if (!payload) {
+
+      setMessage(
+        box,
+        'Belum ada dokumen yang dapat ditampilkan.'
+      );
+
+      return;
+
+    }
+
+
+    const list =
+      normalizeList(
+        payload
+      ).slice(
+        0,
+        3
+      );
+
+
+    if (!list.length) {
+
+      setMessage(
+        box,
+        'Belum ada dokumen yang dapat ditampilkan.'
+      );
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      list.map(
+        function (item) {
+
+
+          const title =
+            pick(
+              item,
+              [
+                'judul',
+                'title',
+                'nama',
+                'nama_dokumen'
+              ],
+              'Dokumen Puskesmas Geyer 2'
+            );
+
+
+          const description =
+            pick(
+              item,
+              [
+                'deskripsi',
+                'description',
+                'keterangan',
+                'ringkasan'
+              ],
+              'Dokumen dan formulir informasi Puskesmas.'
+            );
+
+
+          const url =
+            pick(
+              item,
+              [
+                'url',
+                'link',
+                'file',
+                'download',
+                'href'
+              ],
+              'download.html'
+            );
+
+
+          return `
+
+            <div
+              class="col-lg-4 col-md-6"
+            >
+
+              <div
+                class="pkm-feature-card h-100"
+              >
+
+
+                <div
+                  class="feature-number"
+                >
+                  PDF
+                </div>
+
+
+                <h3>
+
+                  ${escapeHtml(title)}
+
+                </h3>
+
+
+                <p>
+
+                  ${escapeHtml(
+                    shortText(
+                      description,
+                      130
+                    )
+                  )}
+
                 </p>
 
 
                 <a
                   class="pkm-news-link"
-                  href="${escapeHtml(link)}"
+                  href="${escapeHtml(url)}"
+                  target="_blank"
+                  rel="noopener"
                 >
-                  Baca selengkapnya →
+                  Unduh dokumen →
                 </a>
 
 
               </div>
 
-            </article>
+            </div>
 
-          </div>
-        `;
+          `;
 
-      }).join('');
+        }
+      ).join('');
 
-
-    })
-
-
-    /* =======================================================
-       ERROR
-       ======================================================= */
-
-    .catch(function (err) {
-
-      console.error(
-        'Kesalahan memuat berita:',
-        err
-      );
+  }
 
 
-      newsBox.innerHTML = `
-        <div class="col-12 text-center">
 
-          <p class="pkm-loading">
-            Berita belum dapat dimuat.
-            Silakan cek koneksi API/data.
-          </p>
+  /* =========================================================
+     JALANKAN SEMUA
+     ========================================================= */
 
-        </div>
-      `;
+  loadNews();
 
-    });
+  loadAgenda();
+
+  loadGallery();
+
+  loadDownload();
 
 
 })();
