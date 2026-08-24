@@ -1,3 +1,45 @@
+/* =========================================================
+   FORCE HOMEPAGE TO START FROM TOP
+   Mencegah Chrome mengembalikan posisi scroll lama
+   ========================================================= */
+
+if (
+  'scrollRestoration' in history
+) {
+  history.scrollRestoration = 'manual';
+}
+
+
+window.addEventListener(
+  'load',
+  function () {
+
+    /*
+      Kalau URL tidak mempunyai hash (#...)
+      selalu mulai dari bagian paling atas.
+    */
+
+    if (!window.location.hash) {
+
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'instant'
+      });
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   SCRIPT UTAMA
+   ========================================================= */
+
+(function () {
+
+  'use strict';
 (function () {
 
   'use strict';
