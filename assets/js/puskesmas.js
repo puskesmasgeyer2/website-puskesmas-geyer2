@@ -1,104 +1,94 @@
-if (
-  'scrollRestoration' in history
-) {
-  history.scrollRestoration = 'manual';
-}
-
-window.addEventListener(
-  'load',
-  function () {
-
-    if (!window.location.hash) {
-
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'instant'
-      });
-
-    }
-
-  }
-);
-
 (function () {
 
   'use strict';
 
-  const nav =
-    document.getElementById('navmenu');
 
-  const toggle =
-    document.querySelector('.mobile-nav-toggle');
+  /* =========================================================
+     MOBILE NAVIGATION
+     ========================================================= */
+
+  const nav = document.getElementById('navmenu');
+  const toggle = document.querySelector('.mobile-nav-toggle');
+
 
   if (toggle && nav) {
 
-    toggle.addEventListener(
-      'click',
-      function () {
+    toggle.addEventListener('click', function () {
 
-        nav.classList.toggle(
-          'mobile-open'
-        );
+      nav.classList.toggle('mobile-open');
 
-        toggle.textContent =
-          nav.classList.contains('mobile-open')
-            ? '✕'
-            : '☰';
+      toggle.textContent =
+        nav.classList.contains('mobile-open')
+          ? '✕'
+          : '☰';
 
-      }
-    );
+    });
 
-    nav.querySelectorAll('a')
-      .forEach(function (link) {
 
-        link.addEventListener(
-          'click',
-          function () {
+    nav.querySelectorAll('a').forEach(function (a) {
 
-            nav.classList.remove(
-              'mobile-open'
-            );
+      a.addEventListener('click', function () {
 
-            toggle.textContent = '☰';
+        nav.classList.remove('mobile-open');
 
-          }
-        );
+        toggle.textContent = '☰';
 
       });
 
+    });
+
   }
 
-  const year =
-    document.getElementById(
-      'current-year'
-    );
+
+
+  /* =========================================================
+     CURRENT YEAR
+     ========================================================= */
+
+  const year = document.getElementById('current-year');
 
   if (year) {
 
-    year.textContent =
-      new Date().getFullYear();
+    year.textContent = new Date().getFullYear();
 
   }
 
-  function pick(
-    object,
-    keys,
-    fallback = ''
-  ) {
 
-    for (
-      const key of keys
-    ) {
+
+  /* =========================================================
+     HOME NEWS
+     ========================================================= */
+
+  const newsBox = document.getElementById('home-news');
+
+
+  /*
+   * Jika halaman tidak mempunyai #home-news,
+   * JavaScript tetap berhenti dengan aman.
+   */
+
+  if (!newsBox) {
+    return;
+  }
+
+
+
+  /* =========================================================
+     HELPER: AMBIL NILAI OBJECT
+     ========================================================= */
+
+  function pick(obj, keys, fallback = '') {
+
+    for (const key of keys) {
 
       if (
-        object &&
-        object[key] !== undefined &&
-        object[key] !== null &&
-        String(object[key]).trim() !== ''
+        obj &&
+        obj[key] !== undefined &&
+        obj[key] !== null &&
+        String(obj[key]).trim() !== ''
       ) {
 
-        return object[key];
+        return obj[key];
 
       }
 
@@ -108,218 +98,117 @@ window.addEventListener(
 
   }
 
-  function normalizeList(
-    payload
-  ) {
 
-    if (
-      Array.isArray(payload)
-    ) {
 
+  /* =========================================================
+     HELPER: NORMALISASI DATA
+     ========================================================= */
+
+  function normalizeList(payload) {
+
+    if (Array.isArray(payload)) {
       return payload;
-
     }
+
 
     if (
       payload &&
       Array.isArray(payload.data)
     ) {
-
       return payload.data;
-
     }
 
-    if (
-      payload &&
-      Array.isArray(payload.items)
-    ) {
-
-      return payload.items;
-
-    }
 
     if (
       payload &&
       Array.isArray(payload.berita)
     ) {
-
       return payload.berita;
-
     }
+
 
     if (
       payload &&
-      Array.isArray(payload.agenda)
+      Array.isArray(payload.items)
     ) {
-
-      return payload.agenda;
-
+      return payload.items;
     }
 
-    if (
-      payload &&
-      Array.isArray(payload.galeri)
-    ) {
-
-      return payload.galeri;
-
-    }
-
-    if (
-      payload &&
-      Array.isArray(payload.download)
-    ) {
-
-      return payload.download;
-
-    }
 
     return [];
 
   }
 
-  function escapeHtml(
-    value
-  ) {
 
-    return String(
-      value ?? ''
-    ).replace(
-      /[&<>'"]/g,
-      function (char) {
 
-        return {
+  /* =========================================================
+     HELPER: URL GAMBAR
+     ========================================================= */
 
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          "'": '&#39;',
-          '"': '&quot;'
-
-        }[char];
-
-      }
-    );
-
-  }
-
-  function cleanText(
-    value
-  ) {
-
-    return String(
-      value ?? ''
-    )
-      .replace(
-        /<[^>]*>/g,
-        ''
-      )
-      .replace(
-        /\s+/g,
-        ' '
-      )
-      .trim();
-
-  }
-
-  function parseDate(
-    value
-  ) {
+  function imageUrl(value) {
 
     if (!value) {
 
-      return null;
+      return 'assets/img/health/facilities-9.webp';
 
     }
 
-    const raw =
-      String(value).trim();
 
-    let match =
-      raw.match(
-        /^(\d{4})[-/](\d{1,2})[-/](\d{1,2})/
-      );
+    let s = String(value).trim();
 
-    if (match) {
 
-      const date =
-        new Date(
-          Number(match[1]),
-          Number(match[2]) - 1,
-          Number(match[3])
-        );
+    if (/^https?:\/\//i.test(s)) {
 
-      if (
-        !Number.isNaN(
-          date.getTime()
-        )
-      ) {
-
-        return date;
-
-      }
+      return s;
 
     }
 
-    match =
-      raw.match(
-        /^(\d{1,2})[-/](\d{1,2})[-/](\d{4})/
-      );
 
-    if (match) {
+    if (s.startsWith('/')) {
 
-      const date =
-        new Date(
-          Number(match[3]),
-          Number(match[2]) - 1,
-          Number(match[1])
-        );
-
-      if (
-        !Number.isNaN(
-          date.getTime()
-        )
-      ) {
-
-        return date;
-
-      }
+      return s.slice(1);
 
     }
 
-    const date =
-      new Date(raw);
 
     if (
-      !Number.isNaN(
-        date.getTime()
-      )
+      s.startsWith('images/') ||
+      s.startsWith('assets/')
     ) {
 
-      return date;
+      return s;
 
     }
 
-    return null;
+
+    return 'images/' + s.replace(/^\.\//, '');
 
   }
 
-  function formatDate(
-    value
-  ) {
 
-    const date =
-      parseDate(value);
 
-    if (!date) {
+  /* =========================================================
+     HELPER: FORMAT TANGGAL
+     ========================================================= */
 
-      return String(
-        value ?? ''
-      );
+  function formatDate(value) {
+
+    if (!value) {
+      return '';
+    }
+
+
+    const d = new Date(value);
+
+
+    if (Number.isNaN(d.getTime())) {
+
+      return String(value);
 
     }
 
-    return date.toLocaleDateString(
+
+    return d.toLocaleDateString(
       'id-ID',
       {
         day: '2-digit',
@@ -330,1313 +219,354 @@ window.addEventListener(
 
   }
 
-  function isPublished(
-    item
-  ) {
 
-    const status =
-      String(
-        pick(
+
+  /* =========================================================
+     HELPER: ESCAPE HTML
+     ========================================================= */
+
+  function escapeHtml(value) {
+
+    return String(value).replace(
+      /[&<>'"]/g,
+      function (ch) {
+
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[ch];
+
+      }
+    );
+
+  }
+
+
+
+  /* =========================================================
+     LOAD BERITA
+     ========================================================= */
+
+  fetch(
+    'data/berita.json',
+    {
+      cache: 'no-store'
+    }
+  )
+
+    .then(function (response) {
+
+      if (!response.ok) {
+
+        throw new Error(
+          'Gagal membaca data/berita.json'
+        );
+
+      }
+
+
+      return response.json();
+
+    })
+
+
+    .then(function (payload) {
+
+      let list = normalizeList(payload);
+
+
+      /* =====================================================
+         SORT BERITA TERBARU
+         ===================================================== */
+
+      list.sort(function (a, b) {
+
+        const dateB = String(
+          pick(
+            b,
+            [
+              'tanggal',
+              'date',
+              'created_at'
+            ],
+            ''
+          )
+        );
+
+
+        const dateA = String(
+          pick(
+            a,
+            [
+              'tanggal',
+              'date',
+              'created_at'
+            ],
+            ''
+          )
+        );
+
+
+        return dateB.localeCompare(dateA);
+
+      });
+
+
+
+      /* =====================================================
+         AMBIL 3 BERITA TERBARU
+         ===================================================== */
+
+      list = list.slice(0, 3);
+
+
+
+      /* =====================================================
+         JIKA TIDAK ADA DATA
+         ===================================================== */
+
+      if (!list.length) {
+
+        newsBox.innerHTML = `
+          <div class="col-12 text-center">
+            <p class="pkm-loading">
+              Belum ada berita yang dapat ditampilkan.
+            </p>
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+
+      /* =====================================================
+         TAMPILKAN BERITA
+         ===================================================== */
+
+      newsBox.innerHTML = list.map(function (item) {
+
+
+        /* ---------------------------------------------------
+           ID
+           --------------------------------------------------- */
+
+        const id = pick(
           item,
           [
-            'status',
-            'Status',
-            'publish',
-            'published'
+            'id',
+            'ID',
+            'kode'
           ],
           ''
-        )
-      )
-      .trim()
-      .toLowerCase();
-
-    if (!status) {
-
-      return true;
-
-    }
-
-    return [
-
-      'publish',
-      'published',
-      'aktif',
-      'active',
-      'tayang',
-      'ya',
-      'yes',
-      '1',
-      'true'
-
-    ].includes(
-      status
-    );
-
-  }
-
-  function imageUrl(
-    value
-  ) {
-
-    if (!value) {
-
-      return 'images/logo-puskesmas.PNG';
-
-    }
-
-    let image =
-      String(value).trim();
-
-    if (
-      /^https?:\/\//i.test(image)
-    ) {
-
-      const driveFile =
-        image.match(
-          /drive\.google\.com\/file\/d\/([^/]+)/
         );
 
-      if (driveFile) {
 
-        return (
-          'https://drive.google.com/thumbnail?id=' +
-          encodeURIComponent(
-            driveFile[1]
-          ) +
-          '&sz=w1200'
+
+        /* ---------------------------------------------------
+           JUDUL
+           --------------------------------------------------- */
+
+        const title = pick(
+          item,
+          [
+            'judul',
+            'title',
+            'nama'
+          ],
+          'Berita Puskesmas Geyer 2'
         );
 
-      }
 
-      const driveId =
-        image.match(
-          /[?&]id=([^&]+)/
+
+        /* ---------------------------------------------------
+           RINGKASAN
+           --------------------------------------------------- */
+
+        const summary = pick(
+          item,
+          [
+            'ringkasan',
+            'summary',
+            'excerpt',
+            'deskripsi',
+            'description',
+            'isi'
+          ],
+          'Informasi terbaru dari UPTD Puskesmas Geyer 2.'
         );
 
-      if (
-        image.includes(
-          'drive.google.com'
-        ) &&
-        driveId
-      ) {
 
-        return (
-          'https://drive.google.com/thumbnail?id=' +
-          encodeURIComponent(
-            driveId[1]
-          ) +
-          '&sz=w1200'
+
+        /* ---------------------------------------------------
+           TANGGAL
+           --------------------------------------------------- */
+
+        const date = formatDate(
+          pick(
+            item,
+            [
+              'tanggal',
+              'date',
+              'created_at'
+            ],
+            ''
+          )
         );
 
-      }
 
-      return image;
 
-    }
+        /* ---------------------------------------------------
+           KATEGORI
+           --------------------------------------------------- */
 
-    if (
-      image.startsWith('/')
-    ) {
+        const category = pick(
+          item,
+          [
+            'kategori',
+            'category',
+            'jenis'
+          ],
+          'Berita'
+        );
 
-      return image.substring(1);
 
-    }
 
-    if (
-      image.startsWith('images/') ||
-      image.startsWith('assets/')
-    ) {
+        /* ---------------------------------------------------
+           GAMBAR
+           --------------------------------------------------- */
 
-      return image;
+        const image = imageUrl(
+          pick(
+            item,
+            [
+              'gambar',
+              'image',
+              'foto',
+              'thumbnail'
+            ],
+            ''
+          )
+        );
 
-    }
 
-    return (
-      'images/' +
-      image.replace(
-        /^\.\/+/,
-        ''
-      )
-    );
 
-  }
+        /* ---------------------------------------------------
+           LINK
+           --------------------------------------------------- */
 
-  function fileUrl(
-    value
-  ) {
+        const link = id
+          ? `detail-berita.html?id=${encodeURIComponent(id)}`
+          : 'berita.html';
 
-    if (!value) {
 
-      return '';
 
-    }
+        /* ---------------------------------------------------
+           BERSIHKAN RINGKASAN DARI HTML
+           --------------------------------------------------- */
 
-    const file =
-      String(value).trim();
+        const cleanSummary = String(summary)
+          .replace(/<[^>]*>/g, '')
+          .trim();
 
-    if (
-      /^https?:\/\//i.test(file)
-    ) {
 
-      return file;
+        const shortSummary =
+          cleanSummary.length > 150
+            ? cleanSummary.slice(0, 150) + '…'
+            : cleanSummary;
 
-    }
 
-    if (
-      file.startsWith('/')
-    ) {
 
-      return file.substring(1);
+        /* ---------------------------------------------------
+           TEMPLATE BERITA
+           --------------------------------------------------- */
 
-    }
+        return `
+          <div class="col-lg-4 col-md-6">
 
-    if (
-      file.startsWith('files/') ||
-      file.startsWith('assets/') ||
-      file.startsWith('documents/') ||
-      file.startsWith('download/')
-    ) {
+            <article class="pkm-news-card">
 
-      return file;
+              <img
+                class="pkm-news-image"
+                src="${escapeHtml(image)}"
+                alt="${escapeHtml(title)}"
+                onerror="this.src='assets/img/health/facilities-9.webp'"
+              >
 
-    }
 
-    return (
-      'files/' +
-      file.replace(
-        /^\.\/+/,
-        ''
-      )
-    );
+              <div class="pkm-news-body">
 
-  }
 
-  async function loadJson(
-    url
-  ) {
+                <div class="pkm-news-meta">
 
-    const response =
-      await fetch(
-        url,
-        {
-          cache: 'no-store'
-        }
+                  ${escapeHtml(date)}
+
+                  ${date ? ' • ' : ''}
+
+                  ${escapeHtml(category)}
+
+                </div>
+
+
+                <h3>
+                  ${escapeHtml(title)}
+                </h3>
+
+
+                <p>
+                  ${escapeHtml(shortSummary)}
+                </p>
+
+
+                <a
+                  class="pkm-news-link"
+                  href="${escapeHtml(link)}"
+                >
+                  Baca selengkapnya →
+                </a>
+
+
+              </div>
+
+            </article>
+
+          </div>
+        `;
+
+      }).join('');
+
+
+    })
+
+
+    /* =======================================================
+       ERROR
+       ======================================================= */
+
+    .catch(function (err) {
+
+      console.error(
+        'Kesalahan memuat berita:',
+        err
       );
 
-    if (!response.ok) {
 
-      throw new Error(
-        'Gagal membaca ' +
-        url +
-        ' (' +
-        response.status +
-        ')'
-      );
+      newsBox.innerHTML = `
+        <div class="col-12 text-center">
 
-    }
-
-    return response.json();
-
-  }
-
-  function renderEmpty(
-    element,
-    title,
-    message
-  ) {
-
-    if (!element) {
-
-      return;
-
-    }
-
-    element.innerHTML = `
-
-      <div class="col-12">
-
-        <div class="pkm-placeholder">
-
-          <h3>
-            ${escapeHtml(title)}
-          </h3>
-
-          <p>
-            ${escapeHtml(message)}
+          <p class="pkm-loading">
+            Berita belum dapat dimuat.
+            Silakan cek koneksi API/data.
           </p>
 
         </div>
+      `;
 
-      </div>
+    });
 
-    `;
-
-  }
-
-  function renderError(
-    element,
-    title,
-    message
-  ) {
-
-    if (!element) {
-
-      return;
-
-    }
-
-    element.innerHTML = `
-
-      <div class="col-12">
-
-        <div class="pkm-placeholder">
-
-          <h3>
-            ${escapeHtml(title)}
-          </h3>
-
-          <p>
-            ${escapeHtml(message)}
-          </p>
-
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-  const newsBox =
-    document.getElementById(
-      'home-news'
-    );
-
-  if (newsBox) {
-
-    loadJson(
-      'data/berita.json'
-    )
-
-      .then(function (payload) {
-
-        let list =
-          normalizeList(
-            payload
-          );
-
-        list =
-          list.filter(
-            isPublished
-          );
-
-        list.sort(
-          function (a, b) {
-
-            const dateA =
-              parseDate(
-                pick(
-                  a,
-                  [
-                    'tanggal',
-                    'date'
-                  ],
-                  ''
-                )
-              );
-
-            const dateB =
-              parseDate(
-                pick(
-                  b,
-                  [
-                    'tanggal',
-                    'date'
-                  ],
-                  ''
-                )
-              );
-
-            if (!dateA) {
-
-              return 1;
-
-            }
-
-            if (!dateB) {
-
-              return -1;
-
-            }
-
-            return (
-              dateB.getTime() -
-              dateA.getTime()
-            );
-
-          }
-        );
-
-        list =
-          list.slice(
-            0,
-            3
-          );
-
-        if (!list.length) {
-
-          renderEmpty(
-            newsBox,
-            'Belum ada berita',
-            'Belum ada berita yang dapat ditampilkan.'
-          );
-
-          return;
-
-        }
-
-        newsBox.innerHTML =
-          list.map(
-            function (item) {
-
-              const category =
-                pick(
-                  item,
-                  [
-                    'kategori',
-                    'category',
-                    'jenis'
-                  ],
-                  'Informasi'
-                );
-
-              const title =
-                pick(
-                  item,
-                  [
-                    'judul',
-                    'title',
-                    'nama'
-                  ],
-                  'Berita Puskesmas'
-                );
-
-              const date =
-                formatDate(
-                  pick(
-                    item,
-                    [
-                      'tanggal',
-                      'date'
-                    ],
-                    ''
-                  )
-                );
-
-              const description =
-                cleanText(
-                  pick(
-                    item,
-                    [
-                      'ringkasan',
-                      'deskripsi',
-                      'description',
-                      'isi',
-                      'content'
-                    ],
-                    ''
-                  )
-                );
-
-              const image =
-                imageUrl(
-                  pick(
-                    item,
-                    [
-                      'gambar',
-                      'foto',
-                      'image',
-                      'thumbnail'
-                    ],
-                    ''
-                  )
-                );
-
-              const link =
-                pick(
-                  item,
-                  [
-                    'link',
-                    'url',
-                    'href'
-                  ],
-                  'berita.html'
-                );
-
-              return `
-
-                <div class="col-lg-4 col-md-6">
-
-                  <article
-                    class="pkm-news-card h-100"
-                  >
-
-                    <div
-                      class="pkm-news-image-wrap"
-                    >
-
-                      <img
-                        src="${escapeHtml(image)}"
-                        alt="${escapeHtml(title)}"
-                        class="pkm-news-image"
-                        loading="lazy"
-                        onerror="this.onerror=null;this.src='images/logo-puskesmas.PNG';"
-                      >
-
-                    </div>
-
-                    <div
-                      class="pkm-news-body"
-                    >
-
-                      <div
-                        class="pkm-news-meta"
-                      >
-
-                        <span
-                          class="pkm-category"
-                        >
-                          ${escapeHtml(category)}
-                        </span>
-
-                        ${
-                          date
-                            ? `
-                              <span
-                                class="pkm-news-date"
-                              >
-                                ${escapeHtml(date)}
-                              </span>
-                            `
-                            : ''
-                        }
-
-                      </div>
-
-                      <h3>
-                        ${escapeHtml(title)}
-                      </h3>
-
-                      ${
-                        description
-                          ? `
-                            <p>
-                              ${escapeHtml(
-                                description.length > 150
-                                  ? description.substring(0, 150) + '…'
-                                  : description
-                              )}
-                            </p>
-                          `
-                          : ''
-                      }
-
-                      <a
-                        href="${escapeHtml(link)}"
-                        class="pkm-news-link"
-                      >
-                        Baca selengkapnya →
-                      </a>
-
-                    </div>
-
-                  </article>
-
-                </div>
-
-              `;
-
-            }
-          ).join('');
-
-      })
-
-      .catch(
-        function (error) {
-
-          console.error(
-            'BERITA:',
-            error
-          );
-
-          renderError(
-            newsBox,
-            'Berita belum dapat dimuat',
-            'Silakan periksa data/berita.json.'
-          );
-
-        }
-      );
-
-  }
-
-  const agendaBox =
-    document.getElementById(
-      'home-agenda'
-    );
-
-  if (agendaBox) {
-
-    loadJson(
-      'data/agenda.json'
-    )
-
-      .then(function (payload) {
-
-        let list =
-          normalizeList(
-            payload
-          );
-
-        list =
-          list.filter(
-            isPublished
-          );
-
-        list.sort(
-          function (a, b) {
-
-            const dateA =
-              parseDate(
-                pick(
-                  a,
-                  [
-                    'tanggal',
-                    'date'
-                  ],
-                  ''
-                )
-              );
-
-            const dateB =
-              parseDate(
-                pick(
-                  b,
-                  [
-                    'tanggal',
-                    'date'
-                  ],
-                  ''
-                )
-              );
-
-            if (!dateA) {
-
-              return 1;
-
-            }
-
-            if (!dateB) {
-
-              return -1;
-
-            }
-
-            return (
-              dateA.getTime() -
-              dateB.getTime()
-            );
-
-          }
-        );
-
-        list =
-          list.slice(
-            0,
-            3
-          );
-
-        if (!list.length) {
-
-          renderEmpty(
-            agendaBox,
-            'Belum ada agenda',
-            'Belum ada agenda kegiatan yang dapat ditampilkan.'
-          );
-
-          return;
-
-        }
-
-        agendaBox.innerHTML =
-          list.map(
-            function (item) {
-
-              const title =
-                pick(
-                  item,
-                  [
-                    'judul',
-                    'title',
-                    'nama',
-                    'kegiatan'
-                  ],
-                  'Agenda Puskesmas'
-                );
-
-              const category =
-                pick(
-                  item,
-                  [
-                    'kategori',
-                    'category',
-                    'jenis'
-                  ],
-                  'Kegiatan'
-                );
-
-              const dateValue =
-                pick(
-                  item,
-                  [
-                    'tanggal',
-                    'date'
-                  ],
-                  ''
-                );
-
-              const date =
-                formatDate(
-                  dateValue
-                );
-
-              const time =
-                pick(
-                  item,
-                  [
-                    'waktu',
-                    'jam',
-                    'time'
-                  ],
-                  ''
-                );
-
-              const location =
-                pick(
-                  item,
-                  [
-                    'lokasi',
-                    'tempat',
-                    'location'
-                  ],
-                  ''
-                );
-
-              const description =
-                cleanText(
-                  pick(
-                    item,
-                    [
-                      'deskripsi',
-                      'description',
-                      'keterangan'
-                    ],
-                    ''
-                  )
-                );
-
-              const link =
-                pick(
-                  item,
-                  [
-                    'link',
-                    'url',
-                    'href'
-                  ],
-                  'agenda.html'
-                );
-
-              return `
-
-                <div class="col-lg-4 col-md-6">
-
-                  <article
-                    class="pkm-agenda-card"
-                  >
-
-                    <div
-                      class="pkm-agenda-date"
-                    >
-
-                      <div
-                        class="pkm-agenda-date-icon"
-                      >
-                        ${escapeHtml(
-                          date
-                            ? date.substring(0, 2)
-                            : '--'
-                        )}
-                      </div>
-
-                      <div>
-
-                        <strong>
-                          ${escapeHtml(date)}
-                        </strong>
-
-                        ${
-                          time
-                            ? `
-                              <span>
-                                ${escapeHtml(time)}
-                              </span>
-                            `
-                            : ''
-                        }
-
-                      </div>
-
-                    </div>
-
-                    <div
-                      class="pkm-agenda-category"
-                    >
-                      ${escapeHtml(category)}
-                    </div>
-
-                    <div
-                      class="pkm-agenda-info"
-                    >
-
-                      <h3>
-                        ${escapeHtml(title)}
-                      </h3>
-
-                      ${
-                        location
-                          ? `
-                            <p>
-                              ${escapeHtml(location)}
-                            </p>
-                          `
-                          : ''
-                      }
-
-                      ${
-                        description
-                          ? `
-                            <p>
-                              ${escapeHtml(
-                                description.length > 120
-                                  ? description.substring(0, 120) + '…'
-                                  : description
-                              )}
-                            </p>
-                          `
-                          : ''
-                      }
-
-                    </div>
-
-                    <a
-                      href="${escapeHtml(link)}"
-                      class="pkm-agenda-link"
-                    >
-                      Lihat agenda →
-                    </a>
-
-                  </article>
-
-                </div>
-
-              `;
-
-            }
-          ).join('');
-
-      })
-
-      .catch(
-        function (error) {
-
-          console.error(
-            'AGENDA:',
-            error
-          );
-
-          renderError(
-            agendaBox,
-            'Agenda belum dapat dimuat',
-            'Silakan periksa data/agenda.json.'
-          );
-
-        }
-      );
-
-  }
-
-  const galleryBox =
-    document.getElementById(
-      'home-gallery'
-    );
-
-  if (galleryBox) {
-
-    loadJson(
-      'data/galeri.json'
-    )
-
-      .then(function (payload) {
-
-        let list =
-          normalizeList(
-            payload
-          );
-
-        list =
-          list.filter(
-            isPublished
-          );
-
-        list.sort(
-          function (a, b) {
-
-            const dateA =
-              parseDate(
-                pick(
-                  a,
-                  [
-                    'tanggal',
-                    'date'
-                  ],
-                  ''
-                )
-              );
-
-            const dateB =
-              parseDate(
-                pick(
-                  b,
-                  [
-                    'tanggal',
-                    'date'
-                  ],
-                  ''
-                )
-              );
-
-            if (!dateA) {
-
-              return 1;
-
-            }
-
-            if (!dateB) {
-
-              return -1;
-
-            }
-
-            return (
-              dateB.getTime() -
-              dateA.getTime()
-            );
-
-          }
-        );
-
-        list =
-          list.slice(
-            0,
-            6
-          );
-
-        if (!list.length) {
-
-          renderEmpty(
-            galleryBox,
-            'Belum ada galeri',
-            'Belum ada dokumentasi kegiatan yang dapat ditampilkan.'
-          );
-
-          return;
-
-        }
-
-        galleryBox.innerHTML =
-          list.map(
-            function (item) {
-
-              const title =
-                pick(
-                  item,
-                  [
-                    'judul',
-                    'title',
-                    'nama'
-                  ],
-                  'Dokumentasi Kegiatan'
-                );
-
-              const album =
-                pick(
-                  item,
-                  [
-                    'album',
-                    'kategori',
-                    'category'
-                  ],
-                  'Kegiatan Puskesmas'
-                );
-
-              const date =
-                formatDate(
-                  pick(
-                    item,
-                    [
-                      'tanggal',
-                      'date'
-                    ],
-                    ''
-                  )
-                );
-
-              const image =
-                imageUrl(
-                  pick(
-                    item,
-                    [
-                      'foto',
-                      'gambar',
-                      'image',
-                      'thumbnail'
-                    ],
-                    ''
-                  )
-                );
-
-              const description =
-                cleanText(
-                  pick(
-                    item,
-                    [
-                      'keterangan',
-                      'deskripsi',
-                      'description'
-                    ],
-                    ''
-                  )
-                );
-
-              return `
-
-                <div class="col-lg-4 col-md-6">
-
-                  <a
-                    href="galeri.html"
-                    class="text-decoration-none"
-                  >
-
-                    <article
-                      class="pkm-gallery-card"
-                    >
-
-                      <div
-                        class="pkm-gallery-image"
-                      >
-
-                        <img
-                          src="${escapeHtml(image)}"
-                          alt="${escapeHtml(title)}"
-                          loading="lazy"
-                          onerror="this.onerror=null;this.src='images/logo-puskesmas.PNG';"
-                        >
-
-                        <div
-                          class="pkm-gallery-overlay"
-                        >
-
-                          <span>
-                            +
-                          </span>
-
-                        </div>
-
-                      </div>
-
-                      <div
-                        class="pkm-gallery-body"
-                      >
-
-                        <small>
-                          ${escapeHtml(album)}
-                        </small>
-
-                        <h3>
-                          ${escapeHtml(title)}
-                        </h3>
-
-                        ${
-                          description
-                            ? `
-                              <p>
-                                ${escapeHtml(
-                                  description.length > 120
-                                    ? description.substring(0, 120) + '…'
-                                    : description
-                                )}
-                              </p>
-                            `
-                            : ''
-                        }
-
-                        ${
-                          date
-                            ? `
-                              <div
-                                class="pkm-gallery-date"
-                              >
-                                ${escapeHtml(date)}
-                              </div>
-                            `
-                            : ''
-                        }
-
-                      </div>
-
-                    </article>
-
-                  </a>
-
-                </div>
-
-              `;
-
-            }
-          ).join('');
-
-      })
-
-      .catch(
-        function (error) {
-
-          console.error(
-            'GALERI:',
-            error
-          );
-
-          renderError(
-            galleryBox,
-            'Galeri belum dapat dimuat',
-            'Silakan periksa data/galeri.json.'
-          );
-
-        }
-      );
-
-  }
-
-  const downloadBox =
-    document.getElementById(
-      'home-download'
-    );
-
-  if (downloadBox) {
-
-    loadJson(
-      'data/download.json'
-    )
-
-      .then(function (payload) {
-
-        let list =
-          normalizeList(
-            payload
-          );
-
-        list =
-          list.filter(
-            isPublished
-          );
-
-        list =
-          list.slice(
-            0,
-            4
-          );
-
-        if (!list.length) {
-
-          renderEmpty(
-            downloadBox,
-            'Belum ada dokumen',
-            'Belum ada dokumen yang dapat diunduh.'
-          );
-
-          return;
-
-        }
-
-        downloadBox.innerHTML =
-          list.map(
-            function (item) {
-
-              const category =
-                pick(
-                  item,
-                  [
-                    'kategori',
-                    'category',
-                    'jenis'
-                  ],
-                  'Dokumen'
-                );
-
-              const title =
-                pick(
-                  item,
-                  [
-                    'namaFile',
-                    'nama',
-                    'judul'
-                  ],
-                  'Dokumen Puskesmas'
-                );
-
-              const description =
-                cleanText(
-                  pick(
-                    item,
-                    [
-                      'keterangan',
-                      'deskripsi',
-                      'description'
-                    ],
-                    ''
-                  )
-                );
-
-              const file =
-                pick(
-                  item,
-                  [
-                    'file',
-                    'url',
-                    'link',
-                    'href'
-                  ],
-                  ''
-                );
-
-              const url =
-                fileUrl(
-                  file
-                );
-
-              const link =
-                url ||
-                'download.html';
-
-              let extension =
-                'FILE';
-
-              const extensionMatch =
-                String(
-                  title
-                ).match(
-                  /\.([a-z0-9]{2,5})$/i
-                );
-
-              if (extensionMatch) {
-
-                extension =
-                  extensionMatch[1]
-                    .toUpperCase();
-
-              }
-
-              return `
-
-                <div class="col-lg-6">
-
-                  <article
-                    class="pkm-download-card"
-                  >
-
-                    <div
-                      class="pkm-download-icon"
-                    >
-                      ${escapeHtml(extension)}
-                    </div>
-
-                    <div
-                      class="pkm-download-content"
-                    >
-
-                      <small>
-                        ${escapeHtml(category)}
-                      </small>
-
-                      <h3>
-                        ${escapeHtml(title)}
-                      </h3>
-
-                      ${
-                        description
-                          ? `
-                            <p>
-                              ${escapeHtml(
-                                description.length > 130
-                                  ? description.substring(0, 130) + '…'
-                                  : description
-                              )}
-                            </p>
-                          `
-                          : ''
-                      }
-
-                      <a
-                        href="${escapeHtml(link)}"
-                        class="pkm-download-btn"
-                        ${
-                          /^https?:\/\//i.test(link)
-                            ? 'target="_blank" rel="noopener noreferrer"'
-                            : ''
-                        }
-                      >
-                        Download →
-                      </a>
-
-                    </div>
-
-                  </article>
-
-                </div>
-
-              `;
-
-            }
-          ).join('');
-
-      })
-
-      .catch(
-        function (error) {
-
-          console.error(
-            'DOWNLOAD:',
-            error
-          );
-
-          renderError(
-            downloadBox,
-            'Dokumen belum dapat dimuat',
-            'Silakan periksa data/download.json.'
-          );
-
-        }
-      );
-
-  }
 
 })();
