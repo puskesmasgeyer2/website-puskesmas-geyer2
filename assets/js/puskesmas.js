@@ -1,23 +1,12 @@
-/* =========================================================
-   FORCE HOMEPAGE TO START FROM TOP
-   Mencegah Chrome mengembalikan posisi scroll lama
-   ========================================================= */
-
 if (
   'scrollRestoration' in history
 ) {
   history.scrollRestoration = 'manual';
 }
 
-
 window.addEventListener(
   'load',
   function () {
-
-    /*
-      Kalau URL tidak mempunyai hash (#...)
-      selalu mulai dari bagian paling atas.
-    */
 
     if (!window.location.hash) {
 
@@ -32,29 +21,15 @@ window.addEventListener(
   }
 );
 
-
-/* =========================================================
-   SCRIPT UTAMA
-   ========================================================= */
-
 (function () {
 
   'use strict';
-(function () {
-
-  'use strict';
-
-
-  /* =========================================================
-     MOBILE NAVIGATION
-     ========================================================= */
 
   const nav =
     document.getElementById('navmenu');
 
   const toggle =
     document.querySelector('.mobile-nav-toggle');
-
 
   if (toggle && nav) {
 
@@ -73,7 +48,6 @@ window.addEventListener(
 
       }
     );
-
 
     nav.querySelectorAll('a')
       .forEach(function (link) {
@@ -95,17 +69,10 @@ window.addEventListener(
 
   }
 
-
-
-  /* =========================================================
-     CURRENT YEAR
-     ========================================================= */
-
   const year =
     document.getElementById(
       'current-year'
     );
-
 
   if (year) {
 
@@ -113,12 +80,6 @@ window.addEventListener(
       new Date().getFullYear();
 
   }
-
-
-
-  /* =========================================================
-     HELPER
-     ========================================================= */
 
   function pick(
     object,
@@ -143,16 +104,9 @@ window.addEventListener(
 
     }
 
-
     return fallback;
 
   }
-
-
-
-  /* =========================================================
-     NORMALIZE JSON
-     ========================================================= */
 
   function normalizeList(
     payload
@@ -166,7 +120,6 @@ window.addEventListener(
 
     }
 
-
     if (
       payload &&
       Array.isArray(payload.data)
@@ -175,7 +128,6 @@ window.addEventListener(
       return payload.data;
 
     }
-
 
     if (
       payload &&
@@ -186,7 +138,6 @@ window.addEventListener(
 
     }
 
-
     if (
       payload &&
       Array.isArray(payload.berita)
@@ -195,7 +146,6 @@ window.addEventListener(
       return payload.berita;
 
     }
-
 
     if (
       payload &&
@@ -206,7 +156,6 @@ window.addEventListener(
 
     }
 
-
     if (
       payload &&
       Array.isArray(payload.galeri)
@@ -215,7 +164,6 @@ window.addEventListener(
       return payload.galeri;
 
     }
-
 
     if (
       payload &&
@@ -226,16 +174,9 @@ window.addEventListener(
 
     }
 
-
     return [];
 
   }
-
-
-
-  /* =========================================================
-     ESCAPE HTML
-     ========================================================= */
 
   function escapeHtml(
     value
@@ -262,12 +203,6 @@ window.addEventListener(
 
   }
 
-
-
-  /* =========================================================
-     CLEAN TEXT
-     ========================================================= */
-
   function cleanText(
     value
   ) {
@@ -287,12 +222,6 @@ window.addEventListener(
 
   }
 
-
-
-  /* =========================================================
-     PARSE DATE
-     ========================================================= */
-
   function parseDate(
     value
   ) {
@@ -303,21 +232,13 @@ window.addEventListener(
 
     }
 
-
     const raw =
       String(value).trim();
-
-
-    /*
-      YYYY-MM-DD
-      YYYY-MM-DDTHH:mm:ss
-    */
 
     let match =
       raw.match(
         /^(\d{4})[-/](\d{1,2})[-/](\d{1,2})/
       );
-
 
     if (match) {
 
@@ -328,7 +249,6 @@ window.addEventListener(
           Number(match[3])
         );
 
-
       if (
         !Number.isNaN(
           date.getTime()
@@ -341,17 +261,10 @@ window.addEventListener(
 
     }
 
-
-    /*
-      DD/MM/YYYY
-      DD-MM-YYYY
-    */
-
     match =
       raw.match(
         /^(\d{1,2})[-/](\d{1,2})[-/](\d{4})/
       );
-
 
     if (match) {
 
@@ -362,7 +275,6 @@ window.addEventListener(
           Number(match[1])
         );
 
-
       if (
         !Number.isNaN(
           date.getTime()
@@ -375,14 +287,8 @@ window.addEventListener(
 
     }
 
-
-    /*
-      Fallback
-    */
-
     const date =
       new Date(raw);
-
 
     if (
       !Number.isNaN(
@@ -394,16 +300,9 @@ window.addEventListener(
 
     }
 
-
     return null;
 
   }
-
-
-
-  /* =========================================================
-     FORMAT DATE
-     ========================================================= */
 
   function formatDate(
     value
@@ -412,7 +311,6 @@ window.addEventListener(
     const date =
       parseDate(value);
 
-
     if (!date) {
 
       return String(
@@ -420,7 +318,6 @@ window.addEventListener(
       );
 
     }
-
 
     return date.toLocaleDateString(
       'id-ID',
@@ -432,12 +329,6 @@ window.addEventListener(
     );
 
   }
-
-
-
-  /* =========================================================
-     STATUS
-     ========================================================= */
 
   function isPublished(
     item
@@ -459,18 +350,11 @@ window.addEventListener(
       .trim()
       .toLowerCase();
 
-
-    /*
-      Jika tidak ada kolom status,
-      data tetap dianggap aktif.
-    */
-
     if (!status) {
 
       return true;
 
     }
-
 
     return [
 
@@ -490,12 +374,6 @@ window.addEventListener(
 
   }
 
-
-
-  /* =========================================================
-     IMAGE URL
-     ========================================================= */
-
   function imageUrl(
     value
   ) {
@@ -506,30 +384,17 @@ window.addEventListener(
 
     }
 
-
     let image =
       String(value).trim();
-
-
-    /*
-      URL eksternal
-    */
 
     if (
       /^https?:\/\//i.test(image)
     ) {
 
-
-      /*
-        Google Drive:
-        /file/d/ID/
-      */
-
       const driveFile =
         image.match(
           /drive\.google\.com\/file\/d\/([^/]+)/
         );
-
 
       if (driveFile) {
 
@@ -543,17 +408,10 @@ window.addEventListener(
 
       }
 
-
-      /*
-        Google Drive:
-        ?id=ID
-      */
-
       const driveId =
         image.match(
           /[?&]id=([^&]+)/
         );
-
 
       if (
         image.includes(
@@ -572,15 +430,9 @@ window.addEventListener(
 
       }
 
-
       return image;
 
     }
-
-
-    /*
-      Root relative
-    */
 
     if (
       image.startsWith('/')
@@ -590,11 +442,6 @@ window.addEventListener(
 
     }
 
-
-    /*
-      Sudah mempunyai folder
-    */
-
     if (
       image.startsWith('images/') ||
       image.startsWith('assets/')
@@ -603,11 +450,6 @@ window.addEventListener(
       return image;
 
     }
-
-
-    /*
-      File gambar biasa
-    */
 
     return (
       'images/' +
@@ -619,12 +461,6 @@ window.addEventListener(
 
   }
 
-
-
-  /* =========================================================
-     FILE URL
-     ========================================================= */
-
   function fileUrl(
     value
   ) {
@@ -635,14 +471,8 @@ window.addEventListener(
 
     }
 
-
     const file =
       String(value).trim();
-
-
-    /*
-      URL eksternal
-    */
 
     if (
       /^https?:\/\//i.test(file)
@@ -652,11 +482,6 @@ window.addEventListener(
 
     }
 
-
-    /*
-      Root relative
-    */
-
     if (
       file.startsWith('/')
     ) {
@@ -664,11 +489,6 @@ window.addEventListener(
       return file.substring(1);
 
     }
-
-
-    /*
-      Sudah mempunyai folder
-    */
 
     if (
       file.startsWith('files/') ||
@@ -681,11 +501,6 @@ window.addEventListener(
 
     }
 
-
-    /*
-      Nama file saja
-    */
-
     return (
       'files/' +
       file.replace(
@@ -695,12 +510,6 @@ window.addEventListener(
     );
 
   }
-
-
-
-  /* =========================================================
-     LOAD JSON
-     ========================================================= */
 
   async function loadJson(
     url
@@ -714,7 +523,6 @@ window.addEventListener(
         }
       );
 
-
     if (!response.ok) {
 
       throw new Error(
@@ -727,16 +535,9 @@ window.addEventListener(
 
     }
 
-
     return response.json();
 
   }
-
-
-
-  /* =========================================================
-     EMPTY
-     ========================================================= */
 
   function renderEmpty(
     element,
@@ -750,20 +551,19 @@ window.addEventListener(
 
     }
 
-
     element.innerHTML = `
 
       <div class="col-12">
 
         <div class="pkm-placeholder">
 
-          <strong>
+          <h3>
             ${escapeHtml(title)}
-          </strong>
+          </h3>
 
-          <span>
+          <p>
             ${escapeHtml(message)}
-          </span>
+          </p>
 
         </div>
 
@@ -773,37 +573,44 @@ window.addEventListener(
 
   }
 
-
-
-  /* =========================================================
-     ERROR
-     ========================================================= */
-
   function renderError(
     element,
     title,
     message
   ) {
 
-    renderEmpty(
-      element,
-      title,
-      message
-    );
+    if (!element) {
+
+      return;
+
+    }
+
+    element.innerHTML = `
+
+      <div class="col-12">
+
+        <div class="pkm-placeholder">
+
+          <h3>
+            ${escapeHtml(title)}
+          </h3>
+
+          <p>
+            ${escapeHtml(message)}
+          </p>
+
+        </div>
+
+      </div>
+
+    `;
 
   }
-
-
-
-  /* =========================================================
-     BERITA
-     ========================================================= */
 
   const newsBox =
     document.getElementById(
       'home-news'
     );
-
 
   if (newsBox) {
 
@@ -818,16 +625,10 @@ window.addEventListener(
             payload
           );
 
-
         list =
           list.filter(
             isPublished
           );
-
-
-        /*
-          Terbaru terlebih dahulu
-        */
 
         list.sort(
           function (a, b) {
@@ -838,13 +639,11 @@ window.addEventListener(
                   a,
                   [
                     'tanggal',
-                    'date',
-                    'created_at'
+                    'date'
                   ],
                   ''
                 )
               );
-
 
             const dateB =
               parseDate(
@@ -852,13 +651,11 @@ window.addEventListener(
                   b,
                   [
                     'tanggal',
-                    'date',
-                    'created_at'
+                    'date'
                   ],
                   ''
                 )
               );
-
 
             if (!dateA) {
 
@@ -866,13 +663,11 @@ window.addEventListener(
 
             }
 
-
             if (!dateB) {
 
               return -1;
 
             }
-
 
             return (
               dateB.getTime() -
@@ -882,13 +677,11 @@ window.addEventListener(
           }
         );
 
-
         list =
           list.slice(
             0,
             3
           );
-
 
         if (!list.length) {
 
@@ -902,34 +695,9 @@ window.addEventListener(
 
         }
 
-
         newsBox.innerHTML =
           list.map(
             function (item) {
-
-              const id =
-                pick(
-                  item,
-                  [
-                    'id',
-                    'ID',
-                    'kode'
-                  ],
-                  ''
-                );
-
-
-              const title =
-                pick(
-                  item,
-                  [
-                    'judul',
-                    'title',
-                    'nama'
-                  ],
-                  'Berita Puskesmas Geyer 2'
-                );
-
 
               const category =
                 pick(
@@ -939,9 +707,19 @@ window.addEventListener(
                     'category',
                     'jenis'
                   ],
-                  'Berita'
+                  'Informasi'
                 );
 
+              const title =
+                pick(
+                  item,
+                  [
+                    'judul',
+                    'title',
+                    'nama'
+                  ],
+                  'Berita Puskesmas'
+                );
 
               const date =
                 formatDate(
@@ -949,30 +727,26 @@ window.addEventListener(
                     item,
                     [
                       'tanggal',
-                      'date',
-                      'created_at'
+                      'date'
                     ],
                     ''
                   )
                 );
 
-
-              const summary =
+              const description =
                 cleanText(
                   pick(
                     item,
                     [
                       'ringkasan',
-                      'summary',
-                      'excerpt',
                       'deskripsi',
                       'description',
-                      'isi'
+                      'isi',
+                      'content'
                     ],
-                    'Informasi terbaru dari UPTD Puskesmas Geyer 2.'
+                    ''
                   )
                 );
-
 
               const image =
                 imageUrl(
@@ -980,29 +754,24 @@ window.addEventListener(
                     item,
                     [
                       'gambar',
-                      'image',
                       'foto',
+                      'image',
                       'thumbnail'
                     ],
                     ''
                   )
                 );
 
-
               const link =
-                id
-                  ? (
-                    'detail-berita.html?id=' +
-                    encodeURIComponent(id)
-                  )
-                  : 'berita.html';
-
-
-              const shortSummary =
-                summary.length > 160
-                  ? summary.substring(0, 160) + '…'
-                  : summary;
-
+                pick(
+                  item,
+                  [
+                    'link',
+                    'url',
+                    'href'
+                  ],
+                  'berita.html'
+                );
 
               return `
 
@@ -1017,15 +786,14 @@ window.addEventListener(
                     >
 
                       <img
-                        class="pkm-news-image"
                         src="${escapeHtml(image)}"
                         alt="${escapeHtml(title)}"
+                        class="pkm-news-image"
                         loading="lazy"
                         onerror="this.onerror=null;this.src='images/logo-puskesmas.PNG';"
                       >
 
                     </div>
-
 
                     <div
                       class="pkm-news-body"
@@ -1041,29 +809,41 @@ window.addEventListener(
                           ${escapeHtml(category)}
                         </span>
 
+                        ${
+                          date
+                            ? `
+                              <span
+                                class="pkm-news-date"
+                              >
+                                ${escapeHtml(date)}
+                              </span>
+                            `
+                            : ''
+                        }
+
                       </div>
-
-
-                      <div
-                        class="pkm-news-date"
-                      >
-                        ${escapeHtml(date)}
-                      </div>
-
 
                       <h3>
                         ${escapeHtml(title)}
                       </h3>
 
-
-                      <p>
-                        ${escapeHtml(shortSummary)}
-                      </p>
-
+                      ${
+                        description
+                          ? `
+                            <p>
+                              ${escapeHtml(
+                                description.length > 150
+                                  ? description.substring(0, 150) + '…'
+                                  : description
+                              )}
+                            </p>
+                          `
+                          : ''
+                      }
 
                       <a
-                        class="pkm-news-link"
                         href="${escapeHtml(link)}"
+                        class="pkm-news-link"
                       >
                         Baca selengkapnya →
                       </a>
@@ -1089,7 +869,6 @@ window.addEventListener(
             error
           );
 
-
           renderError(
             newsBox,
             'Berita belum dapat dimuat',
@@ -1101,17 +880,10 @@ window.addEventListener(
 
   }
 
-
-
-  /* =========================================================
-     AGENDA
-     ========================================================= */
-
   const agendaBox =
     document.getElementById(
       'home-agenda'
     );
-
 
   if (agendaBox) {
 
@@ -1126,70 +898,12 @@ window.addEventListener(
             payload
           );
 
-
         list =
           list.filter(
             isPublished
           );
 
-
-        const today =
-          new Date();
-
-
-        const todayOnly =
-          new Date(
-            today.getFullYear(),
-            today.getMonth(),
-            today.getDate()
-          );
-
-
-        /*
-          Prioritaskan agenda yang belum lewat
-        */
-
-        const upcoming =
-          list.filter(
-            function (item) {
-
-              const date =
-                parseDate(
-                  pick(
-                    item,
-                    [
-                      'tanggal',
-                      'date'
-                    ],
-                    ''
-                  )
-                );
-
-
-              if (!date) {
-
-                return true;
-
-              }
-
-
-              return date >= todayOnly;
-
-            }
-          );
-
-
-        let finalList =
-          upcoming.length
-            ? upcoming
-            : list;
-
-
-        /*
-          Urut terdekat
-        */
-
-        finalList.sort(
+        list.sort(
           function (a, b) {
 
             const dateA =
@@ -1204,7 +918,6 @@ window.addEventListener(
                 )
               );
 
-
             const dateB =
               parseDate(
                 pick(
@@ -1217,20 +930,17 @@ window.addEventListener(
                 )
               );
 
-
             if (!dateA) {
 
               return 1;
 
             }
 
-
             if (!dateB) {
 
               return -1;
 
             }
-
 
             return (
               dateA.getTime() -
@@ -1240,15 +950,13 @@ window.addEventListener(
           }
         );
 
-
-        finalList =
-          finalList.slice(
+        list =
+          list.slice(
             0,
             3
           );
 
-
-        if (!finalList.length) {
+        if (!list.length) {
 
           renderEmpty(
             agendaBox,
@@ -1260,35 +968,21 @@ window.addEventListener(
 
         }
 
-
         agendaBox.innerHTML =
-          finalList.map(
+          list.map(
             function (item) {
-
-              const id =
-                pick(
-                  item,
-                  [
-                    'id',
-                    'ID',
-                    'kode'
-                  ],
-                  ''
-                );
-
 
               const title =
                 pick(
                   item,
                   [
-                    'kegiatan',
                     'judul',
                     'title',
-                    'nama'
+                    'nama',
+                    'kegiatan'
                   ],
                   'Agenda Puskesmas'
                 );
-
 
               const category =
                 pick(
@@ -1298,79 +992,51 @@ window.addEventListener(
                     'category',
                     'jenis'
                   ],
-                  'Agenda'
+                  'Kegiatan'
                 );
-
 
               const dateValue =
-                parseDate(
-                  pick(
-                    item,
-                    [
-                      'tanggal',
-                      'date'
-                    ],
-                    ''
-                  )
-                );
-
-
-              const dateText =
-                dateValue
-                  ? dateValue.toLocaleDateString(
-                      'id-ID',
-                      {
-                        day: '2-digit',
-                        month: 'long',
-                        year: 'numeric'
-                      }
-                    )
-                  : '';
-
-
-              const jam =
                 pick(
                   item,
                   [
-                    'jam',
+                    'tanggal',
+                    'date'
+                  ],
+                  ''
+                );
+
+              const date =
+                formatDate(
+                  dateValue
+                );
+
+              const time =
+                pick(
+                  item,
+                  [
                     'waktu',
+                    'jam',
                     'time'
                   ],
                   ''
                 );
 
-
-              const tempat =
+              const location =
                 pick(
                   item,
                   [
-                    'tempat',
                     'lokasi',
+                    'tempat',
                     'location'
                   ],
                   ''
                 );
 
-
-              const pj =
-                pick(
-                  item,
-                  [
-                    'penanggungjawab',
-                    'penanggung_jawab',
-                    'pj'
-                  ],
-                  ''
-                );
-
-
-              const summary =
+              const description =
                 cleanText(
                   pick(
                     item,
                     [
-                      'ringkasan',
-                      'summary',
                       'deskripsi',
                       'description',
                       'keterangan'
@@ -1379,15 +1045,16 @@ window.addEventListener(
                   )
                 );
 
-
               const link =
-                id
-                  ? (
-                    'detail-agenda.html?id=' +
-                    encodeURIComponent(id)
-                  )
-                  : 'agenda.html';
-
+                pick(
+                  item,
+                  [
+                    'link',
+                    'url',
+                    'href'
+                  ],
+                  'agenda.html'
+                );
 
               return `
 
@@ -1397,7 +1064,6 @@ window.addEventListener(
                     class="pkm-agenda-card"
                   >
 
-
                     <div
                       class="pkm-agenda-date"
                     >
@@ -1405,103 +1071,72 @@ window.addEventListener(
                       <div
                         class="pkm-agenda-date-icon"
                       >
-                        📅
+                        ${escapeHtml(
+                          date
+                            ? date.substring(0, 2)
+                            : '--'
+                        )}
                       </div>
-
 
                       <div>
 
-                        <small>
-                          Tanggal
-                        </small>
-
                         <strong>
-                          ${escapeHtml(dateText)}
+                          ${escapeHtml(date)}
                         </strong>
+
+                        ${
+                          time
+                            ? `
+                              <span>
+                                ${escapeHtml(time)}
+                              </span>
+                            `
+                            : ''
+                        }
 
                       </div>
 
                     </div>
 
-
-                    <span
+                    <div
                       class="pkm-agenda-category"
                     >
                       ${escapeHtml(category)}
-                    </span>
-
-
-                    <h3>
-                      ${escapeHtml(title)}
-                    </h3>
-
-
-                    ${
-                      summary
-                        ? `
-                          <p>
-                            ${escapeHtml(
-                              summary.length > 140
-                                ? summary.substring(0, 140) + '…'
-                                : summary
-                            )}
-                          </p>
-                        `
-                        : ''
-                    }
-
+                    </div>
 
                     <div
                       class="pkm-agenda-info"
                     >
 
+                      <h3>
+                        ${escapeHtml(title)}
+                      </h3>
+
                       ${
-                        jam
+                        location
                           ? `
-                            <div>
-                              🕐
-                              <strong>
-                                Jam:
-                              </strong>
-                              ${escapeHtml(jam)}
-                            </div>
+                            <p>
+                              ${escapeHtml(location)}
+                            </p>
                           `
                           : ''
                       }
 
-
                       ${
-                        tempat
+                        description
                           ? `
-                            <div>
-                              📍
-                              <strong>
-                                Tempat:
-                              </strong>
-                              ${escapeHtml(tempat)}
-                            </div>
+                            <p>
+                              ${escapeHtml(
+                                description.length > 120
+                                  ? description.substring(0, 120) + '…'
+                                  : description
+                              )}
+                            </p>
                           `
                           : ''
                       }
-
-
-                      ${
-                        pj
-                          ? `
-                            <div>
-                              👤
-                              <strong>
-                                Penanggung Jawab:
-                              </strong>
-                              ${escapeHtml(pj)}
-                            </div>
-                          `
-                          : ''
-                      }
-
 
                     </div>
-
 
                     <a
                       href="${escapeHtml(link)}"
@@ -1509,7 +1144,6 @@ window.addEventListener(
                     >
                       Lihat agenda →
                     </a>
-
 
                   </article>
 
@@ -1530,7 +1164,6 @@ window.addEventListener(
             error
           );
 
-
           renderError(
             agendaBox,
             'Agenda belum dapat dimuat',
@@ -1542,17 +1175,10 @@ window.addEventListener(
 
   }
 
-
-
-  /* =========================================================
-     GALERI
-     ========================================================= */
-
   const galleryBox =
     document.getElementById(
       'home-gallery'
     );
-
 
   if (galleryBox) {
 
@@ -1567,16 +1193,10 @@ window.addEventListener(
             payload
           );
 
-
         list =
           list.filter(
             isPublished
           );
-
-
-        /*
-          Terbaru
-        */
 
         list.sort(
           function (a, b) {
@@ -1593,7 +1213,6 @@ window.addEventListener(
                 )
               );
 
-
             const dateB =
               parseDate(
                 pick(
@@ -1606,20 +1225,17 @@ window.addEventListener(
                 )
               );
 
-
             if (!dateA) {
 
               return 1;
 
             }
 
-
             if (!dateB) {
 
               return -1;
 
             }
-
 
             return (
               dateB.getTime() -
@@ -1629,13 +1245,11 @@ window.addEventListener(
           }
         );
 
-
         list =
           list.slice(
             0,
             6
           );
-
 
         if (!list.length) {
 
@@ -1648,7 +1262,6 @@ window.addEventListener(
           return;
 
         }
-
 
         galleryBox.innerHTML =
           list.map(
@@ -1665,7 +1278,6 @@ window.addEventListener(
                   'Dokumentasi Kegiatan'
                 );
 
-
               const album =
                 pick(
                   item,
@@ -1676,7 +1288,6 @@ window.addEventListener(
                   ],
                   'Kegiatan Puskesmas'
                 );
-
 
               const date =
                 formatDate(
@@ -1689,7 +1300,6 @@ window.addEventListener(
                     ''
                   )
                 );
-
 
               const image =
                 imageUrl(
@@ -1705,7 +1315,6 @@ window.addEventListener(
                   )
                 );
 
-
               const description =
                 cleanText(
                   pick(
@@ -1718,7 +1327,6 @@ window.addEventListener(
                     ''
                   )
                 );
-
 
               return `
 
@@ -1733,7 +1341,6 @@ window.addEventListener(
                       class="pkm-gallery-card"
                     >
 
-
                       <div
                         class="pkm-gallery-image"
                       >
@@ -1744,7 +1351,6 @@ window.addEventListener(
                           loading="lazy"
                           onerror="this.onerror=null;this.src='images/logo-puskesmas.PNG';"
                         >
-
 
                         <div
                           class="pkm-gallery-overlay"
@@ -1758,7 +1364,6 @@ window.addEventListener(
 
                       </div>
 
-
                       <div
                         class="pkm-gallery-body"
                       >
@@ -1767,11 +1372,9 @@ window.addEventListener(
                           ${escapeHtml(album)}
                         </small>
 
-
                         <h3>
                           ${escapeHtml(title)}
                         </h3>
-
 
                         ${
                           description
@@ -1787,7 +1390,6 @@ window.addEventListener(
                             : ''
                         }
 
-
                         ${
                           date
                             ? `
@@ -1801,7 +1403,6 @@ window.addEventListener(
                         }
 
                       </div>
-
 
                     </article>
 
@@ -1824,7 +1425,6 @@ window.addEventListener(
             error
           );
 
-
           renderError(
             galleryBox,
             'Galeri belum dapat dimuat',
@@ -1836,17 +1436,10 @@ window.addEventListener(
 
   }
 
-
-
-  /* =========================================================
-     DOWNLOAD
-     ========================================================= */
-
   const downloadBox =
     document.getElementById(
       'home-download'
     );
-
 
   if (downloadBox) {
 
@@ -1861,23 +1454,16 @@ window.addEventListener(
             payload
           );
 
-
         list =
           list.filter(
             isPublished
           );
-
-
-        /*
-          Maksimal 4 dokumen
-        */
 
         list =
           list.slice(
             0,
             4
           );
-
 
         if (!list.length) {
 
@@ -1890,7 +1476,6 @@ window.addEventListener(
           return;
 
         }
-
 
         downloadBox.innerHTML =
           list.map(
@@ -1907,7 +1492,6 @@ window.addEventListener(
                   'Dokumen'
                 );
 
-
               const title =
                 pick(
                   item,
@@ -1918,7 +1502,6 @@ window.addEventListener(
                   ],
                   'Dokumen Puskesmas'
                 );
-
 
               const description =
                 cleanText(
@@ -1933,7 +1516,6 @@ window.addEventListener(
                   )
                 );
 
-
               const file =
                 pick(
                   item,
@@ -1946,25 +1528,17 @@ window.addEventListener(
                   ''
                 );
 
-
               const url =
                 fileUrl(
                   file
                 );
 
-
               const link =
                 url ||
                 'download.html';
 
-
-              /*
-                Ambil ekstensi file
-              */
-
               let extension =
                 'FILE';
-
 
               const extensionMatch =
                 String(
@@ -1972,7 +1546,6 @@ window.addEventListener(
                 ).match(
                   /\.([a-z0-9]{2,5})$/i
                 );
-
 
               if (extensionMatch) {
 
@@ -1982,7 +1555,6 @@ window.addEventListener(
 
               }
 
-
               return `
 
                 <div class="col-lg-6">
@@ -1991,28 +1563,23 @@ window.addEventListener(
                     class="pkm-download-card"
                   >
 
-
                     <div
                       class="pkm-download-icon"
                     >
                       ${escapeHtml(extension)}
                     </div>
 
-
                     <div
                       class="pkm-download-content"
                     >
-
 
                       <small>
                         ${escapeHtml(category)}
                       </small>
 
-
                       <h3>
                         ${escapeHtml(title)}
                       </h3>
-
 
                       ${
                         description
@@ -2028,7 +1595,6 @@ window.addEventListener(
                           : ''
                       }
 
-
                       <a
                         href="${escapeHtml(link)}"
                         class="pkm-download-btn"
@@ -2041,9 +1607,7 @@ window.addEventListener(
                         Download →
                       </a>
 
-
                     </div>
-
 
                   </article>
 
@@ -2064,7 +1628,6 @@ window.addEventListener(
             error
           );
 
-
           renderError(
             downloadBox,
             'Dokumen belum dapat dimuat',
@@ -2075,6 +1638,5 @@ window.addEventListener(
       );
 
   }
-
 
 })();
