@@ -22,381 +22,30 @@
     href="images/logo-puskesmas.PNG"
   >
 
-  <!-- Bootstrap -->
+
+  <!-- =========================================================
+       BOOTSTRAP
+       ========================================================= -->
+
   <link
     href="assets/vendor/bootstrap/css/bootstrap.min.css"
     rel="stylesheet"
   >
 
-  <!-- CSS utama -->
+
+  <!-- =========================================================
+       CSS UTAMA
+       ========================================================= -->
+
   <link
     href="assets/css/main.css"
     rel="stylesheet"
   >
 
-  <!-- CSS Puskesmas -->
   <link
     href="assets/css/puskesmas.css"
     rel="stylesheet"
   >
-
-
-  <!-- =========================================================
-       CSS TAMBAHAN HOMEPAGE
-       Hanya mempercantik kartu data dinamis.
-       Tidak mengubah desain utama.
-       ========================================================= -->
-  <style>
-
-    /* =========================================================
-       HOME DATA CARD
-       ========================================================= */
-
-    .home-data-card {
-      height: 100%;
-      background: #ffffff;
-      border: 1px solid #e4ebf2;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 8px 28px rgba(16, 48, 90, .06);
-      transition:
-        transform .2s ease,
-        box-shadow .2s ease;
-    }
-
-    .home-data-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 16px 35px rgba(16, 48, 90, .11);
-    }
-
-
-    /* =========================================================
-       BERITA
-       ========================================================= */
-
-    .home-news-image-wrap {
-      position: relative;
-      width: 100%;
-      height: 215px;
-      overflow: hidden;
-      background: #eef4f8;
-    }
-
-    .home-news-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform .35s ease;
-    }
-
-    .home-data-card:hover .home-news-image {
-      transform: scale(1.04);
-    }
-
-    .home-news-body {
-      padding: 22px;
-    }
-
-    .home-news-category {
-      display: inline-flex;
-      align-items: center;
-      padding: 5px 11px;
-      border-radius: 50px;
-      background: #e8f7ef;
-      color: #0f8b50;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .home-news-date {
-      color: #8292a6;
-      font-size: 13px;
-      margin-bottom: 8px;
-    }
-
-    .home-news-title {
-      color: #123b6d;
-      font-size: 19px;
-      line-height: 1.4;
-      font-weight: 750;
-      margin: 0 0 10px;
-    }
-
-    .home-news-summary {
-      color: #667b92;
-      font-size: 14px;
-      line-height: 1.7;
-      margin-bottom: 16px;
-    }
-
-    .home-data-link {
-      color: #0f9d58;
-      font-weight: 700;
-      font-size: 14px;
-      text-decoration: none;
-    }
-
-    .home-data-link:hover {
-      color: #087b43;
-    }
-
-
-    /* =========================================================
-       AGENDA
-       ========================================================= */
-
-    .home-agenda-card {
-      padding: 24px;
-    }
-
-    .home-agenda-top {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    .home-agenda-date {
-      width: 68px;
-      min-width: 68px;
-      border-radius: 15px;
-      background: #edf8f2;
-      text-align: center;
-      padding: 10px 6px;
-      border: 1px solid #d7eee0;
-    }
-
-    .home-agenda-day {
-      display: block;
-      color: #0f9d58;
-      font-size: 27px;
-      line-height: 1;
-      font-weight: 800;
-    }
-
-    .home-agenda-month {
-      display: block;
-      color: #56718c;
-      font-size: 11px;
-      font-weight: 700;
-      margin-top: 5px;
-      text-transform: uppercase;
-    }
-
-    .home-agenda-year {
-      display: block;
-      color: #91a1b2;
-      font-size: 10px;
-      margin-top: 2px;
-    }
-
-    .home-agenda-content {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .home-agenda-content h3 {
-      color: #123b6d;
-      font-size: 18px;
-      font-weight: 750;
-      line-height: 1.4;
-      margin: 0 0 10px;
-    }
-
-    .home-agenda-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px 14px;
-      color: #71859a;
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .home-agenda-meta span {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .home-agenda-person {
-      margin-top: 15px;
-      padding-top: 13px;
-      border-top: 1px solid #edf1f5;
-      color: #8191a2;
-      font-size: 12px;
-    }
-
-
-    /* =========================================================
-       GALERI
-       ========================================================= */
-
-    .home-gallery-card {
-      position: relative;
-      height: 100%;
-      min-height: 235px;
-      overflow: hidden;
-      border-radius: 18px;
-      background: #eaf1f5;
-    }
-
-    .home-gallery-image {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .35s ease;
-    }
-
-    .home-gallery-card:hover .home-gallery-image {
-      transform: scale(1.06);
-    }
-
-    .home-gallery-overlay {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 45px 20px 18px;
-      color: #ffffff;
-      background: linear-gradient(
-        to top,
-        rgba(7, 30, 55, .88),
-        rgba(7, 30, 55, 0)
-      );
-    }
-
-    .home-gallery-album {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .6px;
-      text-transform: uppercase;
-      margin-bottom: 5px;
-      opacity: .85;
-    }
-
-    .home-gallery-title {
-      font-size: 17px;
-      line-height: 1.35;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .home-gallery-date {
-      font-size: 11px;
-      margin-top: 6px;
-      opacity: .78;
-    }
-
-
-    /* =========================================================
-       DOWNLOAD
-       ========================================================= */
-
-    .home-download-card {
-      padding: 22px;
-    }
-
-    .home-download-icon {
-      width: 52px;
-      height: 52px;
-      min-width: 52px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #edf7ff;
-      color: #1976d2;
-      font-size: 25px;
-      font-weight: 800;
-    }
-
-    .home-download-content {
-      min-width: 0;
-    }
-
-    .home-download-category {
-      color: #0f9d58;
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      margin-bottom: 5px;
-    }
-
-    .home-download-title {
-      color: #123b6d;
-      font-size: 16px;
-      line-height: 1.4;
-      font-weight: 750;
-      margin: 0 0 6px;
-    }
-
-    .home-download-description {
-      color: #7a8da1;
-      font-size: 12px;
-      line-height: 1.6;
-      margin: 0 0 10px;
-    }
-
-
-    /* =========================================================
-       EMPTY / ERROR
-       ========================================================= */
-
-    .home-data-empty {
-      width: 100%;
-      padding: 35px 20px;
-      text-align: center;
-      border: 1px dashed #d7e2ec;
-      border-radius: 16px;
-      background: #f9fbfd;
-      color: #71849a;
-    }
-
-    .home-data-empty strong {
-      display: block;
-      color: #123b6d;
-      margin-bottom: 6px;
-    }
-
-    .home-data-loading {
-      width: 100%;
-      padding: 35px 20px;
-      text-align: center;
-      color: #71849a;
-    }
-
-
-    /* =========================================================
-       RESPONSIVE
-       ========================================================= */
-
-    @media (max-width: 767px) {
-
-      .home-news-image-wrap {
-        height: 200px;
-      }
-
-      .home-agenda-card {
-        padding: 19px;
-      }
-
-      .home-agenda-date {
-        width: 60px;
-        min-width: 60px;
-      }
-
-      .home-gallery-card {
-        min-height: 220px;
-      }
-
-    }
-
-  </style>
 
 </head>
 
@@ -406,6 +55,7 @@
 
 <!-- =========================================================
      HEADER
+     JANGAN DIUBAH
      ========================================================= -->
 
 <header
@@ -444,66 +94,100 @@
 
         <ul>
 
+
+          <!-- BERANDA -->
+
           <li>
+
             <a
               href="index.html"
               class="active"
             >
               Beranda
             </a>
+
           </li>
 
 
+          <!-- PENGUMUMAN -->
+
           <li>
+
             <a href="pengumuman.html">
               Pengumuman
             </a>
+
           </li>
 
 
+          <!-- BERITA -->
+
           <li>
+
             <a href="berita.html">
               Berita
             </a>
+
           </li>
 
 
+          <!-- AGENDA -->
+
           <li>
+
             <a href="agenda.html">
               Agenda
             </a>
+
           </li>
 
 
+          <!-- GALERI -->
+
           <li>
+
             <a href="galeri.html">
               Galeri
             </a>
+
           </li>
 
 
+          <!-- DOWNLOAD -->
+
           <li>
+
             <a href="download.html">
               Download
             </a>
+
           </li>
 
 
+          <!-- TENTANG KAMI -->
+
           <li>
+
             <a href="tentang.html">
               Tentang Kami
             </a>
+
           </li>
 
 
+          <!-- LAYANAN DARURAT -->
+
           <li>
+
             <a
               href="darurat.html"
               class="emergency-link"
             >
               Layanan Darurat
             </a>
+
           </li>
+
 
         </ul>
 
@@ -526,11 +210,16 @@
 
 
 
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
 <main class="main">
 
 
 <!-- =========================================================
      HERO
+     JANGAN DIUBAH
      ========================================================= -->
 
 <section
@@ -584,11 +273,13 @@
 
 
         <div class="pkm-location">
+
           Kecamatan Geyer
           &nbsp;•&nbsp;
           Kabupaten Grobogan
           &nbsp;•&nbsp;
           Jawa Tengah
+
         </div>
 
       </div>
@@ -602,9 +293,11 @@
             ✚
           </div>
 
+
           <h3>
             Pelayanan Kesehatan
           </h3>
+
 
           <p>
             Informasi layanan, jadwal,
@@ -612,14 +305,23 @@
             informasi resmi Puskesmas Geyer 2.
           </p>
 
+
           <div class="hero-contact">
-            <strong>24 JAM</strong>
-            <span>Pelayanan Persalinan</span>
+
+            <strong>
+              24 JAM
+            </strong>
+
+            <span>
+              Pelayanan Persalinan
+            </span>
+
           </div>
 
         </div>
 
       </div>
+
 
     </div>
 
@@ -631,6 +333,7 @@
 
 <!-- =========================================================
      QUICK INFORMATION
+     JANGAN DIUBAH
      ========================================================= -->
 
 <section class="pkm-quick section">
@@ -737,6 +440,7 @@
 
 <!-- =========================================================
      PENGUMUMAN
+     JANGAN DIUBAH
      ========================================================= -->
 
 <section
@@ -766,6 +470,7 @@
 
 
     <div class="row g-4">
+
 
       <div class="col-md-4">
 
@@ -832,8 +537,8 @@
 
       </div>
 
-    </div>
 
+    </div>
 
   </div>
 
@@ -876,9 +581,9 @@
       class="row g-4"
     >
 
-      <div class="col-12">
+      <div class="col-12 text-center p-5">
 
-        <div class="home-data-loading">
+        <div class="pkm-loading">
           Memuat berita...
         </div>
 
@@ -907,6 +612,7 @@
 
 <!-- =========================================================
      AGENDA
+     SEKARANG DINAMIS
      ========================================================= -->
 
 <section
@@ -940,9 +646,9 @@
       class="row g-4"
     >
 
-      <div class="col-12">
+      <div class="col-12 text-center p-5">
 
-        <div class="home-data-loading">
+        <div class="pkm-loading">
           Memuat agenda...
         </div>
 
@@ -971,6 +677,7 @@
 
 <!-- =========================================================
      GALERI
+     SEKARANG DINAMIS
      ========================================================= -->
 
 <section
@@ -1004,9 +711,9 @@
       class="row g-4"
     >
 
-      <div class="col-12">
+      <div class="col-12 text-center p-5">
 
-        <div class="home-data-loading">
+        <div class="pkm-loading">
           Memuat galeri...
         </div>
 
@@ -1035,6 +742,7 @@
 
 <!-- =========================================================
      DOWNLOAD
+     SEKARANG DINAMIS
      ========================================================= -->
 
 <section
@@ -1068,9 +776,9 @@
       class="row g-4"
     >
 
-      <div class="col-12">
+      <div class="col-12 text-center p-5">
 
-        <div class="home-data-loading">
+        <div class="pkm-loading">
           Memuat dokumen...
         </div>
 
@@ -1099,6 +807,7 @@
 
 <!-- =========================================================
      TENTANG KAMI
+     JANGAN DIUBAH
      ========================================================= -->
 
 <section
@@ -1117,9 +826,11 @@
           TENTANG KAMI
         </span>
 
+
         <h2>
           Puskesmas Geyer 2
         </h2>
+
 
         <p>
           UPTD Puskesmas Geyer 2 merupakan fasilitas
@@ -1127,6 +838,7 @@
           kesehatan masyarakat dan pelayanan klinis
           bagi masyarakat di wilayah kerja Puskesmas Geyer 2.
         </p>
+
 
         <p>
           Website ini dikembangkan sebagai pusat informasi
@@ -1143,6 +855,7 @@
           <strong>
             Wilayah Kerja
           </strong>
+
 
           <div class="pkm-villages">
 
@@ -1179,6 +892,7 @@
 
 <!-- =========================================================
      LAYANAN DARURAT
+     JANGAN DIUBAH
      ========================================================= -->
 
 <section
@@ -1197,9 +911,11 @@
           LAYANAN DARURAT
         </span>
 
+
         <h2>
           Butuh bantuan kesehatan segera?
         </h2>
+
 
         <p>
           Untuk kondisi kegawatdaruratan, segera hubungi
@@ -1234,6 +950,7 @@
 
 <!-- =========================================================
      FOOTER
+     JANGAN DIUBAH
      ========================================================= -->
 
 <footer class="pkm-footer">
@@ -1251,6 +968,7 @@
             src="images/logo-puskesmas.PNG"
             alt="Logo Puskesmas Geyer 2"
           >
+
 
           <div>
 
@@ -1275,10 +993,14 @@
           Website Informasi Resmi Puskesmas Geyer 2
         </p>
 
+
         <small>
+
           ©
           <span id="current-year"></span>
+
           UPTD Puskesmas Geyer 2
+
         </small>
 
       </div>
@@ -1293,7 +1015,7 @@
 
 
 <!-- =========================================================
-     JAVASCRIPT
+     JAVASCRIPT UTAMA
      ========================================================= -->
 
 <script src="assets/js/puskesmas.js"></script>
