@@ -681,11 +681,7 @@
               );
 
 
-            const link =
-              id
-                ? 'detail-berita.html?id=' +
-                  encodeURIComponent(id)
-                : 'berita.html';
+            const link = 'berita.html';
 
 
             return `
@@ -699,12 +695,18 @@
                 >
 
 
-                  <img
-                    class="pkm-news-image"
-                    src="${escapeHtml(image)}"
-                    alt="${escapeHtml(title)}"
-                    onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"
+                  <div
+                    class="pkm-news-image-wrap"
                   >
+
+                    <img
+                      class="pkm-news-image"
+                      src="${escapeHtml(image)}"
+                      alt="${escapeHtml(title)}"
+                      onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"
+                    >
+
+                  </div>
 
 
                   <div
@@ -716,16 +718,17 @@
                       class="pkm-news-meta"
                     >
 
+                      <span class="pkm-category">
+                        ${escapeHtml(category)}
+                      </span>
+
+                    </div>
+
+
+                    <div
+                      class="pkm-news-date"
+                    >
                       ${escapeHtml(date)}
-
-                      ${
-                        date
-                          ? ' • '
-                          : ''
-                      }
-
-                      ${escapeHtml(category)}
-
                     </div>
 
 
