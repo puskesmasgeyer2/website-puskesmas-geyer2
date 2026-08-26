@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Jadwal Pelayanan - UPTD Puskesmas Geyer 2</title>
+
+  <meta
+    name="description"
+    content="Jadwal pelayanan resmi UPTD Puskesmas Geyer 2, Kabupaten Grobogan."
+  >
+
+  <link
+    rel="icon"
+    href="images/logo-puskesmas.PNG"
+  >
+
+  <!-- =========================================================
+       BOOTSTRAP
+       ========================================================= -->
+
+  <link
+    href="assets/vendor/bootstrap/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- =========================================================
+       CSS UTAMA
+       ========================================================= -->
+
+  <link
+    href="assets/css/main.css"
+    rel="stylesheet"
+  >
+
+  <link
+    href="assets/css/puskesmas.css"
+    rel="stylesheet"
+  >
+
+  <!-- FONT AWESOME -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  >
+
+  <style>
+
+    /* =========================================================
+       HALAMAN JADWAL PELAYANAN
+       Tambahan khusus halaman ini.
+       Tidak mengubah desain global.
+       ========================================================= */
+
+    .pkm-schedule-section {
+      padding-top: 140px;
+      padding-bottom: 80px;
+    }
+
+    .pkm-schedule-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(15, 157, 88, 0.10);
+    }
+
+    .pkm-schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0;
+    }
+
+    .pkm-schedule-table th {
+      background: #0f9d58;
+      color: #ffffff;
+      font-weight: 600;
+      padding: 15px 18px;
+      text-align: left;
+    }
+
+    .pkm-schedule-table th:first-child {
+      border-radius: 10px 0 0 10px;
+    }
+
+    .pkm-schedule-table th:last-child {
+      border-radius: 0 10px 10px 0;
+    }
+
+    .pkm-schedule-table td {
+      padding: 17px 18px;
+      border-bottom: 1px solid #e9eeee;
+      vertical-align: middle;
+    }
+
+    .pkm-schedule-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .pkm-schedule-table td:first-child {
+      font-weight: 600;
+    }
+
+    .pkm-schedule-time {
+      font-weight: 600;
+      color: #0f9d58;
+    }
+
+    .pkm-schedule-note {
+      margin-top: 28px;
+      padding: 18px 20px;
+      border-radius: 12px;
+      background: #f2fbf6;
+      border-left: 4px solid #0f9d58;
+    }
+
+    .pkm-schedule-note strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .pkm-schedule-note p {
+      margin: 0;
+    }
+
+    .pkm-back-wrapper {
+      margin-top: 30px;
+    }
+
+    .pkm-info-link {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .pkm-info-link:hover {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+
+      .pkm-schedule-section {
+        padding-top: 110px;
+        padding-bottom: 50px;
+      }
+
+      .pkm-schedule-card {
+        padding: 20px;
+      }
+
+      .pkm-schedule-table {
+        font-size: 14px;
+      }
+
+      .pkm-schedule-table th,
+      .pkm-schedule-table td {
+        padding: 13px 12px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body class="index-page">
+
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+
+<header
+  id="header"
+  class="header fixed-top pkm-header"
+>
+
+  <div class="branding d-flex align-items-center">
+
+    <div
+      class="container d-flex align-items-center justify-content-between"
+    >
+
+      <!-- LOGO -->
+
+      <a
+        href="index.html"
+        class="logo pkm-logo"
+      >
+
+        <img
+          src="images/logo-puskesmas.PNG"
+          alt="Logo Puskesmas Geyer 2"
+        >
+
+        <span>
+          UPTD Puskesmas<br>
+          <strong>Geyer 2</strong>
+        </span>
+
+      </a>
+
+
+      <!-- NAVIGASI -->
+
+      <nav
+        id="navmenu"
+        class="navmenu pkm-navmenu"
+      >
+
+        <ul>
+
+          <!-- BERANDA -->
+
+          <li>
+
+            <a href="index.html">
+              Beranda
+            </a>
+
+          </li>
+
+
+          <!-- PENGUMUMAN -->
+
+          <li>
+
+            <a href="pengumuman.html">
+              Pengumuman
+            </a>
+
+          </li>
+
+
+          <!-- BERITA -->
+
+          <li>
+
+            <a href="berita.html">
+              Berita
+            </a>
+
+          </li>
+
+
+          <!-- AGENDA -->
+
+          <li>
+
+            <a href="agenda.html">
+              Agenda
+            </a>
+
+          </li>
+
+
+          <!-- GALERI -->
+
+          <li>
+
+            <a href="galeri.html">
+              Galeri
+            </a>
+
+          </li>
+
+
+          <!-- DOWNLOAD -->
+
+          <li>
+
+            <a href="download.html">
+              Download
+            </a>
+
+          </li>
+
+
+          <!-- TENTANG KAMI -->
+
+          <li>
+
+            <a href="tentang.html">
+              Tentang Kami
+            </a>
+
+          </li>
+
+
+          <!-- LAYANAN DARURAT -->
+
+          <li>
+
+            <a
+              href="darurat.html"
+              class="emergency-link"
+            >
+              Layanan Darurat
+            </a>
+
+          </li>
+
+        </ul>
+
+
+        <!-- MOBILE MENU -->
+
+        <button
+          class="mobile-nav-toggle"
+          type="button"
+          aria-label="Buka menu"
+        >
+          ☰
+        </button>
+
+      </nav>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
+<main class="main">
+
+
+  <!-- =======================================================
+       JADWAL PELAYANAN
+       ======================================================= -->
+
+  <section
+    class="section pkm-section pkm-schedule-section"
+  >
+
+    <div class="container">
+
+
+      <!-- JUDUL -->
+
+      <div class="pkm-section-heading">
+
+        <span>
+          INFORMASI PELAYANAN
+        </span>
+
+        <h2>
+          Jadwal Pelayanan
+        </h2>
+
+        <p>
+          Jadwal pelayanan resmi UPTD Puskesmas Geyer 2
+          untuk masyarakat wilayah kerja Puskesmas Geyer 2.
+        </p>
+
+      </div>
+
+
+      <!-- KARTU JADWAL -->
+
+      <div class="pkm-schedule-card">
+
+        <div class="table-responsive">
+
+          <table class="pkm-schedule-table">
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Hari
+                </th>
+
+                <th>
+                  Jam Pelayanan
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              <tr>
+
+                <td>
+                  Senin
+                </td>
+
+                <td class="pkm-schedule-time">
+                  07.30 – 13.00 WIB
+                </td>
+
+              </tr>
+
+
+              <tr>
+
+                <td>
+                  Selasa
+                </td>
+
+                <td class="pkm-schedule-time">
+                  07.30 – 13.00 WIB
+                </td>
+
+              </tr>
+
+
+              <tr>
+
+                <td>
+                  Rabu
+                </td>
+
+                <td class="pkm-schedule-time">
+                  07.30 – 13.00 WIB
+                </td>
+
+              </tr>
+
+
+              <tr>
+
+                <td>
+                  Kamis
+                </td>
+
+                <td class="pkm-schedule-time">
+                  07.30 – 13.00 WIB
+                </td>
+
+              </tr>
+
+
+              <tr>
+
+                <td>
+                  Jumat
+                </td>
+
+                <td class="pkm-schedule-time">
+                  07.30 – 11.00 WIB
+                </td>
+
+              </tr>
+
+
+              <tr>
+
+                <td>
+                  Sabtu
+                </td>
+
+                <td class="pkm-schedule-time">
+                  07.30 – 12.00 WIB
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+        <!-- PELAYANAN PERSALINAN -->
+
+        <div class="pkm-schedule-note">
+
+          <strong>
+            Pelayanan Persalinan
+          </strong>
+
+          <p>
+            Pelayanan persalinan tersedia
+            <strong>24 jam</strong>.
+          </p>
+
+        </div>
+
+
+        <!-- KETERANGAN -->
+
+        <div class="pkm-schedule-note">
+
+          <strong>
+            Keterangan
+          </strong>
+
+          <p>
+            Masyarakat diharapkan datang sesuai dengan
+            jadwal pelayanan yang telah ditetapkan.
+          </p>
+
+        </div>
+
+
+        <!-- KEMBALI -->
+
+        <div class="text-center pkm-back-wrapper">
+
+          <a
+            href="index.html"
+            class="pkm-btn"
+          >
+            ← Kembali ke Beranda
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer class="pkm-footer">
+
+  <div class="container">
+
+    <div class="row g-4">
+
+
+      <!-- =====================================================
+           KOLOM KIRI
+           ===================================================== -->
+
+      <div class="col-lg-4">
+
+        <div class="pkm-footer-brand">
+
+          <img
+            src="images/logo-puskesmas.PNG"
+            alt="Logo Puskesmas Geyer 2"
+          >
+
+          <div>
+
+            <strong>
+              UPTD Puskesmas Geyer 2
+            </strong>
+
+            <span>
+              Kecamatan Geyer, Kabupaten Grobogan
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =====================================================
+           KOLOM TENGAH
+           ===================================================== -->
+
+      <div class="col-lg-4">
+
+        <div class="pkm-social-section">
+
+          <span class="pkm-eyebrow">
+            MEDIA SOSIAL
+          </span>
+
+          <h3>
+            Ikuti Informasi Puskesmas
+          </h3>
+
+
+          <div class="pkm-social-links">
+
+
+            <!-- INSTAGRAM -->
+
+            <a
+              href="https://www.instagram.com/puskesmasgeyer2/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram Puskesmas Geyer 2"
+              title="Instagram"
+              class="instagram"
+            >
+
+              <i class="fa-brands fa-instagram"></i>
+
+            </a>
+
+
+            <!-- X -->
+
+            <a
+              href="https://x.com/puskesmasgeyer2"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X Puskesmas Geyer 2"
+              title="X"
+              class="x"
+            >
+
+              <i class="fa-brands fa-x-twitter"></i>
+
+            </a>
+
+
+            <!-- FACEBOOK -->
+
+            <a
+              href="https://www.facebook.com/puskesmasgeyer2"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook Puskesmas Geyer II"
+              title="Facebook"
+              class="facebook"
+            >
+
+              <i class="fa-brands fa-facebook-f"></i>
+
+            </a>
+
+
+            <!-- YOUTUBE -->
+
+            <a
+              href="https://www.youtube.com/results?search_query=Puskesmas+Geyer+II"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube Puskesmas Geyer II"
+              title="YouTube"
+              class="youtube"
+            >
+
+              <i class="fa-brands fa-youtube"></i>
+
+            </a>
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =====================================================
+           KOLOM KANAN
+           ===================================================== -->
+
+      <div class="col-lg-4 footer-info">
+
+        <p>
+          Website Informasi Resmi Puskesmas Geyer 2
+        </p>
+
+        <small>
+          © <span id="current-year"></span>
+          UPTD Puskesmas Geyer 2
+        </small>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script src="assets/js/puskesmas.js"></script>
+
+<script>
+
+  const year =
+    document.getElementById('current-year');
+
+  if (year) {
+
+    year.textContent =
+      new Date().getFullYear();
+
+  }
+
+</script>
+
+
+</body>
+
+</html>
