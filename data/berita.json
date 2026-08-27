@@ -1,16 +1,5 @@
 [
   {
-    "id": "BR0820260001",
-    "tanggal": "07/08/2026",
-    "kategori": "Pelayanan",
-    "judul": "errfsdfzf",
-    "ringkasan": "gkuglgljll",
-    "isi": "vbxbsfhautikhgc jytidtisd",
-    "foto": "",
-    "penulis": "Admin",
-    "status": "Publish"
-  },
-  {
     "id": "BR0820260003",
     "tanggal": "06/08/2026",
     "kategori": "Pelayanan",
@@ -62,6 +51,17 @@
     "ringkasan": "Hari Pahlawan",
     "isi": "Peringatan Hari Pahlawan Nasional",
     "foto": "https://drive.google.com/thumbnail?id=1Y0RQCFOKgbHgVq4vRcRD32bTlZMh2txN&sz=w1200",
+    "penulis": "Admin",
+    "status": "Publish"
+  },
+  {
+    "id": "BR0820260009",
+    "tanggal": "27/08/2026",
+    "kategori": "Pengumuman",
+    "judul": "Stop Korupsi",
+    "ringkasan": "Jangan Korupsi",
+    "isi": "Sebagai ASN yang berakhlak wajib untuk berpilaku jujur dan anti korupsi",
+    "foto": "https://drive.google.com/thumbnail?id=1cRcMszrPBkX7w5dxOeApv_qyZNnSB54i&sz=w1200",
     "penulis": "Admin",
     "status": "Publish"
   }
