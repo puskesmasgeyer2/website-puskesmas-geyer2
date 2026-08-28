@@ -145,6 +145,7 @@
 
       const image =
         berita.gambar ||
+        berita.foto ||
         'images/logo-puskesmas.PNG';
 
 
