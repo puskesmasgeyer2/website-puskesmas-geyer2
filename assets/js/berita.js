@@ -128,7 +128,7 @@
         );
 
       const image =
-        imageUrl(item.gambar);
+      imageUrl(item.gambar || item.foto);
 
 
       return `
