@@ -1560,16 +1560,18 @@ async function loadAnnouncement() {
 
 
   /* =========================================================
-     JALANKAN SEMUA
-     ========================================================= */
+   JALANKAN SEMUA
+   ========================================================= */
 
-  loadNews();
+loadAnnouncement();
 
-  loadAgenda();
+loadNews();
 
-  loadGallery();
+loadAgenda();
 
-  loadDownload();
+loadGallery();
+
+loadDownload();
 
 
 })();
