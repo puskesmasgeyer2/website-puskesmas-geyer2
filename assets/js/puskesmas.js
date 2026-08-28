@@ -789,7 +789,225 @@
 
   }
 
+/* =========================================================
+   PENGUMUMAN
+   ========================================================= */
 
+async function loadAnnouncement() {
+
+  const box =
+    document.getElementById(
+      'home-announcement'
+    );
+
+  if (!box) {
+    return;
+  }
+
+  try {
+
+    const payload =
+      await loadFirstJson(
+        [
+          'data/pengumuman.json'
+        ]
+      );
+
+
+    if (!payload) {
+
+      setMessage(
+        box,
+        'Belum ada pengumuman yang dapat ditampilkan.'
+      );
+
+      return;
+
+    }
+
+
+    let list =
+      normalizeList(
+        payload
+      );
+
+
+    /*
+     * Hanya tampilkan maksimal 3
+     * pengumuman terbaru
+     */
+
+    list =
+      sortNewest(
+        list
+      ).slice(
+        0,
+        3
+      );
+
+
+    if (!list.length) {
+
+      setMessage(
+        box,
+        'Belum ada pengumuman yang dapat ditampilkan.'
+      );
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      list.map(
+        function (item, index) {
+
+          const title =
+            pick(
+              item,
+              [
+                'judul',
+                'title',
+                'nama'
+              ],
+              'Pengumuman Puskesmas Geyer 2'
+            );
+
+
+          const summary =
+            pick(
+              item,
+              [
+                'ringkasan',
+                'summary',
+                'excerpt',
+                'deskripsi',
+                'description',
+                'isi'
+              ],
+              'Informasi resmi UPTD Puskesmas Geyer 2.'
+            );
+
+
+          const date =
+            formatDate(
+              pick(
+                item,
+                [
+                  'tanggal',
+                  'date',
+                  'created_at',
+                  'tgl'
+                ],
+                ''
+              )
+            );
+
+
+          const id =
+            pick(
+              item,
+              [
+                'id',
+                'ID',
+                'kode'
+              ],
+              ''
+            );
+
+
+          /*
+           * Jika ID tersedia,
+           * arahkan ke detail-pengumuman
+           */
+
+          const link =
+            id
+              ? 'detail-pengumuman.html?id=' +
+                encodeURIComponent(id)
+              : 'pengumuman.html';
+
+
+          return `
+
+            <div
+              class="col-lg-4 col-md-6"
+            >
+
+              <article
+                class="pkm-feature-card h-100"
+              >
+
+                <div
+                  class="feature-number"
+                >
+                  ${String(index + 1).padStart(2, '0')}
+                </div>
+
+
+                <h3>
+                  ${escapeHtml(title)}
+                </h3>
+
+
+                <p>
+                  ${escapeHtml(
+                    shortText(
+                      summary,
+                      130
+                    )
+                  )}
+                </p>
+
+
+                ${
+                  date
+                    ? `
+                      <small>
+                        ${escapeHtml(date)}
+                      </small>
+                    `
+                    : ''
+                }
+
+
+                <div class="mt-3">
+
+                  <a
+                    href="${escapeHtml(link)}"
+                    class="pkm-news-link"
+                  >
+                    Lihat selengkapnya →
+                  </a>
+
+                </div>
+
+              </article>
+
+            </div>
+
+          `;
+
+        }
+      ).join('');
+
+
+  } catch (error) {
+
+    console.error(
+      'Gagal memuat pengumuman:',
+      error
+    );
+
+
+    setMessage(
+      box,
+      'Pengumuman belum dapat dimuat.'
+    );
+
+  }
+
+}
 
   /* =========================================================
      AGENDA
