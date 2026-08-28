@@ -1,29 +1,10 @@
 [
   {
-    "id": "PGM-202608-001",
-    "tanggal": "2026-08-23",
-    "kategori": "Jadwal Pelayanan",
-    "judul": "Jadwal Pelayanan Puskesmas Geyer 2",
-    "ringkasan": "Informasi jadwal pelayanan UPTD Puskesmas Geyer 2 untuk masyarakat.",
-    "isi": "Informasi lengkap mengenai jadwal pelayanan Puskesmas Geyer 2 akan ditampilkan pada halaman ini.",
-    "status": "publish"
-  },
-  {
-    "id": "PGM-202608-002",
-    "tanggal": "2026-08-22",
-    "kategori": "Informasi Pelayanan",
-    "judul": "Informasi Pendaftaran Pelayanan",
-    "ringkasan": "Informasi mengenai mekanisme pendaftaran dan pelayanan kesehatan di UPTD Puskesmas Geyer 2.",
-    "isi": "Informasi lengkap mengenai pendaftaran pelayanan akan ditampilkan pada halaman detail pengumuman.",
-    "status": "publish"
-  },
-  {
-    "id": "PGM-202608-003",
-    "tanggal": "2026-08-20",
-    "kategori": "Pengumuman",
-    "judul": "Informasi Penting Puskesmas Geyer 2",
-    "ringkasan": "Informasi dan pemberitahuan resmi untuk masyarakat wilayah kerja UPTD Puskesmas Geyer 2.",
-    "isi": "Informasi lengkap pengumuman akan ditampilkan pada halaman detail.",
-    "status": "publish"
+    "id": "PG0820260001",
+    "tanggal": "19/08/2026",
+    "judul": "Jalan Sehat Puskesmas",
+    "isi": "Jalan Sehat dalam rangka HUT RI ke 81",
+    "lampiran": "https://drive.google.com/file/d/16KajhifwCMbZpaTeetQlZvDhcQtw3Vl3/view?usp=sharing",
+    "status": "Publish"
   }
 ]
