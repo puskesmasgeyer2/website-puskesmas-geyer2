@@ -64,5 +64,16 @@
     "foto": "https://drive.google.com/thumbnail?id=1cRcMszrPBkX7w5dxOeApv_qyZNnSB54i&sz=w1200",
     "penulis": "Admin",
     "status": "Publish"
+  },
+  {
+    "id": "BR0820260010",
+    "tanggal": "29/08/2026",
+    "kategori": "Kegiatan",
+    "judul": "Kegiatan ANC",
+    "ringkasan": "<p><strong>Pelaksanaan ANC Di Dusun Bangsri Desa Bangsri</strong></p>",
+    "isi": "<p><strong>Kegiatan</strong> ANC <em>dilaksanakan </em>di <u>Dusun Bangsri Desa Asemrudung</u></p><p><span style=\"color: rgb(230, 0, 0);\">Dengan Peserta berjumlah 50 orang, terdiri dari ;</span></p><ol><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Ibu hamil</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Lansia</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Anak pra sekolah</li></ol>",
+    "foto": "https://drive.google.com/thumbnail?id=1zkfipgTwOEhDnXShWxon8SXrRclfZ236&sz=w1200",
+    "penulis": "Admin",
+    "status": "Publish"
   }
 ]
