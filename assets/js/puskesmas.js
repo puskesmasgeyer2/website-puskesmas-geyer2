@@ -490,53 +490,86 @@ function formatDate(value) {
 
 
   /* =========================================================
-     HELPER: SORT TERBARU
-     ========================================================= */
+   HELPER: SORT TERBARU
+   ========================================================= */
 
-  function sortNewest(list) {
+function sortNewest(list) {
 
-    return list.sort(
-      function (a, b) {
+  return list.sort(
+    function (a, b) {
 
-        const dateB =
-          String(
-            pick(
-              b,
-              [
-                'tanggal',
-                'date',
-                'created_at',
-                'tgl'
-              ],
-              ''
-            )
-          );
+      const rawDateB =
+        pick(
+          b,
+          [
+            'tanggal',
+            'date',
+            'created_at',
+            'tgl',
+            'tanggal_kegiatan'
+          ],
+          ''
+        );
 
-
-        const dateA =
-          String(
-            pick(
-              a,
-              [
-                'tanggal',
-                'date',
-                'created_at',
-                'tgl'
-              ],
-              ''
-            )
-          );
+      const rawDateA =
+        pick(
+          a,
+          [
+            'tanggal',
+            'date',
+            'created_at',
+            'tgl',
+            'tanggal_kegiatan'
+          ],
+          ''
+        );
 
 
-        return dateB.localeCompare(
-          dateA
+      const dateB =
+        parseDateValue(
+          rawDateB
+        );
+
+      const dateA =
+        parseDateValue(
+          rawDateA
+        );
+
+
+      // Jika dua-duanya valid
+      if (dateA && dateB) {
+
+        return (
+          dateB.getTime() -
+          dateA.getTime()
         );
 
       }
-    );
 
-  }
 
+      // Jika hanya B yang valid
+      if (dateB && !dateA) {
+        return -1;
+      }
+
+
+      // Jika hanya A yang valid
+      if (!dateB && dateA) {
+        return 1;
+      }
+
+
+      // Jika keduanya tidak valid
+      return String(
+        rawDateB
+      ).localeCompare(
+        String(rawDateA)
+      );
+
+    }
+  );
+
+}
 
 
   /* =========================================================
