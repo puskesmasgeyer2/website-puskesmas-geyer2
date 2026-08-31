@@ -2,16 +2,13 @@
 
   'use strict';
 
-
   const listBox =
     document.getElementById('agenda-list');
 
   const searchBox =
     document.getElementById('agenda-search');
 
-
   if (!listBox) return;
-
 
   let agendaData = [];
 
@@ -20,11 +17,7 @@
      HELPER
      ========================================= */
 
-  function pick(
-    obj,
-    keys,
-    fallback = ''
-  ) {
+  function pick(obj, keys, fallback = '') {
 
     for (const key of keys) {
 
@@ -34,15 +27,12 @@
         obj[key] !== null &&
         String(obj[key]).trim() !== ''
       ) {
-
         return obj[key];
-
       }
 
     }
 
     return fallback;
-
   }
 
 
@@ -62,64 +52,116 @@
   }
 
 
-  function normalizeList(payload) {
+  /* =========================================
+     PARSE TANGGAL INDONESIA
+     
+     Format sumber:
+     DD/MM/YYYY
+     
+     Contoh:
+     01/09/2026
+     02/09/2026
+     03/09/2026
+     ========================================= */
 
-    if (Array.isArray(payload)) {
+  function parseTanggalIndonesia(value) {
 
-      return payload;
+    if (!value) return null;
+
+    const text =
+      String(value).trim();
+
+    /*
+     * Format DD/MM/YYYY
+     */
+    const match =
+      text.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+
+    if (match) {
+
+      const day =
+        Number(match[1]);
+
+      const month =
+        Number(match[2]);
+
+      const year =
+        Number(match[3]);
+
+      const date =
+        new Date(
+          year,
+          month - 1,
+          day
+        );
+
+      /*
+       * Validasi agar tanggal tidak
+       * berubah secara otomatis oleh JS
+       */
+      if (
+        date.getFullYear() === year &&
+        date.getMonth() === month - 1 &&
+        date.getDate() === day
+      ) {
+        return date;
+      }
 
     }
 
 
-    if (
-      payload &&
-      Array.isArray(payload.data)
-    ) {
+    /*
+     * Jika suatu saat sumber data memakai
+     * format ISO YYYY-MM-DD
+     */
+    const iso =
+      text.match(/^(\d{4})-(\d{2})-(\d{2})$/);
 
-      return payload.data;
+    if (iso) {
 
-    }
+      const year =
+        Number(iso[1]);
 
+      const month =
+        Number(iso[2]);
 
-    if (
-      payload &&
-      Array.isArray(payload.agenda)
-    ) {
+      const day =
+        Number(iso[3]);
 
-      return payload.agenda;
-
-    }
-
-
-    if (
-      payload &&
-      Array.isArray(payload.items)
-    ) {
-
-      return payload.items;
+      return new Date(
+        year,
+        month - 1,
+        day
+      );
 
     }
 
 
-    return [];
+    return null;
 
   }
 
 
+  /* =========================================
+     FORMAT TANGGAL
+     ========================================= */
+
   function formatDate(value) {
 
-    if (!value) return 'Tanggal belum tersedia';
-
-
-    const d = new Date(value);
-
-
-    if (Number.isNaN(d.getTime())) {
-
-      return String(value);
-
+    if (!value) {
+      return 'Tanggal belum tersedia';
     }
 
+    const d =
+      parseTanggalIndonesia(value);
+
+    /*
+     * Jika gagal diparse,
+     * tampilkan nilai asli.
+     */
+    if (!d) {
+      return String(value);
+    }
 
     return d.toLocaleDateString(
       'id-ID',
@@ -133,52 +175,109 @@
   }
 
 
+  /* =========================================
+     NORMALIZE DATA
+     ========================================= */
+
+  function normalizeList(payload) {
+
+    if (Array.isArray(payload)) {
+      return payload;
+    }
+
+
+    if (
+      payload &&
+      Array.isArray(payload.data)
+    ) {
+      return payload.data;
+    }
+
+
+    if (
+      payload &&
+      Array.isArray(payload.agenda)
+    ) {
+      return payload.agenda;
+    }
+
+
+    if (
+      payload &&
+      Array.isArray(payload.items)
+    ) {
+      return payload.items;
+    }
+
+
+    return [];
+
+  }
+
+
+  /* =========================================
+     SORT AGENDA
+     
+     Urutan:
+     tanggal terdekat → paling awal
+     ========================================= */
+
   function sortAgenda(data) {
 
     return data.sort(
       (a, b) => {
 
-        const dateA =
-          new Date(
-            pick(
-              a,
-              [
-                'tanggal',
-                'date',
-                'tanggal_mulai',
-                'start_date'
-              ],
-              ''
-            )
-          ).getTime();
+        const valueA =
+          pick(
+            a,
+            [
+              'tanggal',
+              'date',
+              'tanggal_mulai',
+              'start_date'
+            ],
+            ''
+          );
 
+        const valueB =
+          pick(
+            b,
+            [
+              'tanggal',
+              'date',
+              'tanggal_mulai',
+              'start_date'
+            ],
+            ''
+          );
+
+
+        const dateA =
+          parseTanggalIndonesia(valueA);
 
         const dateB =
-          new Date(
-            pick(
-              b,
-              [
-                'tanggal',
-                'date',
-                'tanggal_mulai',
-                'start_date'
-              ],
-              ''
-            )
-          ).getTime();
+          parseTanggalIndonesia(valueB);
 
 
-        if (
-          Number.isNaN(dateA) ||
-          Number.isNaN(dateB)
-        ) {
-
+        /*
+         * Jika tanggal tidak valid,
+         * jangan membuat urutan kacau.
+         */
+        if (!dateA && !dateB) {
           return 0;
+        }
 
+        if (!dateA) {
+          return 1;
+        }
+
+        if (!dateB) {
+          return -1;
         }
 
 
-        return dateA - dateB;
+        return dateA.getTime() -
+               dateB.getTime();
 
       }
     );
@@ -228,6 +327,10 @@
       data.map(item => {
 
 
+        /* =====================================
+           ID
+           ===================================== */
+
         const id =
           pick(
             item,
@@ -236,10 +339,21 @@
           );
 
 
+        /* =====================================
+           JUDUL
+           
+           PRIORITAS UTAMA:
+           kegiatan
+           
+           Karena agenda.json Anda memang
+           menggunakan field "kegiatan".
+           ===================================== */
+
         const title =
           pick(
             item,
             [
+              'kegiatan',
               'judul',
               'title',
               'nama',
@@ -248,6 +362,10 @@
             'Agenda Puskesmas Geyer 2'
           );
 
+
+        /* =====================================
+           KATEGORI
+           ===================================== */
 
         const category =
           pick(
@@ -260,6 +378,10 @@
             'Agenda'
           );
 
+
+        /* =====================================
+           TANGGAL
+           ===================================== */
 
         const date =
           formatDate(
@@ -276,6 +398,10 @@
           );
 
 
+        /* =====================================
+           JAM
+           ===================================== */
+
         const time =
           pick(
             item,
@@ -289,6 +415,10 @@
           );
 
 
+        /* =====================================
+           TEMPAT
+           ===================================== */
+
         const place =
           pick(
             item,
@@ -301,6 +431,13 @@
           );
 
 
+        /* =====================================
+           DESKRIPSI
+           
+           PRIORITAS:
+           kegiatan
+           ===================================== */
+
         const description =
           pick(
             item,
@@ -309,11 +446,16 @@
               'description',
               'ringkasan',
               'summary',
-              'isi'
+              'isi',
+              'kegiatan'
             ],
             'Informasi kegiatan Puskesmas Geyer 2.'
           );
 
+
+        /* =====================================
+           DETAIL LINK
+           ===================================== */
 
         const detailLink =
           id
@@ -331,6 +473,8 @@
               class="agenda-card"
             >
 
+
+              <!-- TANGGAL -->
 
               <div class="agenda-date-box">
 
@@ -357,6 +501,8 @@
               </div>
 
 
+              <!-- KATEGORI -->
+
               <span
                 class="agenda-category"
               >
@@ -364,10 +510,14 @@
               </span>
 
 
+              <!-- JUDUL -->
+
               <h2>
                 ${escapeHtml(title)}
               </h2>
 
+
+              <!-- DESKRIPSI -->
 
               <p>
                 ${escapeHtml(
@@ -383,6 +533,8 @@
               </p>
 
 
+              <!-- INFORMASI -->
+
               ${
                 time || place
                   ? `
@@ -394,15 +546,23 @@
                       ${
                         time
                           ? `
+
                             <div>
+
                               <span>🕐</span>
+
                               <span>
+
                                 <strong>
                                   Waktu:
                                 </strong>
+
                                 ${escapeHtml(time)}
+
                               </span>
+
                             </div>
+
                           `
                           : ''
                       }
@@ -411,15 +571,23 @@
                       ${
                         place
                           ? `
+
                             <div>
+
                               <span>📍</span>
+
                               <span>
+
                                 <strong>
                                   Tempat:
                                 </strong>
+
                                 ${escapeHtml(place)}
+
                               </span>
+
                             </div>
+
                           `
                           : ''
                       }
@@ -431,15 +599,19 @@
               }
 
 
+              <!-- DETAIL -->
+
               ${
                 id
                   ? `
+
                     <a
                       href="${detailLink}"
                       class="agenda-link"
                     >
                       Lihat selengkapnya →
                     </a>
+
                   `
                   : ''
               }
@@ -484,8 +656,19 @@
 
   .then(payload => {
 
+    console.log(
+      'AGENDA JSON:',
+      payload
+    );
+
     agendaData =
       normalizeList(payload);
+
+
+    console.log(
+      'AGENDA DATA:',
+      agendaData
+    );
 
 
     agendaData =
@@ -501,7 +684,10 @@
 
   .catch(error => {
 
-    console.error(error);
+    console.error(
+      'AGENDA ERROR:',
+      error
+    );
 
 
     listBox.innerHTML = `
