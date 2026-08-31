@@ -271,41 +271,143 @@
 
 
   /* =========================================================
-     HELPER: FORMAT DATE
-     ========================================================= */
+   HELPER: PARSE DATE
+   Mendukung:
+   - DD/MM/YYYY
+   - YYYY-MM-DD
+   - ISO Date
+   ========================================================= */
 
-  function formatDate(value) {
+function parseDateValue(value) {
 
-    if (!value) {
+  if (!value) {
+    return null;
+  }
 
-      return '';
+  const text = String(value).trim();
 
-    }
+  // =====================================================
+  // FORMAT INDONESIA: DD/MM/YYYY
+  // Contoh: 01/09/2026
+  // =====================================================
 
+  const dmyMatch = text.match(
+    /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/
+  );
 
-    const d = new Date(value);
+  if (dmyMatch) {
 
+    const day =
+      Number(dmyMatch[1]);
 
+    const month =
+      Number(dmyMatch[2]) - 1;
+
+    const year =
+      Number(dmyMatch[3]);
+
+    const date =
+      new Date(
+        year,
+        month,
+        day
+      );
+
+    // Validasi tanggal
     if (
-      Number.isNaN(d.getTime())
+      date.getFullYear() === year &&
+      date.getMonth() === month &&
+      date.getDate() === day
     ) {
 
-      return String(value);
+      return date;
 
     }
 
+    return null;
 
-    return d.toLocaleDateString(
-      'id-ID',
-      {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-      }
+  }
+
+
+  // =====================================================
+  // FORMAT ISO: YYYY-MM-DD
+  // =====================================================
+
+  const ymdMatch = text.match(
+    /^(\d{4})-(\d{2})-(\d{2})$/
+  );
+
+  if (ymdMatch) {
+
+    const year =
+      Number(ymdMatch[1]);
+
+    const month =
+      Number(ymdMatch[2]) - 1;
+
+    const day =
+      Number(ymdMatch[3]);
+
+    return new Date(
+      year,
+      month,
+      day
     );
 
   }
 
+
+  // =====================================================
+  // FORMAT DATE LAIN / ISO TIMESTAMP
+  // =====================================================
+
+  const parsed =
+    new Date(text);
+
+  if (
+    !Number.isNaN(
+      parsed.getTime()
+    )
+  ) {
+
+    return parsed;
+
+  }
+
+
+  return null;
+
+}
+
+
+
+/* =========================================================
+   HELPER: FORMAT DATE
+   ========================================================= */
+
+function formatDate(value) {
+
+  if (!value) {
+    return '';
+  }
+
+  const d =
+    parseDateValue(value);
+
+  if (!d) {
+    return String(value);
+  }
+
+  return d.toLocaleDateString(
+    'id-ID',
+    {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    }
+  );
+
+}
 
 
   /* =========================================================
