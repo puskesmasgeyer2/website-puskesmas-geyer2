@@ -1,20 +1,29 @@
 [
   {
     "id": "AG0820260001",
-    "tanggal": "20/08/2026",
-    "jam": "08:00",
-    "tempat": "Lapangan Starda Geyer",
-    "kegiatan": "Jalan Sehat dalam rangka HUT RI ke 81",
-    "pic": "Rian Minardi Prasetyo",
+    "tanggal": "01/09/2026",
+    "jam": "07:00",
+    "tempat": "PAUD/TK Putra Gesing dan SD Negeri 2 Bangsri",
+    "kegiatan": "UPTD Puskesmas Geyer 2 melaksanakan kegiatan Cek Kesehatan Gratis (CKG) bagi Anak Pra Sekolah/Sekolah sebagai salah satu upaya deteksi dini dan pemantauan kondisi kesehatan anak usia sekolah. Kegiatan CKG bertujuan untuk mengetahui kondisi kesehatan anak secara menyeluruh, melakukan deteksi dini terhadap faktor risiko maupun gangguan kesehatan, serta memberikan edukasi kesehatan kepada peserta didik. Pemeriksaan dilakukan oleh tenaga kesehatan UPTD Puskesmas Geyer 2 dengan tetap memperhatikan kebutuhan dan kondisi masing-masing anak.",
+    "pic": "Ns. Bhek­ti Prasetyo, S.Kep.",
     "status": "Publish"
   },
   {
     "id": "AG0820260002",
-    "tanggal": "21/08/2026",
-    "jam": "09:00",
-    "tempat": "UPTD Puskesmas Geyer 2",
-    "kegiatan": "Prolanis",
-    "pic": "Cahyu Dana Safitri",
+    "tanggal": "02/09/2026",
+    "jam": "07:00",
+    "tempat": "TK/PAUD Mentari Pagi Desa Ngrandu",
+    "kegiatan": "UPTD Puskesmas Geyer 2 melaksanakan kegiatan Cek Kesehatan Gratis (CKG) bagi Anak Pra Sekolah/Sekolah sebagai salah satu upaya deteksi dini dan pemantauan kondisi kesehatan anak usia sekolah. Kegiatan CKG bertujuan untuk mengetahui kondisi kesehatan anak secara menyeluruh, melakukan deteksi dini terhadap faktor risiko maupun gangguan kesehatan, serta memberikan edukasi kesehatan kepada peserta didik. Pemeriksaan dilakukan oleh tenaga kesehatan UPTD Puskesmas Geyer 2 dengan tetap memperhatikan kebutuhan dan kondisi masing-masing anak.",
+    "pic": "Ns. Bhek­ti Prasetyo, S.Kep.",
+    "status": "Publish"
+  },
+  {
+    "id": "AG0820260003",
+    "tanggal": "03/09/2026",
+    "jam": "07:00",
+    "tempat": "SD Negeri 1 Bangsri",
+    "kegiatan": "UPTD Puskesmas Geyer 2 melaksanakan kegiatan Cek Kesehatan Gratis (CKG) bagi Anak Pra Sekolah/Sekolah sebagai salah satu upaya deteksi dini dan pemantauan kondisi kesehatan anak usia sekolah. Kegiatan CKG bertujuan untuk mengetahui kondisi kesehatan anak secara menyeluruh, melakukan deteksi dini terhadap faktor risiko maupun gangguan kesehatan, serta memberikan edukasi kesehatan kepada peserta didik. Pemeriksaan dilakukan oleh tenaga kesehatan UPTD Puskesmas Geyer 2 dengan tetap memperhatikan kebutuhan dan kondisi masing-masing anak.",
+    "pic": "Ns. Bhek­ti Prasetyo, S.Kep.",
     "status": "Publish"
   }
 ]
