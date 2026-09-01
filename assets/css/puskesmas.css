@@ -30,7 +30,328 @@ body{color:var(--pkm-text);background:#fff}
 .pkm-emergency-section{background:var(--pkm-blue-dark);color:#fff}.pkm-emergency-section span{font-size:12px;letter-spacing:1.5px;color:#63e1c2;font-weight:800}.pkm-emergency-section h2{font-size:38px;font-weight:800;margin:8px 0}.pkm-emergency-section p{color:rgba(255,255,255,.75)}.pkm-emergency-btn{display:inline-flex;padding:14px 22px;background:#ef6251;color:#fff!important;text-decoration:none;border-radius:10px;font-weight:800}
 .pkm-footer{background:#071d3a;color:#fff;padding:36px 0}.pkm-footer-brand{display:flex;gap:14px;align-items:center}.pkm-footer-brand img{width:52px;height:52px;object-fit:contain}.pkm-footer-brand div{display:flex;flex-direction:column}.pkm-footer-brand strong{font-size:16px}.pkm-footer-brand span,.pkm-footer p,.pkm-footer small{color:rgba(255,255,255,.65);font-size:13px}.pkm-footer p{margin:0 0 5px}
 @media(max-width:1199px){.pkm-navmenu ul{gap:0}.pkm-navmenu a{padding:9px 7px!important;font-size:13px!important}.pkm-navmenu .emergency-link{padding:10px 13px!important}}
-@media(max-width:991px){.pkm-navmenu ul{display:none}.mobile-nav-toggle{display:block}.pkm-navmenu.mobile-open ul{display:flex;position:absolute;top:88px;left:0;right:0;background:var(--pkm-blue-dark);padding:14px 20px 20px;flex-direction:column;align-items:stretch;box-shadow:0 12px 25px rgba(0,0,0,.15)}.pkm-navmenu.mobile-open a{display:block}.pkm-navmenu.mobile-open .emergency-link{margin-top:6px;text-align:center}.pkm-hero{padding-top:135px}.pkm-hero-card{margin:20px 0 0;max-width:none}.pkm-hero:after{display:none}}
+/* =========================================================
+   MOBILE NAVIGATION - DRAWER DARI KANAN
+   UPTD PUSKESMAS GEYER 2
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    /* Tombol hamburger */
+    .mobile-nav-toggle {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+
+        width: 48px;
+        height: 48px;
+
+        border: 0;
+        background: transparent;
+
+        color: #ffffff;
+        font-size: 30px;
+        line-height: 1;
+
+        cursor: pointer;
+        position: relative;
+        z-index: 10002;
+
+        padding: 0;
+    }
+
+
+    /* =====================================================
+       OVERLAY
+       ===================================================== */
+
+    .pkm-mobile-overlay {
+        position: fixed;
+        inset: 0;
+
+        background: rgba(0, 0, 0, 0.48);
+
+        opacity: 0;
+        visibility: hidden;
+
+        transition:
+            opacity 0.3s ease,
+            visibility 0.3s ease;
+
+        z-index: 9998;
+    }
+
+    .pkm-mobile-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+
+    /* =====================================================
+       DRAWER
+       ===================================================== */
+
+    .pkm-navmenu {
+        position: static !important;
+    }
+
+
+    .pkm-navmenu ul {
+        display: flex !important;
+
+        position: fixed !important;
+
+        top: 0 !important;
+        right: 0 !important;
+        left: auto !important;
+        bottom: 0 !important;
+
+        width: min(340px, 86vw);
+
+        height: 100dvh;
+
+        margin: 0 !important;
+
+        padding: 92px 20px 30px !important;
+
+        background: #ffffff;
+
+        flex-direction: column !important;
+        align-items: stretch !important;
+
+        gap: 7px !important;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        box-shadow:
+            -12px 0 35px rgba(0, 0, 0, 0.18);
+
+        transform: translateX(105%);
+
+        visibility: hidden;
+
+        transition:
+            transform 0.32s cubic-bezier(.4,0,.2,1),
+            visibility 0.32s ease;
+
+        z-index: 9999;
+    }
+
+
+    /* Drawer terbuka */
+    .pkm-navmenu.mobile-open ul {
+        transform: translateX(0);
+
+        visibility: visible;
+    }
+
+
+    /* =====================================================
+       ITEM MENU
+       ===================================================== */
+
+    .pkm-navmenu ul li {
+        width: 100%;
+        flex: 0 0 auto;
+    }
+
+
+    .pkm-navmenu ul li a {
+        display: flex !important;
+
+        align-items: center;
+
+        width: 100%;
+        min-height: 52px;
+
+        padding: 14px 16px !important;
+
+        border-radius: 10px;
+
+        color: var(--pkm-blue-dark) !important;
+
+        background: transparent;
+
+        font-size: 16px !important;
+        font-weight: 600 !important;
+
+        line-height: 1.3;
+
+        white-space: normal !important;
+
+        text-decoration: none !important;
+
+        transition:
+            background 0.2s ease,
+            color 0.2s ease,
+            transform 0.2s ease;
+    }
+
+
+    /* Hover / active */
+    .pkm-navmenu ul li a:hover,
+    .pkm-navmenu ul li a.active {
+        background: #eaf8f1 !important;
+        color: var(--pkm-green-dark) !important;
+    }
+
+
+    /* =====================================================
+       TOMBOL LAYANAN DARURAT
+       ===================================================== */
+
+    .pkm-navmenu ul li a.emergency-link {
+        display: flex !important;
+
+        justify-content: center;
+
+        min-height: 52px;
+
+        margin-top: 10px !important;
+
+        padding: 14px 18px !important;
+
+        background: #1e88ff !important;
+
+        color: #ffffff !important;
+
+        border-radius: 12px !important;
+
+        text-align: center;
+
+        font-size: 16px !important;
+        font-weight: 700 !important;
+    }
+
+
+    .pkm-navmenu ul li a.emergency-link:hover {
+        background: #1477df !important;
+        color: #ffffff !important;
+    }
+
+
+    /* =====================================================
+       HEADER TETAP DI ATAS
+       ===================================================== */
+
+    .pkm-header {
+        position: relative;
+        z-index: 10001;
+    }
+
+
+    /* Saat drawer dibuka, tombol X berada di atas drawer */
+    body.pkm-menu-open .mobile-nav-toggle {
+        position: fixed;
+
+        top: 20px;
+        right: 18px;
+
+        width: 48px;
+        height: 48px;
+
+        background: var(--pkm-blue-dark);
+
+        border-radius: 50%;
+
+        z-index: 10003;
+
+        box-shadow: 0 4px 15px rgba(0,0,0,.15);
+    }
+
+
+    /* =====================================================
+       KUNCI SCROLL HALAMAN
+       ===================================================== */
+
+    body.pkm-menu-open {
+        overflow: hidden;
+    }
+
+
+    /* =====================================================
+       MOBILE HEADER
+       ===================================================== */
+
+    .pkm-logo img {
+        width: 50px !important;
+        height: 50px !important;
+        max-height: 50px !important;
+    }
+
+    .pkm-logo span {
+        font-size: 15px !important;
+    }
+
+    .pkm-location {
+        font-size: 13px !important;
+        line-height: 1.5;
+        flex-wrap: wrap;
+    }
+
+
+    /* =====================================================
+       HERO
+       ===================================================== */
+
+    .pkm-hero {
+        padding-top: 135px;
+    }
+
+    .pkm-hero-card {
+        margin: 20px 0 0;
+        max-width: none;
+    }
+
+    .pkm-hero:after {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   HP KECIL
+   ========================================================= */
+
+@media (max-width: 575px) {
+
+    .pkm-navmenu ul {
+        width: min(320px, 88vw);
+
+        padding:
+            88px
+            16px
+            25px !important;
+    }
+
+    .pkm-navmenu ul li a {
+        min-height: 54px;
+
+        padding: 15px 16px !important;
+
+        font-size: 16px !important;
+    }
+
+    .pkm-navmenu ul li a.emergency-link {
+        min-height: 54px;
+    }
+
+    .mobile-nav-toggle {
+        width: 44px;
+        height: 44px;
+
+        font-size: 28px;
+    }
+
+    body.pkm-menu-open .mobile-nav-toggle {
+        top: 18px;
+        right: 14px;
+
+        width: 44px;
+        height: 44px;
+    }
+}
 @media(max-width:575px){.pkm-logo img{width:45px!important;height:45px!important}.pkm-logo span{font-size:13px}.pkm-logo strong{font-size:16px}.pkm-hero h1{font-size:42px}.pkm-hero .lead{font-size:16px}.section{padding:60px 0}.pkm-section-heading h2{font-size:32px}.pkm-villages{grid-template-columns:1fr}}
 /* =========================================================
    PENYEMPURNAAN HEADER & HERO
