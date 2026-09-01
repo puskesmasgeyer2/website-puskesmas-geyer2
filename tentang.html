@@ -423,6 +423,103 @@
 
     }
 
+    /* =========================================================
+   TENAGA MEDIS
+   ========================================================= */
+
+.pkm-medical-section {
+  margin-top: 10px;
+}
+
+.pkm-medical-card {
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #e3eaf0;
+  border-radius: 20px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(15, 48, 88, .05);
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+.pkm-medical-card:hover {
+  transform: translateY(-5px);
+  border-color: #0f9d58;
+  box-shadow:
+    0 16px 35px rgba(15, 157, 88, .12);
+}
+
+.pkm-medical-photo {
+  width: 100%;
+  height: 300px;
+  background: #eef8f3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.pkm-medical-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transition: transform .3s ease;
+}
+
+.pkm-medical-card:hover .pkm-medical-photo img {
+  transform: scale(1.03);
+}
+
+.pkm-medical-info {
+  padding: 20px 16px 22px;
+}
+
+.pkm-medical-info h3 {
+  margin: 0 0 8px;
+  color: #0d315f;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.pkm-medical-info p {
+  margin: 0;
+  color: #7187a0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.pkm-medical-role {
+  display: inline-block;
+  margin-top: 4px;
+  color: #0f9d58;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   MOBILE TENAGA MEDIS
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .pkm-medical-photo {
+    height: 280px;
+  }
+
+  .pkm-medical-info {
+    padding: 18px 14px 20px;
+  }
+
+  .pkm-medical-info h3 {
+    font-size: 17px;
+  }
+
+}
   </style>
 
 </head>
@@ -914,108 +1011,6 @@
     </div>
 
   </section>
-
-
-  <!-- =======================================================
-       WILAYAH KERJA
-       ======================================================= -->
-
-  <section
-    class="section pkm-section light-background"
-  >
-
-    <div class="container">
-
-      <div class="pkm-section-heading">
-
-        <span>
-          WILAYAH KERJA
-        </span>
-
-        <h2>
-          Desa Wilayah Kerja
-        </h2>
-
-        <p>
-          Wilayah pelayanan UPTD Puskesmas Geyer 2.
-        </p>
-
-      </div>
-
-
-      <div class="row g-4">
-
-
-        <div class="col-md-3">
-
-          <div class="pkm-feature-card text-center">
-
-            <div class="feature-number">
-              01
-            </div>
-
-            <h3>
-              Ngrandu
-            </h3>
-
-          </div>
-
-        </div>
-
-
-        <div class="col-md-3">
-
-          <div class="pkm-feature-card text-center">
-
-            <div class="feature-number">
-              02
-            </div>
-
-            <h3>
-              Bangsri
-            </h3>
-
-          </div>
-
-        </div>
-
-
-        <div class="col-md-3">
-
-          <div class="pkm-feature-card text-center">
-
-            <div class="feature-number">
-              03
-            </div>
-
-            <h3>
-              Asemrudung
-            </h3>
-
-          </div>
-
-        </div>
-
-
-        <div class="col-md-3">
-
-          <div class="pkm-feature-card text-center">
-
-            <div class="feature-number">
-              04
-            </div>
-
-            <h3>
-              Karanganyar
-            </h3>
-
-          </div>
-
-        </div>
-
-
-      </div>
-
 
       <!-- =====================================================
            KONTAK RESMI
