@@ -30,6 +30,24 @@
   }
 
 
+  // =====================================================
+// BERSIHKAN HTML DARI RINGKASAN
+// =====================================================
+
+function stripHtml(value) {
+
+  if (!value) return '';
+
+  const temp = document.createElement('div');
+
+  temp.innerHTML = String(value);
+
+  return temp.textContent
+    .replace(/\s+/g, ' ')
+    .trim();
+
+}
+  
   function formatDate(value) {
 
     if (!value) return '';
@@ -202,15 +220,17 @@
 
           <div class="pkm-detail-summary">
 
-            <strong>Ringkasan</strong>
+  <strong>Ringkasan</strong>
 
-            <p>
-              ${escapeHtml(
-                berita.ringkasan || ''
-              )}
-            </p>
+  <p>
+    ${escapeHtml(
+      stripHtml(
+        berita.ringkasan || ''
+      )
+    )}
+  </p>
 
-          </div>
+</div>
 
 
           <div class="pkm-detail-content">
