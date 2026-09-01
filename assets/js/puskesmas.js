@@ -4,40 +4,193 @@
 
 
   /* =========================================================
-     MOBILE NAVIGATION
-     ========================================================= */
+   MOBILE NAVIGATION
+   DRAWER DARI KANAN
+   UPTD PUSKESMAS GEYER 2
+   ========================================================= */
 
-  const nav = document.getElementById('navmenu');
-  const toggle = document.querySelector('.mobile-nav-toggle');
+const nav = document.getElementById('navmenu');
+const toggle = document.querySelector('.mobile-nav-toggle');
 
+if (toggle && nav) {
 
-  if (toggle && nav) {
+  /* =======================================================
+     BUAT OVERLAY
+     ======================================================= */
 
-    toggle.addEventListener('click', function () {
+  let overlay = document.querySelector('.pkm-mobile-overlay');
 
-      nav.classList.toggle('mobile-open');
+  if (!overlay) {
 
-      toggle.textContent =
-        nav.classList.contains('mobile-open')
-          ? '✕'
-          : '☰';
+    overlay = document.createElement('div');
 
-    });
+    overlay.className = 'pkm-mobile-overlay';
 
-
-    nav.querySelectorAll('a').forEach(function (a) {
-
-      a.addEventListener('click', function () {
-
-        nav.classList.remove('mobile-open');
-
-        toggle.textContent = '☰';
-
-      });
-
-    });
+    document.body.appendChild(overlay);
 
   }
+
+
+  /* =======================================================
+     FUNGSI BUKA MENU
+     ======================================================= */
+
+  function openMobileMenu() {
+
+    nav.classList.add('mobile-open');
+
+    document.body.classList.add('pkm-menu-open');
+
+    overlay.classList.add('active');
+
+    toggle.textContent = '✕';
+
+    toggle.setAttribute(
+      'aria-label',
+      'Tutup menu'
+    );
+
+    toggle.setAttribute(
+      'aria-expanded',
+      'true'
+    );
+
+  }
+
+
+  /* =======================================================
+     FUNGSI TUTUP MENU
+     ======================================================= */
+
+  function closeMobileMenu() {
+
+    nav.classList.remove('mobile-open');
+
+    document.body.classList.remove('pkm-menu-open');
+
+    overlay.classList.remove('active');
+
+    toggle.textContent = '☰';
+
+    toggle.setAttribute(
+      'aria-label',
+      'Buka menu'
+    );
+
+    toggle.setAttribute(
+      'aria-expanded',
+      'false'
+    );
+
+  }
+
+
+  /* =======================================================
+     TOGGLE MENU
+     ======================================================= */
+
+  toggle.addEventListener(
+    'click',
+    function () {
+
+      if (
+        nav.classList.contains(
+          'mobile-open'
+        )
+      ) {
+
+        closeMobileMenu();
+
+      } else {
+
+        openMobileMenu();
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     KLIK OVERLAY = TUTUP
+     ======================================================= */
+
+  overlay.addEventListener(
+    'click',
+    function () {
+
+      closeMobileMenu();
+
+    }
+  );
+
+
+  /* =======================================================
+     KLIK MENU = TUTUP
+     ======================================================= */
+
+  nav.querySelectorAll('a').forEach(
+    function (a) {
+
+      a.addEventListener(
+        'click',
+        function () {
+
+          closeMobileMenu();
+
+        }
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     ESC = TUTUP
+     ======================================================= */
+
+  document.addEventListener(
+    'keydown',
+    function (event) {
+
+      if (
+        event.key === 'Escape' &&
+        nav.classList.contains(
+          'mobile-open'
+        )
+      ) {
+
+        closeMobileMenu();
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     JIKA BERPINDAH KE DESKTOP
+     ======================================================= */
+
+  window.addEventListener(
+    'resize',
+    function () {
+
+      if (
+        window.innerWidth > 991 &&
+        nav.classList.contains(
+          'mobile-open'
+        )
+      ) {
+
+        closeMobileMenu();
+
+      }
+
+    }
+  );
+
+}
 
 
 
