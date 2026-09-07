@@ -173,6 +173,19 @@
       transform: translateY(-2px);
     }
 
+          .pkm-social-section {
+        padding: 10px 0;
+      }
+
+      .pkm-footer .footer-info {
+        align-items: center;
+        text-align: center;
+      }
+
+      .pkm-footer-brand {
+        justify-content: center;
+      }
+
 
     /* =========================================================
        INFORMASI
@@ -227,50 +240,168 @@
 
 
     /* =========================================================
-       FOOTER
-       ========================================================= */
+   SOCIAL MEDIA
+   ========================================================= */
 
-    .pkm-footer {
-      margin-top: 0;
-    }
+.pkm-social-section {
+  height: 100%;
 
+  display: flex;
+  flex-direction: column;
 
-    @media (max-width: 768px) {
+  align-items: center;
+  justify-content: center;
 
-      .pkm-registration-section {
-        padding-top: 120px;
-        padding-bottom: 60px;
-      }
+  text-align: center;
+}
 
+.pkm-footer .pkm-social-section .pkm-eyebrow {
+  color: #11b7c9;
+}
 
-      .pkm-registration-card {
-        padding: 30px 20px;
-        border-radius: 18px;
-      }
+.pkm-footer .pkm-social-section h3 {
+  margin: 8px 0 18px;
 
+  color: #ffffff;
 
-      .pkm-registration-card h1 {
-        font-size: 30px;
-      }
+  font-size: 18px;
+}
 
+.pkm-social-links {
+  display: flex;
 
-      .pkm-registration-icon {
-        width: 75px;
-        height: 75px;
-        font-size: 32px;
-      }
+  justify-content: center;
+  align-items: center;
 
+  gap: 12px;
+}
 
-      .pkm-jkn-buttons {
-        flex-direction: column;
-      }
+.pkm-social-links a {
+  width: 48px;
+  height: 48px;
 
+  display: flex;
 
-      .pkm-jkn-btn {
-        width: 100%;
-      }
+  align-items: center;
+  justify-content: center;
 
-    }
+  border-radius: 50%;
+
+  text-decoration: none;
+
+  font-size: 20px;
+
+  transition: all .25s ease;
+}
+
+.pkm-social-links a:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+.pkm-social-links .instagram {
+  background: #fce8f0;
+  color: #d62976;
+}
+
+.pkm-social-links .x {
+  background: #eef1f3;
+  color: #111111;
+}
+
+.pkm-social-links .facebook {
+  background: #e8f0ff;
+  color: #1877f2;
+}
+
+.pkm-social-links .youtube {
+  background: #ffebeb;
+  color: #ff0000;
+}
+
+/* =========================================================
+   KEMBALI KE BERANDA
+   ========================================================= */
+
+.pkm-back-home {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 28px;
+}
+
+.pkm-back-home a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  padding: 12px 24px;
+
+  background: #ffffff;
+
+  border: 1px solid #dfe7ee;
+
+  border-radius: 12px;
+
+  color: #123b6d;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  text-decoration: none;
+
+  box-shadow: 0 6px 18px rgba(15, 48, 88, .06);
+
+  transition: all .25s ease;
+}
+
+.pkm-back-home a:hover {
+  color: #ffffff;
+
+  background: #0f9d58;
+
+  border-color: #0f9d58;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 24px rgba(15, 157, 88, .15);
+}
+
+.pkm-back-home i {
+  font-size: 13px;
+}
+    
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.pkm-footer {
+  margin-top: 0;
+}
+
+.pkm-footer .row {
+  align-items: center;
+}
+
+.pkm-footer-brand {
+  display: flex;
+  align-items: center;
+}
+
+.pkm-footer .footer-info {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-end;
+  justify-content: center;
+
+  text-align: right;
+}
+
+.pkm-footer .footer-info p {
+  margin-bottom: 5px;
+}
 
   </style>
 
@@ -531,6 +662,14 @@
 
           </div>
 
+        </div>
+
+        <!-- KEMBALI KE BERANDA -->
+        <div class="pkm-back-home">
+          <a href="index.html">
+            <i class="fa-solid fa-arrow-left"></i>
+            Kembali ke Beranda
+          </a>
         </div>
 
 
