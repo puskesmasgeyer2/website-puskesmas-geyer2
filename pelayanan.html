@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Informasi Pelayanan - UPTD Puskesmas Geyer 2</title>
+
+  <meta
+    name="description"
+    content="Informasi jenis-jenis pelayanan kesehatan UPTD Puskesmas Geyer 2 berdasarkan SK Kepala Puskesmas Geyer 2 Nomor SK/166/I/2026."
+  >
+
+  <link
+    rel="icon"
+    href="images/logo-puskesmas.PNG"
+  >
+
+  <!-- BOOTSTRAP -->
+  <link
+    href="assets/vendor/bootstrap/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- CSS UTAMA -->
+  <link
+    href="assets/css/main.css"
+    rel="stylesheet"
+  >
+
+  <!-- CSS PUSKESMAS -->
+  <link
+    href="assets/css/puskesmas.css"
+    rel="stylesheet"
+  >
+
+  <!-- FONT AWESOME -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+  >
+
+
+  <style>
+
+    /* =========================================================
+       HALAMAN PELAYANAN
+       ========================================================= */
+
+    .pkm-service-section {
+      padding-top: 150px;
+      padding-bottom: 90px;
+      background: #f8fbfd;
+    }
+
+
+    /* =========================================================
+       HEADER HALAMAN
+       ========================================================= */
+
+    .pkm-service-hero {
+      max-width: 900px;
+      margin: 0 auto 40px;
+      text-align: center;
+    }
+
+    .pkm-service-hero .pkm-eyebrow {
+      display: block;
+      margin-bottom: 10px;
+
+      color: #0f9d58;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      letter-spacing: 1.5px;
+    }
+
+    .pkm-service-hero h1 {
+      margin-bottom: 15px;
+
+      color: #123b6d;
+
+      font-size: 38px;
+      font-weight: 750;
+    }
+
+    .pkm-service-hero p {
+      max-width: 760px;
+      margin: 0 auto;
+
+      color: #667b92;
+
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+
+    /* =========================================================
+       INFORMASI SK
+       ========================================================= */
+
+    .pkm-sk-info {
+      max-width: 900px;
+
+      margin: 0 auto 35px;
+
+      padding: 18px 22px;
+
+      background: #ffffff;
+
+      border: 1px solid #e4ebf0;
+
+      border-left: 4px solid #0f9d58;
+
+      border-radius: 14px;
+
+      color: #667b92;
+
+      box-shadow:
+        0 8px 25px rgba(15, 48, 88, .05);
+    }
+
+    .pkm-sk-info strong {
+      color: #123b6d;
+    }
+
+
+    /* =========================================================
+       UNIT NAVIGATION
+       ========================================================= */
+
+    .pkm-unit-nav {
+      display: flex;
+
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      gap: 12px;
+
+      margin-bottom: 35px;
+    }
+
+    .pkm-unit-nav button {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 8px;
+
+      min-height: 48px;
+
+      padding: 11px 22px;
+
+      border: 1px solid #dce7ee;
+
+      border-radius: 12px;
+
+      background: #ffffff;
+
+      color: #123b6d;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: all .25s ease;
+    }
+
+    .pkm-unit-nav button:hover {
+      transform: translateY(-2px);
+
+      border-color: #0f9d58;
+
+      color: #0f9d58;
+    }
+
+    .pkm-unit-nav button.active {
+      background: #0f9d58;
+
+      border-color: #0f9d58;
+
+      color: #ffffff;
+
+      box-shadow:
+        0 8px 20px rgba(15, 157, 88, .18);
+    }
+
+
+    /* =========================================================
+       UNIT PANEL
+       ========================================================= */
+
+    .pkm-unit-panel {
+      display: none;
+
+      max-width: 1000px;
+
+      margin: 0 auto;
+    }
+
+    .pkm-unit-panel.active {
+      display: block;
+    }
+
+
+    .pkm-unit-heading {
+      display: flex;
+
+      align-items: center;
+
+      gap: 15px;
+
+      margin-bottom: 25px;
+
+      padding: 22px 25px;
+
+      background: #123b6d;
+
+      border-radius: 18px;
+
+      color: #ffffff;
+    }
+
+    .pkm-unit-heading-icon {
+      width: 52px;
+      height: 52px;
+
+      flex: 0 0 52px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 14px;
+
+      background: rgba(255,255,255,.13);
+
+      font-size: 21px;
+    }
+
+    .pkm-unit-heading h2 {
+      margin: 0;
+
+      color: #ffffff;
+
+      font-size: 24px;
+
+      font-weight: 750;
+    }
+
+    .pkm-unit-heading p {
+      margin: 4px 0 0;
+
+      color: rgba(255,255,255,.75);
+
+      font-size: 13px;
+    }
+
+
+    /* =========================================================
+       SERVICE CARD
+       ========================================================= */
+
+    .pkm-service-card {
+      margin-bottom: 18px;
+
+      background: #ffffff;
+
+      border: 1px solid #e3eaf0;
+
+      border-radius: 18px;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 8px 25px rgba(15, 48, 88, .045);
+    }
+
+
+    .pkm-service-card-header {
+      width: 100%;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 15px;
+
+      padding: 19px 22px;
+
+      border: 0;
+
+      background: #ffffff;
+
+      color: #123b6d;
+
+      text-align: left;
+
+      cursor: pointer;
+    }
+
+
+    .pkm-service-card-header:hover {
+      background: #f7fbf9;
+    }
+
+
+    .pkm-service-title {
+      display: flex;
+
+      align-items: center;
+
+      gap: 13px;
+    }
+
+
+    .pkm-service-number {
+      width: 38px;
+      height: 38px;
+
+      flex: 0 0 38px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 11px;
+
+      background: #e9f8f0;
+
+      color: #0f9d58;
+
+      font-size: 13px;
+
+      font-weight: 800;
+    }
+
+
+    .pkm-service-title h3 {
+      margin: 0;
+
+      color: #123b6d;
+
+      font-size: 17px;
+
+      font-weight: 750;
+
+      line-height: 1.4;
+    }
+
+
+    .pkm-service-arrow {
+      color: #7890a8;
+
+      transition: transform .25s ease;
+    }
+
+
+    .pkm-service-card.open
+    .pkm-service-arrow {
+      transform: rotate(180deg);
+
+      color: #0f9d58;
+    }
+
+
+    /* =========================================================
+       SERVICE LIST
+       ========================================================= */
+
+    .pkm-service-content {
+      display: none;
+
+      padding: 0 22px 22px 73px;
+    }
+
+    .pkm-service-card.open
+    .pkm-service-content {
+      display: block;
+    }
+
+
+    .pkm-service-list {
+      margin: 0;
+
+      padding: 0;
+
+      list-style: none;
+    }
+
+
+    .pkm-service-list li {
+      position: relative;
+
+      margin-bottom: 9px;
+
+      padding-left: 22px;
+
+      color: #667b92;
+
+      font-size: 14px;
+
+      line-height: 1.65;
+    }
+
+
+    .pkm-service-list li::before {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+
+      top: 9px;
+
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: #0f9d58;
+    }
+
+
+    .pkm-service-list li:last-child {
+      margin-bottom: 0;
+    }
+
+
+    /* =========================================================
+       KEMBALI
+       ========================================================= */
+
+    .pkm-back-home {
+      display: flex;
+
+      justify-content: center;
+
+      margin-top: 35px;
+    }
+
+    .pkm-back-home a {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 9px;
+
+      padding: 12px 24px;
+
+      background: #ffffff;
+
+      border: 1px solid #dfe7ee;
+
+      border-radius: 12px;
+
+      color: #123b6d;
+
+      font-size: 14px;
+
+      font-weight: 700;
+
+      text-decoration: none;
+
+      box-shadow:
+        0 6px 18px rgba(15, 48, 88, .06);
+
+      transition: all .25s ease;
+    }
+
+    .pkm-back-home a:hover {
+      color: #ffffff;
+
+      background: #0f9d58;
+
+      border-color: #0f9d58;
+
+      transform: translateY(-2px);
+    }
+
+
+    /* =========================================================
+       MOBILE
+       ========================================================= */
+
+    @media (max-width: 768px) {
+
+      .pkm-service-section {
+        padding-top: 120px;
+        padding-bottom: 60px;
+      }
+
+      .pkm-service-hero h1 {
+        font-size: 30px;
+      }
+
+      .pkm-service-hero p {
+        font-size: 14px;
+      }
+
+      .pkm-unit-nav {
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        gap: 9px;
+      }
+
+      .pkm-unit-nav button {
+        width: 100%;
+      }
+
+      .pkm-unit-heading {
+        padding: 18px;
+      }
+
+      .pkm-unit-heading h2 {
+        font-size: 20px;
+      }
+
+      .pkm-service-card-header {
+        padding: 17px;
+      }
+
+      .pkm-service-title h3 {
+        font-size: 15px;
+      }
+
+      .pkm-service-content {
+        padding: 0 17px 20px 68px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+
+<header
+  id="header"
+  class="header fixed-top pkm-header"
+>
+
+  <div class="branding d-flex align-items-center">
+
+    <div
+      class="container d-flex align-items-center justify-content-between"
+    >
+
+      <!-- LOGO -->
+
+      <a
+        href="index.html"
+        class="logo pkm-logo"
+      >
+
+        <img
+          src="images/logo-puskesmas.PNG"
+          alt="Logo Puskesmas Geyer 2"
+        >
+
+        <span>
+          UPTD Puskesmas<br>
+          <strong>Geyer 2</strong>
+        </span>
+
+      </a>
+
+
+      <!-- NAVIGASI -->
+
+      <nav
+        id="navmenu"
+        class="navmenu pkm-navmenu"
+      >
+
+        <ul>
+
+          <li>
+            <a href="index.html">
+              Beranda
+            </a>
+          </li>
+
+          <li>
+            <a href="pengumuman.html">
+              Pengumuman
+            </a>
+          </li>
+
+          <li>
+            <a href="berita.html">
+              Berita
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="pelayanan.html"
+              class="active"
+            >
+              Pelayanan
+            </a>
+          </li>
+
+          <li>
+            <a href="agenda.html">
+              Agenda
+            </a>
+          </li>
+
+          <li>
+            <a href="galeri.html">
+              Galeri
+            </a>
+          </li>
+
+          <li>
+            <a href="download.html">
+              Download
+            </a>
+          </li>
+
+          <li>
+            <a href="tentang.html">
+              Tentang Kami
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="darurat.html"
+              class="emergency-link"
+            >
+              Layanan Darurat
+            </a>
+          </li>
+
+        </ul>
+
+
+        <!-- MOBILE MENU -->
+
+        <button
+          class="mobile-nav-toggle"
+          type="button"
+          aria-label="Buka menu"
+        >
+          ☰
+        </button>
+
+      </nav>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
+<main class="main">
+
+  <section class="pkm-service-section">
+
+    <div class="container">
+
+
+      <!-- =====================================================
+           JUDUL
+           ===================================================== -->
+
+      <div class="pkm-service-hero">
+
+        <span class="pkm-eyebrow">
+          INFORMASI PELAYANAN
+        </span>
+
+        <h1>
+          Jenis-Jenis Pelayanan Kesehatan
+        </h1>
+
+        <p>
+          Informasi jenis pelayanan kesehatan UPTD Puskesmas
+          Geyer 2 berdasarkan Keputusan Kepala Puskesmas
+          Geyer 2 Nomor SK / 166 / I / 2026.
+        </p>
+
+      </div>
+
+
+      <!-- =====================================================
+           INFORMASI SK
+           ===================================================== -->
+
+      <div class="pkm-sk-info">
+
+        <strong>
+          Dasar Informasi:
+        </strong>
+
+        Keputusan Kepala Puskesmas Geyer 2
+        Nomor <strong>SK / 166 / I / 2026</strong>
+        tentang Jenis-Jenis Pelayanan Kesehatan
+        UPTD Puskesmas Geyer 2 Kabupaten Grobogan,
+        ditetapkan tanggal <strong>09 Juli 2026</strong>.
+
+      </div>
+
+
+      <!-- =====================================================
+           PILIH DELIVERY UNIT
+           ===================================================== -->
+
+      <div class="pkm-unit-nav">
+
+        <button
+          type="button"
+          class="active"
+          onclick="showUnit('puskesmas', this)"
+        >
+          <i class="fa-solid fa-hospital"></i>
+          Puskesmas
+        </button>
+
+        <button
+          type="button"
+          onclick="showUnit('pkd', this)"
+        >
+          <i class="fa-solid fa-house-medical"></i>
+          Pustu / PKD
+        </button>
+
+        <button
+          type="button"
+          onclick="showUnit('posyandu', this)"
+        >
+          <i class="fa-solid fa-people-group"></i>
+          Posyandu
+        </button>
+
+      </div>
+
+
+
+      <!-- =====================================================
+           PUSKESMAS
+           ===================================================== -->
+
+      <div
+        id="unit-puskesmas"
+        class="pkm-unit-panel active"
+      >
+
+        <div class="pkm-unit-heading">
+
+          <div class="pkm-unit-heading-icon">
+            <i class="fa-solid fa-hospital"></i>
+          </div>
+
+          <div>
+            <h2>
+              Puskesmas
+            </h2>
+
+            <p>
+              Jenis pelayanan kesehatan yang diberikan di Puskesmas.
+            </p>
+          </div>
+
+        </div>
+
+
+        <!-- IBU HAMIL -->
+
+        <div class="pkm-service-card open">
+
+          <button
+            type="button"
+            class="pkm-service-card-header"
+            onclick="toggleService(this)"
+          >
+
+            <div class="pkm-service-title">
+
+              <div class="pkm-service-number">
+                01
+              </div>
+
+              <h3>
+                Ibu Hamil, Bersalin, Nifas
+              </h3>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-down pkm-service-arrow"></i>
+
+          </button>
+
+
+          <div class="pkm-service-content">
+
+            <ul class="pkm-service-list">
+
+              <li>ANC Terpadu (6x + USG oleh dokter)</li>
+
+              <li>Kelas ibu hamil</li>
+
+              <li>Pemberian Tambahan Asupan Gizi pada Ibu Hamil Kurang Energi Kronik (KEK)</li>
+
+              <li>Persalinan normal</li>
+
+              <li>Pelayanan Pasca Persalinan (nifas)</li>
+
+              <li>Skirining Kekerasan terhadap Perempuan dan Anak (KtPA)</li>
+
+              <li>Pelayanan kesehatan gigi dan mulut</li>
+
+              <li>Pengobatan</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <!-- BAYI -->
+
+        <div class="pkm-service-card">
+
+          <button
+            type="button"
+            class="pkm-service-card-header"
+            onclick="toggleService(this)"
+          >
+
+            <div class="pkm-service-title">
+
+              <div class="pkm-service-number">
+                02
+              </div>
+
+              <h3>
+                Bayi & Anak Pra-Sekolah
+              </h3>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-down pkm-service-arrow"></i>
+
+          </button>
+
+
+          <div class="pkm-service-content">
+
+            <ul class="pkm-service-list">
+
+              <li>Pelayanan Neonatal Esensial</li>
+
+              <li>Kelas Ibu Balita</li>
+
+              <li>Pelayanan Bayi Berat Lahir Rendah (BBLR)</li>
+
+              <li>Pengambilan dan pengiriman sampel SHK</li>
+
+              <li>Pemantauan Pertumbuhan dan Perkembangan</li>
+
+              <li>Imunisasi Rutin Lengkap</li>
+
+              <li>Pemberian Vitamin A dan obat cacing</li>
+
+              <li>Pencegahan, deteksi dini, Tatalaksana dan rujukan balita weight faltering, underweight, gizi kurang, gizi buruk dan stunting</li>
+
+              <li>Manajemen Terpadu Balita Sakit (MTBS)</li>
+
+              <li>Skrining kasus TBC</li>
+
+              <li>Skrining Talasemia</li>
+
+              <li>Skirining Kekerasan terhadap Perempuan dan Anak (KtPA)</li>
+
+              <li>Pelayanan kesehatan gigi dan mulut</li>
+
+              <li>Pengobatan</li>
+
+              <li>CKG</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <!-- USIA SEKOLAH -->
+
+        <div class="pkm-service-card">
+
+          <button
+            type="button"
+            class="pkm-service-card-header"
+            onclick="toggleService(this)"
+          >
+
+            <div class="pkm-service-title">
+
+              <div class="pkm-service-number">
+                03
+              </div>
+
+              <h3>
+                Usia Sekolah dan Remaja
+              </h3>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-down pkm-service-arrow"></i>
+
+          </button>
+
+
+          <div class="pkm-service-content">
+
+            <ul class="pkm-service-list">
+
+              <li>Skrining kesehatan</li>
+
+              <li>Vaksinasi / Imunisasi</li>
+
+              <li>Pelayanan Kesehatan Peduli Remaja</li>
+
+              <li>Fasilitasi UKS</li>
+
+              <li>Skirining Kekerasan terhadap Perempuan dan Anak (KtPA)</li>
+
+              <li>Pelayanan kesehatan gigi dan mulut</li>
+
+              <li>Pengobatan</li>
+
+              <li>CKG</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <!-- DEWASA -->
+
+        <div class="pkm-service-card">
+
+          <button
+            type="button"
+            class="pkm-service-card-header"
+            onclick="toggleService(this)"
+          >
+
+            <div class="pkm-service-title">
+
+              <div class="pkm-service-number">
+                04
+              </div>
+
+              <h3>
+                Dewasa & Lansia
+              </h3>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-down pkm-service-arrow"></i>
+
+          </button>
+
+
+          <div class="pkm-service-content">
+
+            <ul class="pkm-service-list">
+
+              <li>Skrining Obesitas</li>
+
+              <li>Skrining Hipertensi</li>
+
+              <li>Skrining DM</li>
+
+              <li>Skrining faktor risiko stroke</li>
+
+              <li>Skrining faktor risiko penyakit jantung</li>
+
+              <li>Skrining kanker (Kanker Leher Rahim, Kanker Payudara, Kanker Kolorektal, Kanker Paru)</li>
+
+              <li>Skrining PPOK</li>
+
+              <li>Skrining TBC</li>
+
+              <li>Skrining Indera Penglihatan</li>
+
+              <li>Skrining kebugaran</li>
+
+              <li>Skrining Talasemia</li>
+
+              <li>Skrining kasus kekerasan terhadap perempuan</li>
+
+              <li>Skrining masalah kesehatan jiwa</li>
+
+              <li>Pelayanan kesehatan reproduksi bagi calon pengantin</li>
+
+              <li>Skrining layak hamil bagi PUS</li>
+
+              <li>Pelayanan KB</li>
+
+              <li>Pelayanan Penyakit Akibat Kerja</li>
+
+              <li>Skrining Geriatri</li>
+
+              <li>Pelayanan kesehatan gigi dan mulut</li>
+
+              <li>Pelayanan Pengobatan</li>
+
+              <li>CKG</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <!-- PENGENDALIAN PENYAKIT MENULAR -->
+
+        <div class="pkm-service-card">
+
+          <button
+            type="button"
+            class="pkm-service-card-header"
+            onclick="toggleService(this)"
+          >
+
+            <div class="pkm-service-title">
+
+              <div class="pkm-service-number">
+                05
+              </div>
+
+              <h3>
+                Pengendalian Penyakit Menular
+              </h3>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-down pkm-service-arrow"></i>
+
+          </button>
+
+
+          <div class="pkm-service-content">
+
+            <ul class="pkm-service-list">
+
+              <li>Pencegahan, Kewaspadaan Dini, Respon</li>
+
+              <li>Pengawasan Kualitas Lingkungan</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <!-- LINTAS KLASTER -->
+
+        <div class="pkm-service-card">
+
+          <button
+            type="button"
+            class="pkm-service-card-header"
+            onclick="toggleService(this)"
+          >
+
+            <div class="pkm-service-title">
+
+              <div class="pkm-service-number">
+                06
+              </div>
+
+              <h3>
+                Lintas Klaster
+              </h3>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-down pkm-service-arrow"></i>
+
+          </button>
+
+
+          <div class="pkm-service-content">
+
+            <ul class="pkm-service-list">
+
+              <li>Pelayanan Kegawatdaruratan</li>
+
+              <li>Pelayanan Laboratorium</li>
+
+              <li>Pelayanan Kefarmasian</li>
+
+              <li>Pelayanan Kesehatan Gigi & Mulut</li>
+
+              <li>Pelayanan fisioterapi</li>
+
+              <li>Pelayanan Promosi Kesehatan</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =====================================================
+           PUSTU / PKD
+           ===================================================== -->
+
+      <div
+        id="unit-pkd"
+        class="pkm-unit-panel"
+      >
+
+        <div class="pkm-unit-heading">
+
+          <div class="pkm-unit-heading-icon">
+            <i class="fa-solid fa-house-medical"></i>
+          </div>
+
+          <div>
+            <h2>
+              Pustu / PKD
+            </h2>
+
+            <p>
+              Jenis pelayanan kesehatan pada Pustu / PKD.
+            </p>
+          </div>
+
+        </div>
+
+
+        <!-- IBU HAMIL -->
+
+        <div class="pkm-service-card open">
+
+          <button
+            type="button"
+            class="pkm-service-card-header"
+            onclick="toggleService(this)"
+          >
+
+            <div class="pkm-service-title">
+
+              <div class="pkm-service-number">
+                01
+              </div>
+
+              <h3>
+                Ibu Hamil, Bersalin, Nifas
+              </h3>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-down pkm-service-arrow"></i>
+
+          </button>
+
+
+          <div class="pkm-service-content">
+
+            <ul class="pkm-service-list">
+
+              <li>ANC Terpadu (K2, K3, K4, K6)</li>
+
+              <li>Kelas ibu hamil</li>
+
+              <li>Pemberian Tambahan Asupan Gizi pada Ibu Hamil Kurang Energi Kronik (KEK)</li>
+
+              <li>Pelayanan Pasca Persalinan (nifas)</li>
+
+              <li>Pengobatan sederhana</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <!-- BAYI -->
+
+        <div class="pkm-service-card">
+
+          <button
+            type="button"
+            class="pkm-service-card-header"
+            onclick="toggleService(this)"
+          >
+
+            <div class="pkm-service-title">
+
+              <div class="pkm-service-number">
+                02
+              </div>
+
+              <h3>
+                Bayi & Anak Pra-Sekolah
+              </h3>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-down pkm-service-arrow"></i>
+
+          </button>
+
+
+          <div class="pkm-service-content">
+
+            <ul class="pkm-service-list">
+
+              <li>Pelayanan Neonatal Esensial</li>
+
+              <li>Kelas Ibu Balita</li>
+
+              <li>Pemantauan Bayi dengan Berat Lahir Rendah (BBLR)</li>
+
+              <li>Pemantauan Pertumbuhan dan Perkembangan</li>
+
+              <li>Imunisasi Rutin Lengkap</li>
+
+              <li>Pemberian Vitamin A dan obat cacing</li>
+
+              <li>Pencegahan, deteksi dini, tatalaksana dan rujukan balita weight faltering, underweight, gizi kurang, gizi buruk dan stunting</li>
+
+              <li>Manajemen Terpadu Balita Sakit (MTBS)</li>
+
+              <li>Skrining kasus TBC</li>
+
+              <li>Pengobatan sederhana</li>
+
+              <li>CKG</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <!-- USIA SEKOLAH -->
+
+        <div class="pkm-service-card">
+
+          <button
+            type="button"
+            class="pkm-service-card-header"
+            onclick="toggleService(this)"
+          >
+
+            <div class="pkm-service-title">
+
+              <div class="pkm-service-number">
+                03
+              </div>
+
+              <h3>
+                Usia Sekolah dan Remaja
+              </h3>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-down pkm-service-arrow"></i>
+
+          </button>
+
+
+          <div class="pkm-service-content">
+
+            <ul class="pkm-service-list">
+
+              <li>Skrining kesehatan</li>
+
+              <li>Vaksinasi / Imunisasi</li>
+
+              <li>Pelayanan Kesehatan Peduli Remaja</li>
+
+              <li>Pencegahan anemia</li>
+
+              <li>Pengobatan sederhana</li>
+
+              <li>CKG</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <!-- DEWASA -->
+
+        <div class="pkm-service-card">
+
+          <button
+            type="button"
+            class="pkm-service-card-header"
+            onclick="toggleService(this)"
+          >
+
+            <div class="pkm-service-title">
+
+              <div class="pkm-service-number">
+                04
+              </div>
+
+              <h3>
+                Dewasa & Lansia
+              </h3>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-down pkm-service-arrow"></i>
+
+          </button>
+
+
+          <div class="pkm-service-content">
+
+            <ul class="pkm-service-list">
+
+              <li>Skrining Obesitas</li>
+
+              <li>Skrining Hipertensi</li>
+
+              <li>SKrining DM</li>
+
+              <li>Skrining kanker (Kanker payudara)</li>
+
+              <li>Skrining PPOK</li>
+
+              <li>Skrining TBC</li>
+
+              <li>Skrining Indera Penglihatan</li>
+
+              <li>Skrining masalah kesehatan jiwa</li>
+
+              <li>Skrining layak hamil bagi PUS</li>
+
+              <li>Pelayanan KB</li>
+
+              <li>Skrining Geriatri</li>
+
+              <li>Pengobatan sederhana</li>
+
+              <li>CKG</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =====================================================
+           POSYANDU
+           ===================================================== -->
+
+      <div
+        id="unit-posyandu"
+        class="pkm-unit-panel"
+      >
+
+        <div class="pkm-unit-heading">
+
+          <div class="pkm-unit-heading-icon">
+            <i class="fa-solid fa-people-group"></i>
+          </div>
+
+          <div>
+            <h2>
+              Posyandu
+            </h2>
+
+            <p>
+              Jenis pelayanan kesehatan pada Posyandu.
+            </p>
+          </div>
+
+        </div>
+
+
+        <!-- IBU HAMIL -->
+
+        <div class="pkm-service-card open">
+
+          <button
+            type="button"
+            class="pkm-service-card-header"
+            onclick="toggleService(this)"
+          >
+
+            <div class="pkm-service-title">
+
+              <div class="pkm-service-number">
+                01
+              </div>
+
+              <h3>
+                Ibu Hamil, Bersalin, Nifas
+              </h3>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-down pkm-service-arrow"></i>
+
+          </button>
+
+
+          <div class="pkm-service-content">
+
+            <ul class="pkm-service-list">
+
+              <li>Kelas ibu hamil</li>
+
+              <li>Pemberian Tambahan Asupan Gizi pada Ibu Hamil Kurang Energi Kronik (KEK)</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <!-- BAYI -->
+
+        <div class="pkm-service-card">
+
+          <button
+            type="button"
+            class="pkm-service-card-header"
+            onclick="toggleService(this)"
+          >
+
+            <div class="pkm-service-title">
+
+              <div class="pkm-service-number">
+                02
+              </div>
+
+              <h3>
+                Bayi & Anak Pra-Sekolah
+              </h3>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-down pkm-service-arrow"></i>
+
+          </button>
+
+
+          <div class="pkm-service-content">
+
+            <ul class="pkm-service-list">
+
+              <li>Kelas Ibu Balita</li>
+
+              <li>Pemantauan Pertumbuhan dan Perkembangan</li>
+
+              <li>Imunisasi Rutin Lengkap</li>
+
+              <li>Pemberian Vitamin A dan obat cacing</li>
+
+              <li>Deteksi dini, Pendampingan serta rujukan balita weight faltering, underweight, gizi kurang, gizi buruk dan stunting</li>
+
+              <li>Skrining kasus TBC</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <!-- USIA SEKOLAH -->
+
+        <div class="pkm-service-card">
+
+          <button
+            type="button"
+            class="pkm-service-card-header"
+            onclick="toggleService(this)"
+          >
+
+            <div class="pkm-service-title">
+
+              <div class="pkm-service-number">
+                03
+              </div>
+
+              <h3>
+                Usia Sekolah dan Remaja
+              </h3>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-down pkm-service-arrow"></i>
+
+          </button>
+
+
+          <div class="pkm-service-content">
+
+            <ul class="pkm-service-list">
+
+              <li>KIE Kesehatan Remaja</li>
+
+              <li>Pencegaham anemia</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <!-- DEWASA -->
+
+        <div class="pkm-service-card">
+
+          <button
+            type="button"
+            class="pkm-service-card-header"
+            onclick="toggleService(this)"
+          >
+
+            <div class="pkm-service-title">
+
+              <div class="pkm-service-number">
+                04
+              </div>
+
+              <h3>
+                Dewasa & Lansia
+              </h3>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-down pkm-service-arrow"></i>
+
+          </button>
+
+
+          <div class="pkm-service-content">
+
+            <ul class="pkm-service-list">
+
+              <li>Skrining Obesitas</li>
+
+              <li>Skrining Hipertensi</li>
+
+              <li>Skrining DM</li>
+
+              <li>Skrining TBC</li>
+
+              <li>Skrining Indera Penglihatan</li>
+
+              <li>Skrining masalah kesehatan jiwa</li>
+
+              <li>Skrining layak hamil bagi PUS</li>
+
+              <li>Pelayanan KB</li>
+
+              <li>Skrining Geriatri</li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =====================================================
+           KEMBALI KE BERANDA
+           ===================================================== -->
+
+      <div class="pkm-back-home">
+
+        <a href="index.html">
+
+          <i class="fa-solid fa-arrow-left"></i>
+
+          Kembali ke Beranda
+
+        </a>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer class="pkm-footer">
+
+  <div class="container">
+
+    <div class="row g-4">
+
+
+      <!-- KOLOM KIRI -->
+
+      <div class="col-lg-4">
+
+        <div class="pkm-footer-brand">
+
+          <img
+            src="images/logo-puskesmas.PNG"
+            alt="Logo Puskesmas Geyer 2"
+          >
+
+          <div>
+
+            <strong>
+              UPTD Puskesmas Geyer 2
+            </strong>
+
+            <span>
+              Kecamatan Geyer, Kabupaten Grobogan
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- KOLOM TENGAH -->
+
+      <div class="col-lg-4">
+
+        <div class="pkm-social-section">
+
+          <span class="pkm-eyebrow">
+            MEDIA SOSIAL
+          </span>
+
+          <h3>
+            Ikuti Informasi Puskesmas
+          </h3>
+
+
+          <div class="pkm-social-links">
+
+            <a
+              href="https://www.instagram.com/puskesmasgeyer2/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram Puskesmas Geyer 2"
+              title="Instagram"
+              class="instagram"
+            >
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+
+
+            <a
+              href="https://x.com/puskesmasgeyer2"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X Puskesmas Geyer 2"
+              title="X"
+              class="x"
+            >
+              <i class="fa-brands fa-x-twitter"></i>
+            </a>
+
+
+            <a
+              href="https://www.facebook.com/puskesmasgeyer2"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook Puskesmas Geyer 2"
+              title="Facebook"
+              class="facebook"
+            >
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+
+
+            <a
+              href="https://www.youtube.com/results?search_query=Puskesmas+Geyer+II"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube Puskesmas Geyer II"
+              title="YouTube"
+              class="youtube"
+            >
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- KOLOM KANAN -->
+
+      <div class="col-lg-4 footer-info">
+
+        <p>
+          Website Informasi Resmi Puskesmas Geyer 2
+        </p>
+
+        <small>
+          ©
+          <span id="current-year"></span>
+          UPTD Puskesmas Geyer 2
+        </small>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script src="assets/js/puskesmas.js"></script>
+
+
+<script>
+
+  /* =========================================================
+     GANTI DELIVERY UNIT
+     ========================================================= */
+
+  function showUnit(unit, button) {
+
+    document
+      .querySelectorAll('.pkm-unit-panel')
+      .forEach(function(panel) {
+
+        panel.classList.remove('active');
+
+      });
+
+
+    document
+      .querySelectorAll('.pkm-unit-nav button')
+      .forEach(function(btn) {
+
+        btn.classList.remove('active');
+
+      });
+
+
+    const panel =
+      document.getElementById('unit-' + unit);
+
+
+    if (panel) {
+
+      panel.classList.add('active');
+
+    }
+
+
+    if (button) {
+
+      button.classList.add('active');
+
+    }
+
+  }
+
+
+  /* =========================================================
+     BUKA / TUTUP SUB SECTION
+     ========================================================= */
+
+  function toggleService(button) {
+
+    const card =
+      button.closest('.pkm-service-card');
+
+
+    if (!card) return;
+
+
+    card.classList.toggle('open');
+
+  }
+
+
+  /* =========================================================
+     TAHUN FOOTER
+     ========================================================= */
+
+  const year =
+    document.getElementById('current-year');
+
+
+  if (year) {
+
+    year.textContent =
+      new Date().getFullYear();
+
+  }
+
+</script>
+
+
+</body>
+
+</html>
