@@ -557,35 +557,43 @@
 </div>
 
 
-      <!-- PENDAFTARAN -->
+      <!-- =========================================================
+     PENDAFTARAN MOBILE JKN
+     ========================================================= -->
 
-      <div class="col-md-4">
+<div class="col-md-4">
 
-        <div class="pkm-info-card">
+  <a
+    href="javascript:void(0)"
+    onclick="bukaMobileJKN()"
+    class="pkm-info-card"
+    aria-label="Buka Mobile JKN"
+    style="text-decoration:none; color:inherit; cursor:pointer;"
+  >
 
-          <div class="info-icon">
-            ✓
-          </div>
+    <div class="info-icon">
+      ✓
+    </div>
 
-          <div>
+    <div>
 
-            <small>
-              Pendaftaran
-            </small>
+      <small>
+        Pendaftaran
+      </small>
 
-            <strong>
-              Informasi Online
-            </strong>
+      <strong>
+        Mobile JKN
+      </strong>
 
-            <span>
-              Ikuti pengumuman terbaru
-            </span>
+      <span>
+        Daftar pelayanan secara online
+      </span>
 
-          </div>
+    </div>
 
-        </div>
+  </a>
 
-      </div>
+</div>
 
 
 
@@ -1300,6 +1308,55 @@
 
 </script>
 
+<script>
+
+function bukaMobileJKN() {
+
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+  const android =
+    /android/i.test(userAgent);
+
+  const ios =
+    /iPad|iPhone|iPod/.test(userAgent) &&
+    !window.MSStream;
+
+  const googlePlay =
+    'https://play.google.com/store/apps/details?id=app.bpjs.mobile';
+
+  const appStore =
+    'https://apps.apple.com/id/app/mobile-jkn/id1237601115';
+
+  if (android) {
+
+    window.open(
+      googlePlay,
+      '_blank',
+      'noopener,noreferrer'
+    );
+
+    return;
+  }
+
+  if (ios) {
+
+    window.open(
+      appStore,
+      '_blank',
+      'noopener,noreferrer'
+    );
+
+    return;
+  }
+
+  window.open(
+    googlePlay,
+    '_blank',
+    'noopener,noreferrer'
+  );
+}
+
+</script>
 </body>
 
 </html>
