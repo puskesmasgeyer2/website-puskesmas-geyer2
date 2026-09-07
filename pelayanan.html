@@ -547,6 +547,120 @@
 
     }
 
+    /* =========================================================
+   FOOTER — SAMA DENGAN TENTANG.HTML
+   ========================================================= */
+
+.pkm-social-section {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.pkm-footer .pkm-social-section .pkm-eyebrow {
+  color: #11b7c9;
+}
+
+.pkm-footer .pkm-social-section h3 {
+  margin: 8px 0 18px;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.pkm-social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.pkm-social-links a {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 20px;
+  transition: all .25s ease;
+}
+
+.pkm-social-links a:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+.pkm-social-links .instagram {
+  background: #fce8f0;
+  color: #d62976;
+}
+
+.pkm-social-links .x {
+  background: #eef1f3;
+  color: #111111;
+}
+
+.pkm-social-links .facebook {
+  background: #e8f0ff;
+  color: #1877f2;
+}
+
+.pkm-social-links .youtube {
+  background: #ffebeb;
+  color: #ff0000;
+}
+
+
+/* =========================================================
+   FOOTER LAYOUT
+   ========================================================= */
+
+.pkm-footer .row {
+  align-items: center;
+}
+
+.pkm-footer-brand {
+  display: flex;
+  align-items: center;
+}
+
+.pkm-footer .footer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: right;
+}
+
+.pkm-footer .footer-info p {
+  margin-bottom: 5px;
+}
+
+
+/* =========================================================
+   FOOTER MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .pkm-social-section {
+    padding: 10px 0;
+  }
+
+  .pkm-footer .footer-info {
+    align-items: center;
+    text-align: center;
+  }
+
+  .pkm-footer-brand {
+    justify-content: center;
+  }
+
+}
+
   </style>
 
 </head>
@@ -1703,12 +1817,9 @@
             Ikuti Informasi Puskesmas
           </h3>
 
-
           <div class="pkm-social-links">
 
-
             <!-- INSTAGRAM -->
-
             <a
               href="https://www.instagram.com/puskesmasgeyer2/"
               target="_blank"
@@ -1717,14 +1828,11 @@
               title="Instagram"
               class="instagram"
             >
-
               <i class="fa-brands fa-instagram"></i>
-
             </a>
 
 
             <!-- X -->
-
             <a
               href="https://x.com/puskesmasgeyer2"
               target="_blank"
@@ -1733,14 +1841,11 @@
               title="X"
               class="x"
             >
-
               <i class="fa-brands fa-x-twitter"></i>
-
             </a>
 
 
             <!-- FACEBOOK -->
-
             <a
               href="https://www.facebook.com/puskesmasgeyer2"
               target="_blank"
@@ -1749,14 +1854,11 @@
               title="Facebook"
               class="facebook"
             >
-
               <i class="fa-brands fa-facebook-f"></i>
-
             </a>
 
 
             <!-- YOUTUBE -->
-
             <a
               href="https://www.youtube.com/results?search_query=Puskesmas+Geyer+II"
               target="_blank"
@@ -1765,11 +1867,8 @@
               title="YouTube"
               class="youtube"
             >
-
               <i class="fa-brands fa-youtube"></i>
-
             </a>
-
 
           </div>
 
