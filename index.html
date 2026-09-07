@@ -564,12 +564,10 @@
 <div class="col-md-4">
 
   <a
-    href="javascript:void(0)"
-    onclick="bukaMobileJKN()"
-    class="pkm-info-card"
-    aria-label="Buka Mobile JKN"
-    style="text-decoration:none; color:inherit; cursor:pointer;"
-  >
+  href="pendaftaran.html"
+  class="pkm-info-card pkm-info-link"
+  aria-label="Pendaftaran Online Mobile JKN"
+>
 
     <div class="info-icon">
       ✓
@@ -1307,56 +1305,7 @@
   }
 
 </script>
-
-<script>
-
-function bukaMobileJKN() {
-
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-  const android =
-    /android/i.test(userAgent);
-
-  const ios =
-    /iPad|iPhone|iPod/.test(userAgent) &&
-    !window.MSStream;
-
-  const googlePlay =
-    'https://play.google.com/store/apps/details?id=app.bpjs.mobile';
-
-  const appStore =
-    'https://apps.apple.com/id/app/mobile-jkn/id1237601115';
-
-  if (android) {
-
-    window.open(
-      googlePlay,
-      '_blank',
-      'noopener,noreferrer'
-    );
-
-    return;
-  }
-
-  if (ios) {
-
-    window.open(
-      appStore,
-      '_blank',
-      'noopener,noreferrer'
-    );
-
-    return;
-  }
-
-  window.open(
-    googlePlay,
-    '_blank',
-    'noopener,noreferrer'
-  );
-}
-
-</script>
+  
 </body>
 
 </html>
