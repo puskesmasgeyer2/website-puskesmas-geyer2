@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denver II - Clinical Developmental Screening Tool</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        medical: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f8fafc;
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white !important; font-size: 11pt; color: #0f172a; }
+            .print-shadow-none { box-shadow: none !important; border-color: #cbd5e1 !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 font-sans text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white">
+
+    <!-- Top Medical Header -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand Title -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-emerald-500/20">
+                        <i data-lucide="activity" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="font-bold text-base sm:text-lg text-white tracking-tight">Denver II Klinis</h1>
+                            <span class="px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Pro Suite</span>
+                        </div>
+                        <p class="text-xs text-slate-400 font-medium hidden sm:block">Sistem Penapisan & Evaluasi Tumbuh Kembang Anak</p>
+                    </div>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="flex items-center space-x-2">
+                    <button onclick="loadSamplePatient('infant')" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white transition border border-slate-700 flex items-center gap-1.5">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-400"></i>
+                        <span class="hidden md:inline">Pasien Contoh (9 Bln)</span>
+                    </button>
+                    <button onclick="openModal('guideModal')" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white transition border border-slate-700 flex items-center gap-1.5">
+                        <i data-lucide="book-open" class="w-3.5 h-3.5 text-sky-400"></i>
+                        <span class="hidden md:inline">Panduan Klinis</span>
+                    </button>
+                    <button onclick="resetScreening()" class="p-2 text-slate-400 hover:text-rose-400 transition rounded-lg hover:bg-slate-800" title="Reset Data">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+        <!-- Patient Demographic & Clinical Metadata Card -->
+        <section class="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-5 shadow-xl relative overflow-hidden">
+            <div class="absolute right-0 top-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center relative z-10">
+                
+                <!-- Patient Info Inputs (8 cols) -->
+                <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Patient Name -->
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Anak / Inisial</label>
+                        <input type="text" id="childName" value="An. A" oninput="updateMetadata()" class="w-full px-3 py-2 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition" placeholder="Nama pasien">
+                    </div>
+
+                    <!-- Medical Record No -->
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">No. Rekam Medis (RM)</label>
+                        <input type="text" id="medRecordNo" value="RM-2026-998" oninput="updateMetadata()" class="w-full px-3 py-2 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white font-mono focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition" placeholder="No. RM">
+                    </div>
+
+                    <!-- Birth Date -->
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Tanggal Lahir</label>
+                        <input type="date" id="birthDate" onchange="calculateAge()" class="w-full px-3 py-2 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition">
+                    </div>
+
+                    <!-- Test Date -->
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Tanggal Pemeriksaan</label>
+                        <input type="date" id="testDate" onchange="calculateAge()" class="w-full px-3 py-2 text-xs bg-slate-900 border border-slate-700 rounded-xl text-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition">
+                    </div>
+                </div>
+
+                <!-- Age Calculation Display (4 cols) -->
+                <div class="lg:col-span-4 bg-slate-900/80 border border-emerald-500/30 rounded-xl p-4 flex items-center justify-between">
+                    <div>
+                        <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">Usia Kronologis (Garis Usia)</span>
+                        <div id="ageFormatted" class="text-xl font-bold text-white font-mono mt-0.5">
+                            0 Thn 0 Bln 0 Hri
+                        </div>
+                        <div class="text-[11px] text-slate-400 mt-0.5">
+                            Usia Koreksi: <span id="ageInMonthsVal" class="text-white font-bold font-mono">0.0</span> Bulan
+                        </div>
+                    </div>
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+                        <i data-lucide="clock" class="w-5 h-5"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Prematurity Correction Toggle -->
+            <div class="mt-4 pt-3 border-t border-slate-700/60 flex flex-wrap items-center justify-between text-xs text-slate-400 gap-2">
+                <div class="flex items-center space-x-2">
+                    <input type="checkbox" id="isPremature" onchange="togglePremature()" class="w-4 h-4 rounded bg-slate-900 border-slate-700 text-emerald-500 focus:ring-emerald-500">
+                    <label for="isPremature" class="font-medium text-slate-300 cursor-pointer">Koreksi Prematuritas (&lt; 37 minggu gestasi)</label>
+                </div>
+                <div id="prematureContainer" class="hidden flex items-center space-x-2">
+                    <span>Minggu Prematur:</span>
+                    <input type="number" id="prematureWeeks" value="4" min="1" max="16" oninput="calculateAge()" class="w-14 px-2 py-1 text-center bg-slate-900 border border-slate-700 rounded-lg text-xs font-bold text-emerald-400 font-mono">
+                    <span class="text-slate-500">(Diterapkan jika usia &lt; 2 tahun)</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span>Pemeriksa:</span>
+                    <input type="text" id="examinerName" value="Dr. Sp.A / Bikor" oninput="updateMetadata()" class="px-2 py-1 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-200">
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs & Filters -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-slate-800 pb-3 no-print">
+            <!-- View Switcher Tabs -->
+            <div class="flex items-center bg-slate-800 p-1 rounded-xl w-full sm:w-auto">
+                <button id="tabChart" onclick="switchView('chart')" class="flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 bg-emerald-500 text-slate-950 shadow-md">
+                    <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+                    <span>Grafik Denver II Interaktif</span>
+                </button>
+                <button id="tabChecklist" onclick="switchView('checklist')" class="flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 text-slate-400 hover:text-white">
+                    <i data-lucide="check-square" class="w-4 h-4"></i>
+                    <span>Daftar Uji Checklist</span>
+                </button>
+                <button id="tabReport" onclick="switchView('report')" class="flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 text-slate-400 hover:text-white">
+                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                    <span>Laporan & Interpretasi Klinis</span>
+                </button>
+            </div>
+
+            <!-- Sector Filters -->
+            <div class="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0 custom-scrollbar">
+                <button onclick="filterSector('all')" class="sector-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-slate-700 text-white" data-sector="all">Semua Sektor</button>
+                <button onclick="filterSector('personal_social')" class="sector-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-slate-800 text-slate-400 hover:text-white border border-slate-700" data-sector="personal_social">Personal Sosial</button>
+                <button onclick="filterSector('fine_motor')" class="sector-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-slate-800 text-slate-400 hover:text-white border border-slate-700" data-sector="fine_motor">Motorik Halus</button>
+                <button onclick="filterSector('language')" class="sector-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-slate-800 text-slate-400 hover:text-white border border-slate-700" data-sector="language">Bahasa</button>
+                <button onclick="filterSector('gross_motor')" class="sector-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-slate-800 text-slate-400 hover:text-white border border-slate-700" data-sector="gross_motor">Motorik Kasar</button>
+            </div>
+        </div>
+
+        <!-- VIEW 1: INTERACTIVE SVG DENVER CHART -->
+        <section id="viewChart" class="space-y-4">
+            <!-- Legend bar -->
+            <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-300">
+                <div class="flex items-center gap-4 flex-wrap">
+                    <span class="font-bold text-white flex items-center gap-1">
+                        <i data-lucide="info" class="w-4 h-4 text-emerald-400"></i> Persentil Denver II:
+                    </span>
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-xs bg-slate-600 inline-block"></span> 25%</div>
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-xs bg-slate-500 inline-block"></span> 50%</div>
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-xs bg-slate-400 inline-block"></span> 75%</div>
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-xs bg-slate-300 inline-block"></span> 90% Lulus</div>
+                </div>
+                <div class="flex items-center gap-2 text-rose-400 font-semibold">
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span> Garis Usia Kronologis Aktif
+                </div>
+            </div>
+
+            <!-- Chart Container -->
+            <div class="bg-slate-800/90 border border-slate-700 rounded-2xl shadow-xl overflow-hidden">
+                <div class="overflow-x-auto custom-scrollbar p-4">
+                    <div id="denverChartContainer" class="min-w-[950px] relative">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 2: INTERACTIVE TESTING CHECKLIST -->
+        <section id="viewChecklist" class="hidden space-y-4">
+            <div class="bg-emerald-950/40 border border-emerald-800/60 rounded-xl p-4 text-emerald-200 text-xs flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="lightbulb" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+                    <span>Tugas yang dilintasi <strong>Garis Usia</strong> atau di sebelah kiri Garis Usia adalah item prioritas pemeriksaan klinis.</span>
+                </div>
+                <div class="flex items-center gap-1 shrink-0">
+                    <button onclick="toggleAgeLineFilter(true)" id="btnFilterAge" class="px-3 py-1 bg-emerald-600 text-white rounded-lg font-bold transition">Fokus Garis Usia</button>
+                    <button onclick="toggleAgeLineFilter(false)" id="btnFilterAll" class="px-3 py-1 bg-slate-800 text-slate-300 rounded-lg font-medium transition">Semua</button>
+                </div>
+            </div>
+
+            <div id="checklistContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Populated dynamically -->
+            </div>
+        </section>
+
+        <!-- VIEW 3: CLINICAL REPORT & INTERPRETATION -->
+        <section id="viewReport" class="hidden space-y-6">
+            
+            <!-- Result Diagnosis Banner -->
+            <div id="diagnosisBanner" class="rounded-2xl p-6 border shadow-lg transition-all relative overflow-hidden">
+                <!-- Populated dynamically -->
+            </div>
+
+            <!-- Sector Scorecards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-4 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-xs text-sky-400 flex items-center gap-1.5"><i data-lucide="users" class="w-4 h-4"></i> Personal Sosial</h4>
+                        <span id="badge_personal_social" class="px-2 py-0.5 text-[10px] font-bold rounded bg-slate-700 text-slate-300">0/0</span>
+                    </div>
+                    <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                        <div id="bar_personal_social" class="bg-sky-500 h-full transition-all" style="width: 0%"></div>
+                    </div>
+                    <div id="list_personal_social" class="text-[11px] text-slate-400 space-y-1"></div>
+                </div>
+
+                <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-4 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-xs text-pink-400 flex items-center gap-1.5"><i data-lucide="pencil" class="w-4 h-4"></i> Motorik Halus</h4>
+                        <span id="badge_fine_motor" class="px-2 py-0.5 text-[10px] font-bold rounded bg-slate-700 text-slate-300">0/0</span>
+                    </div>
+                    <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                        <div id="bar_fine_motor" class="bg-pink-500 h-full transition-all" style="width: 0%"></div>
+                    </div>
+                    <div id="list_fine_motor" class="text-[11px] text-slate-400 space-y-1"></div>
+                </div>
+
+                <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-4 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-xs text-amber-400 flex items-center gap-1.5"><i data-lucide="message-square" class="w-4 h-4"></i> Bahasa</h4>
+                        <span id="badge_language" class="px-2 py-0.5 text-[10px] font-bold rounded bg-slate-700 text-slate-300">0/0</span>
+                    </div>
+                    <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                        <div id="bar_language" class="bg-amber-500 h-full transition-all" style="width: 0%"></div>
+                    </div>
+                    <div id="list_language" class="text-[11px] text-slate-400 space-y-1"></div>
+                </div>
+
+                <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-4 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-xs text-emerald-400 flex items-center gap-1.5"><i data-lucide="activity" class="w-4 h-4"></i> Motorik Kasar</h4>
+                        <span id="badge_gross_motor" class="px-2 py-0.5 text-[10px] font-bold rounded bg-slate-700 text-slate-300">0/0</span>
+                    </div>
+                    <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                        <div id="bar_gross_motor" class="bg-emerald-500 h-full transition-all" style="width: 0%"></div>
+                    </div>
+                    <div id="list_gross_motor" class="text-[11px] text-slate-400 space-y-1"></div>
+                </div>
+            </div>
+
+            <!-- Stimulation & Clinical Recommendations -->
+            <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 space-y-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+                        <i data-lucide="heart-handshake" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base text-white">Rekomendasi Stimulasi & Tindak Lanjut Klinis</h3>
+                        <p class="text-xs text-slate-400">Panduan intervensi dini bagi orang tua dan tenaga kesehatan</p>
+                    </div>
+                </div>
+                <div id="recommendationsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-300">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Print / Export Action -->
+            <div class="flex justify-end gap-3 no-print">
+                <button onclick="window.print()" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs rounded-xl transition flex items-center gap-2 shadow-lg shadow-emerald-500/20">
+                    <i data-lucide="printer" class="w-4 h-4"></i>
+                    <span>Cetak Laporan Rekam Medis (PDF)</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Instructions / Testing Guide -->
+    <div id="instructionModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 relative">
+            <button onclick="closeModal('instructionModal')" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-full hover:bg-slate-800">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="flex items-center space-x-3">
+                <div id="modalSectorIcon" class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold border border-emerald-500/20">
+                    <i data-lucide="book-open" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h3 id="modalTitle" class="font-bold text-base text-white">Judul Milestone</h3>
+                    <p id="modalAgeRange" class="text-xs text-emerald-400 font-mono">Rentang Usia: 0 - 0 Bulan</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-2">
+                <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <i data-lucide="stethoscope" class="w-4 h-4 text-emerald-400"></i> Petunjuk Pemeriksaan Klinis:
+                </h4>
+                <p id="modalGuideText" class="text-xs text-slate-300 leading-relaxed">Instruksi pengujian tugas...</p>
+            </div>
+
+            <div class="space-y-2">
+                <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Beri Penilaian (Scoring):</h4>
+                <div class="grid grid-cols-4 gap-2 text-xs">
+                    <button onclick="applyScoreFromModal('P')" class="py-2.5 rounded-xl font-bold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition flex flex-col items-center gap-0.5">
+                        <span class="text-sm font-black">P</span>
+                        <span class="text-[10px] opacity-80">Lulus (Pass)</span>
+                    </button>
+                    <button onclick="applyScoreFromModal('F')" class="py-2.5 rounded-xl font-bold bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 transition flex flex-col items-center gap-0.5">
+                        <span class="text-sm font-black">F</span>
+                        <span class="text-[10px] opacity-80">Gagal (Fail)</span>
+                    </button>
+                    <button onclick="applyScoreFromModal('R')" class="py-2.5 rounded-xl font-bold bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 transition flex flex-col items-center gap-0.5">
+                        <span class="text-sm font-black">R</span>
+                        <span class="text-[10px] opacity-80">Menolak</span>
+                    </button>
+                    <button onclick="applyScoreFromModal('NO')" class="py-2.5 rounded-xl font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex flex-col items-center gap-0.5">
+                        <span class="text-sm font-black">NO</span>
+                        <span class="text-[10px] opacity-80">Tdk Kesempatan</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guide Modal -->
+    <div id="guideModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-xl w-full p-6 shadow-2xl space-y-4 relative">
+            <button onclick="closeModal('guideModal')" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-full hover:bg-slate-800">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold border border-emerald-500/20">
+                    <i data-lucide="book-open" class="w-5 h-5"></i>
+                </div>
+                <h3 class="font-bold text-base text-white">Panduan Penggunaan Denver II Pro</h3>
+            </div>
+            <div class="space-y-3 text-xs text-slate-300 leading-relaxed overflow-y-auto max-h-[60vh] pr-2">
+                <div class="p-3 bg-slate-800 rounded-xl border border-slate-700">
+                    <h4 class="font-bold text-emerald-400 mb-1">1. Perhitungan Usia & Koreksi Prematur</h4>
+                    <p>Masukkan tanggal lahir dan tanggal pemeriksaan. Jika bayi lahir kurang dari 37 minggu gestasi dan berusia di bawah 2 tahun, aktifkan koreksi prematuritas.</p>
+                </div>
+                <div class="p-3 bg-slate-800 rounded-xl border border-slate-700">
+                    <h4 class="font-bold text-emerald-400 mb-1">2. Pelaksanaan Pengujian</h4>
+                    <p>Uji item-item yang terpotong oleh Garis Usia merah serta minimal 3 item di sebelah kiri garis pada setiap sektor perkembangan.</p>
+                </div>
+                <div class="p-3 bg-slate-800 rounded-xl border border-slate-700">
+                    <h4 class="font-bold text-emerald-400 mb-1">3. Kriteria Penilaian Resmi</h4>
+                    <ul class="list-disc pl-4 space-y-1">
+                        <li><strong>P (Pass):</strong> Anak berhasil melakukan tugas.</li>
+                        <li><strong>F (Fail):</strong> Anak gagal melakukan tugas yang 90% anak seusianya sudah dapat melakukan.</li>
+                        <li><strong>R (Refusal):</strong> Anak menolak.</li>
+                        <li><strong>NO (No Opportunity):</strong> Tidak ada kesempatan.</li>
+                    </ul>
+                </div>
+                <div class="p-3 bg-slate-800 rounded-xl border border-slate-700">
+                    <h4 class="font-bold text-emerald-400 mb-1">4. Kriteria Interpretasi Denver II</h4>
+                    <p><strong>Suspek:</strong> Ditemukan ≥ 2 Caution (Peringatan) DAN/ATAU ≥ 1 Delay (Keterlambatan).<br>
+                    <strong>Normal:</strong> Tidak ada Delay dan maksimal 1 Caution.<br>
+                    <strong>Untestable:</strong> Penolakan pada tugas penting.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-4 bg-slate-900 border-t border-slate-800 text-center text-xs text-slate-500 no-print">
+        <p>Denver II Clinical Screening Suite &copy; 2026 - Standar Pedoman Penapisan Tumbuh Kembang Anak</p>
+    </footer>
+
+    <!-- Clinical Logic Script -->
+    <script>
+        const denverItems = [
+            // Personal Sosial
+            { id: 'ps_1', sector: 'personal_social', name: 'Menatap Muka', p25: 0.1, p50: 0.3, p75: 0.8, p90: 1.2, guide: 'Pemeriksa menatap mata bayi dari jarak ~30 cm. Bayi menatap balik.' },
+            { id: 'ps_2', sector: 'personal_social', name: 'Tersenyum Spontan', p25: 0.5, p50: 1.0, p75: 1.5, p90: 2.1, guide: 'Bayi tersenyum merespons kehadiran orang tanpa disetimuli sentuhan/suara.' },
+            { id: 'ps_3', sector: 'personal_social', name: 'Membalas Senyum Pemeriksa', p25: 0.6, p50: 1.2, p75: 1.8, p90: 2.5, guide: 'Tersenyum dan ajak bicara bayi, bayi membalas senyuman.' },
+            { id: 'ps_4', sector: 'personal_social', name: 'Mengamati Tangannya', p25: 1.5, p50: 2.2, p75: 3.0, p90: 3.8, guide: 'Bayi memperhatikan jari atau tangannya sendiri.' },
+            { id: 'ps_5', sector: 'personal_social', name: 'Usaha Menggapai Mainan', p25: 2.5, p50: 3.8, p75: 4.8, p90: 5.5, guide: 'Bayi mengulurkan tangan berusaha meraih mainan di dekatnya.' },
+            { id: 'ps_6', sector: 'personal_social', name: 'Makan Biskuit Sendiri', p25: 4.5, p50: 6.0, p75: 7.5, p90: 9.0, guide: 'Bayi memegang dan memasukkan biskuit ke mulut sendiri.' },
+            { id: 'ps_7', sector: 'personal_social', name: 'Tepuk Tangan / Daag-daag', p25: 6.5, p50: 8.5, p75: 10.5, p90: 12.0, guide: 'Anak bertepuk tangan atau melambaikan tangan.' },
+            { id: 'ps_8', sector: 'personal_social', name: 'Minum Dengan Cangkir', p25: 9.0, p50: 12.0, p75: 14.5, p90: 16.5, guide: 'Anak memegang cangkir dan minum tanpa banyak tumpah.' },
+            { id: 'ps_9', sector: 'personal_social', name: 'Menirukan Kegiatan Rumah', p25: 10.5, p50: 13.5, p75: 16.0, p90: 18.5, guide: 'Anak menirukan menyapu, mengelap, atau menelepon.' },
+            { id: 'ps_10', sector: 'personal_social', name: 'Menggunakan Sendok / Garpu', p25: 12.0, p50: 15.0, p75: 18.0, p90: 20.5, guide: 'Anak makan menggunakan sendok.' },
+            { id: 'ps_11', sector: 'personal_social', name: 'Membuka Pakaian', p25: 13.5, p50: 16.5, p75: 19.5, p90: 22.5, guide: 'Anak melepaskan kaus kaki atau topi sendiri.' },
+            { id: 'ps_12', sector: 'personal_social', name: 'Memakai T-Shirt Tanpa Bantuan', p25: 22.0, p50: 28.0, p75: 34.0, p90: 38.0, guide: 'Anak mengenakan baju kaos sendiri.' },
+
+            // Motorik Halus
+            { id: 'fm_1', sector: 'fine_motor', name: 'Mengikuti Garis Tengah', p25: 0.2, p50: 0.5, p75: 1.0, p90: 1.5, guide: 'Gerakkan mainan merah melewati garis tengah pandangan bayi.' },
+            { id: 'fm_2', sector: 'fine_motor', name: 'Mengikuti 180°', p25: 0.5, p50: 1.2, p75: 2.0, p90: 2.8, guide: 'Bayi mengikuti objek 180 derajat penuh.' },
+            { id: 'fm_3', sector: 'fine_motor', name: 'Memegang Rattle', p25: 1.5, p50: 2.5, p75: 3.2, p90: 4.0, guide: 'Sentuhkan rattle pada jari bayi, bayi menggenggamnya.' },
+            { id: 'fm_4', sector: 'fine_motor', name: 'Menggapai Objek', p25: 2.8, p50: 3.8, p75: 4.8, p90: 5.5, guide: 'Bayi menjangkau mainan.' },
+            { id: 'fm_5', sector: 'fine_motor', name: 'Memindahkan Kubus Antar Tangan', p25: 4.5, p50: 6.0, p75: 7.2, p90: 8.2, guide: 'Bayi memindahkan kubus dari tangan satu ke tangan lain.' },
+            { id: 'fm_6', sector: 'fine_motor', name: 'Memegang dengan Ibu Jari & Jari', p25: 6.0, p50: 7.5, p75: 9.0, p90: 10.2, guide: 'Menjepit benda kecil dengan ibu jari dan telunjuk.' },
+            { id: 'fm_7', sector: 'fine_motor', name: 'Menaruh Kubus di Cangkir', p25: 8.5, p50: 11.0, p75: 12.8, p90: 14.5, guide: 'Memasukkan kubus ke cangkir.' },
+            { id: 'fm_8', sector: 'fine_motor', name: 'Mencorat-coret Kertas', p25: 11.0, p50: 13.5, p75: 16.0, p90: 18.0, guide: 'Membuat coretan spontan dengan pensil.' },
+            { id: 'fm_9', sector: 'fine_motor', name: 'Menumpuk 2 Kubus', p25: 13.5, p50: 16.0, p75: 18.5, p90: 20.5, guide: 'Menyusun 2 kubus ke atas.' },
+            { id: 'fm_10', sector: 'fine_motor', name: 'Menumpuk 4 Kubus', p25: 15.5, p50: 19.0, p75: 22.0, p90: 24.5, guide: 'Menyusun 4 kubus.' },
+            { id: 'fm_11', sector: 'fine_motor', name: 'Meniru Garis Vertikal', p25: 20.0, p50: 25.0, p75: 30.0, p90: 34.0, guide: 'Meniru garis tegak lurus.' },
+            { id: 'fm_12', sector: 'fine_motor', name: 'Mencontoh Lingkaran [O]', p25: 34.0, p50: 40.0, p75: 46.0, p90: 52.0, guide: 'Menggambar bentuk lingkaran.' },
+
+            // Bahasa
+            { id: 'lg_1', sector: 'language', name: 'Reaksi Terhadap Bel / Suara', p25: 0.1, p50: 0.4, p75: 0.7, p90: 1.0, guide: 'Bunyikan bel di dekat telinga bayi, amati kedipan atau respons.' },
+            { id: 'lg_2', sector: 'language', name: 'Bersuara (Ooo / Aaa)', p25: 0.5, p50: 1.1, p75: 1.6, p90: 2.1, guide: 'Bayi mengeluarkan suara vokal.' },
+            { id: 'lg_3', sector: 'language', name: 'Tertawa Keras', p25: 1.5, p50: 2.2, p75: 3.0, p90: 3.6, guide: 'Tertawa terbahak-bahak.' },
+            { id: 'lg_4', sector: 'language', name: 'Menoleh ke Arah Bunyi', p25: 2.5, p50: 3.8, p75: 4.8, p90: 5.6, guide: 'Menoleh saat mainan dibunyikan di samping.' },
+            { id: 'lg_5', sector: 'language', name: 'Kombinasi Silabel (Ba-ba / Da-da)', p25: 4.5, p50: 6.2, p75: 7.5, p90: 8.5, guide: 'Mengucapkan suku kata berulang.' },
+            { id: 'lg_6', sector: 'language', name: 'Papa / Mama Spesifik', p25: 8.0, p50: 10.0, p75: 12.0, p90: 14.0, guide: 'Memanggil papa atau mama dengan tepat.' },
+            { id: 'lg_7', sector: 'language', name: 'Mengucapkan 1 Kata', p25: 9.0, p50: 11.5, p75: 14.0, p90: 16.0, guide: 'Menguasai minimal 1 kata bermakna.' },
+            { id: 'lg_8', sector: 'language', name: 'Mengucapkan 3 Kata', p25: 11.0, p50: 14.0, p75: 17.0, p90: 20.0, guide: 'Menguasai minimal 3 kata bermakna.' },
+            { id: 'lg_9', sector: 'language', name: 'Menunjuk 2 Gambar', p25: 14.0, p50: 17.5, p75: 21.0, p90: 25.0, guide: 'Menunjuk gambar hewan/benda saat diminta.' },
+            { id: 'lg_10', sector: 'language', name: 'Kombinasi 2 Kata', p25: 15.0, p50: 19.0, p75: 22.5, p90: 26.0, guide: 'Menggabungkan dua kata ("mau susu").' },
+            { id: 'lg_11', sector: 'language', name: 'Menyebut 6 Bagian Tubuh', p25: 17.0, p50: 21.0, p75: 26.0, p90: 30.0, guide: 'Menunjukkan bagian tubuh.' },
+            { id: 'lg_12', sector: 'language', name: 'Bicara Dimengerti 50%', p25: 21.0, p50: 26.0, p75: 31.0, p90: 36.0, guide: 'Ucapan anak dapat dipahami orang lain.' },
+
+            // Motorik Kasar
+            { id: 'gm_1', sector: 'gross_motor', name: 'Gerakan Seimbang Simetris', p25: 0.1, p50: 0.4, p75: 0.9, p90: 1.3, guide: 'Lengan dan kaki bergerak aktif simetris.' },
+            { id: 'gm_2', sector: 'gross_motor', name: 'Kepala Terangkat 45°', p25: 0.5, p50: 1.2, p75: 1.8, p90: 2.5, guide: 'Saat tengkurap, kepala terangkat 45 derajat.' },
+            { id: 'gm_3', sector: 'gross_motor', name: 'Kepala Terangkat 90°', p25: 1.0, p50: 1.8, p75: 2.6, p90: 3.5, guide: 'Saat tengkurap, kepala dan dada terangkat 90 derajat.' },
+            { id: 'gm_4', sector: 'gross_motor', name: 'Duduk Kepala Tegak', p25: 1.5, p50: 2.5, p75: 3.2, p90: 4.0, guide: 'Posisi duduk dengan kepala tegak stabil.' },
+            { id: 'gm_5', sector: 'gross_motor', name: 'Membalikkan Badan', p25: 2.5, p50: 3.8, p75: 4.8, p90: 5.6, guide: 'Berguling telentang ke tengkurap.' },
+            { id: 'gm_6', sector: 'gross_motor', name: 'Duduk Tanpa Pegangan', p25: 5.0, p50: 6.2, p75: 7.2, p90: 8.0, guide: 'Duduk mandiri tanpa disangga.' },
+            { id: 'gm_7', sector: 'gross_motor', name: 'Berdiri Dengan Pegangan', p25: 5.5, p50: 7.2, p75: 8.5, p90: 9.8, guide: 'Berdiri berpegangan perabot.' },
+            { id: 'gm_8', sector: 'gross_motor', name: 'Bangkit Sendiri Berdiri', p25: 6.5, p50: 8.5, p75: 10.0, p90: 11.5, guide: 'Menarik diri untuk berdiri.' },
+            { id: 'gm_9', sector: 'gross_motor', name: 'Berdiri Sendiri 2 Detik', p25: 9.0, p50: 10.8, p75: 12.0, p90: 13.2, guide: 'Berdiri lepas tangan selama 2 detik.' },
+            { id: 'gm_10', sector: 'gross_motor', name: 'Berjalan Dengan Baik', p25: 11.5, p50: 13.0, p75: 14.5, p90: 15.5, guide: 'Berjalan lancar tanpa jatuh.' },
+            { id: 'gm_11', sector: 'gross_motor', name: 'Berjalan Naik Tangga', p25: 14.0, p50: 17.0, p75: 19.5, p90: 22.0, guide: 'Melangkah naik tangga.' },
+            { id: 'gm_12', sector: 'gross_motor', name: 'Menendang Bola ke Depan', p25: 15.0, p50: 18.5, p75: 21.5, p90: 24.0, guide: 'Menendang bola ke depan.' }
+        ];
+
+        let scores = {};
+        let currentAgeMonths = 9.0;
+        let activeSector = 'all';
+        let filterAgeLineOnly = false;
+        let modalItemId = null;
+        let currentView = 'chart';
+        let patientMeta = { name: 'An. A', rm: 'RM-2026-998', examiner: 'Dr. Sp.A / Bikor' };
+
+        const sectorMeta = {
+            personal_social: { title: 'Personal Sosial', color: 'sky', hex: '#0284c7', icon: 'users' },
+            fine_motor: { title: 'Motorik Halus', color: 'pink', hex: '#ec4899', icon: 'pencil' },
+            language: { title: 'Bahasa', color: 'amber', hex: '#f59e0b', icon: 'message-square' },
+            gross_motor: { title: 'Motorik Kasar', color: 'emerald', hex: '#10b981', icon: 'activity' }
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const today = new Date();
+            document.getElementById('testDate').value = formatDate(today);
+            const birth = new Date();
+            birth.setMonth(today.getMonth() - 9);
+            document.getElementById('birthDate').value = formatDate(birth);
+            calculateAge();
+            lucide.createIcons();
+        });
+
+        function formatDate(d) {
+            return d.toISOString().split('T')[0];
+        }
+
+        function calculateAge() {
+            const bVal = document.getElementById('birthDate').value;
+            const tVal = document.getElementById('testDate').value;
+            if (!bVal || !tVal) return;
+
+            const bDate = new Date(bVal);
+            const tDate = new Date(tVal);
+
+            let diff = tDate - bDate;
+            if (diff < 0) diff = 0;
+
+            let years = tDate.getFullYear() - bDate.getFullYear();
+            let months = tDate.getMonth() - bDate.getMonth();
+            let days = tDate.getDate() - bDate.getDate();
+
+            if (days < 0) {
+                months -= 1;
+                const prev = new Date(tDate.getFullYear(), tDate.getMonth(), 0);
+                days += prev.getDate();
+            }
+            if (months < 0) {
+                years -= 1;
+                months += 12;
+            }
+
+            let totalMonths = (years * 12) + months + (days / 30.4375);
+
+            if (document.getElementById('isPremature').checked && totalMonths < 24) {
+                const preWeeks = parseFloat(document.getElementById('prematureWeeks').value) || 0;
+                totalMonths = Math.max(0, totalMonths - ((preWeeks * 7) / 30.4375));
+            }
+
+            currentAgeMonths = Math.min(72, Math.max(0.1, parseFloat(totalMonths.toFixed(1))));
+
+            document.getElementById('ageFormatted').innerText = `${years > 0 ? years + ' Thn ' : ''}${months} Bln ${days} Hri`;
+            document.getElementById('ageInMonthsVal').innerText = currentAgeMonths.toFixed(1);
+
+            renderChart();
+            renderChecklist();
+            evaluateClinicalStatus();
+        }
+
+        function togglePremature() {
+            const isPre = document.getElementById('isPremature').checked;
+            document.getElementById('prematureContainer').classList.toggle('hidden', !isPre);
+            calculateAge();
+        }
+
+        function updateMetadata() {
+            patientMeta.name = document.getElementById('childName').value;
+            patientMeta.rm = document.getElementById('medRecordNo').value;
+            patientMeta.examiner = document.getElementById('examinerName').value;
+        }
+
+        function switchView(view) {
+            currentView = view;
+            ['chart', 'checklist', 'report'].forEach(v => {
+                document.getElementById('view' + capitalize(v)).classList.toggle('hidden', v !== view);
+                const btn = document.getElementById('tab' + capitalize(v));
+                if (v === view) {
+                    btn.className = "flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 bg-emerald-500 text-slate-950 shadow-md";
+                } else {
+                    btn.className = "flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 text-slate-400 hover:text-white";
+                }
+            });
+            if (view === 'chart') renderChart();
+            if (view === 'checklist') renderChecklist();
+            if (view === 'report') evaluateClinicalStatus();
+        }
+
+        function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+        function filterSector(sec) {
+            activeSector = sec;
+            document.querySelectorAll('.sector-btn').forEach(b => {
+                if (b.dataset.sector === sec) {
+                    b.className = "sector-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-slate-700 text-white";
+                } else {
+                    b.className = "sector-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-slate-800 text-slate-400 hover:text-white border border-slate-700";
+                }
+            });
+            renderChart();
+            renderChecklist();
+        }
+
+        function toggleAgeLineFilter(en) {
+            filterAgeLineOnly = en;
+            document.getElementById('btnFilterAge').className = en ? "px-3 py-1 bg-emerald-600 text-white rounded-lg font-bold transition" : "px-3 py-1 bg-slate-800 text-slate-300 rounded-lg font-medium transition";
+            document.getElementById('btnFilterAll').className = !en ? "px-3 py-1 bg-emerald-600 text-white rounded-lg font-bold transition" : "px-3 py-1 bg-slate-800 text-slate-300 rounded-lg font-medium transition";
+            renderChecklist();
+        }
+
+        function setScore(id, score) {
+            if (scores[id] === score) delete scores[id];
+            else scores[id] = score;
+            renderChart();
+            renderChecklist();
+            evaluateClinicalStatus();
+        }
+
+        // Render SVG Denver Chart
+        function renderChart() {
+            const container = document.getElementById('denverChartContainer');
+            if (!container) return;
+
+            const chartWidth = 900;
+            function monthToPx(m) {
+                if (m <= 24) return (m / 24) * (chartWidth * 0.65);
+                return (chartWidth * 0.65) + ((m - 24) / 48) * (chartWidth * 0.35);
+            }
+
+            const ageLineX = monthToPx(currentAgeMonths);
+            const sectors = ['personal_social', 'fine_motor', 'language', 'gross_motor'];
+            const activeSectors = activeSector === 'all' ? sectors : [activeSector];
+
+            let html = `
+                <div class="h-9 relative border-b border-slate-700 font-mono text-[11px] font-bold text-slate-400 mb-2">
+                    ${[0, 1, 2, 4, 6, 9, 12, 15, 18, 24, 36, 48, 60, 72].map(m => {
+                        const px = monthToPx(m);
+                        const label = m >= 12 ? (m / 12) + 'th' : m + 'm';
+                        return `<div class="absolute top-0 transform -translate-x-1/2 flex flex-col items-center" style="left: ${px + 140}px">
+                                    <span>${label}</span>
+                                    <span class="w-0.5 h-2 bg-slate-600 mt-1"></span>
+                                </div>`;
+                    }).join('')}
+                </div>
+
+                <div class="space-y-4 relative min-h-[450px]">
+                    <div class="absolute top-0 bottom-0 z-30 pointer-events-none flex flex-col items-center" style="left: ${ageLineX + 140}px">
+                        <div class="bg-rose-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded shadow whitespace-nowrap mb-0.5">
+                            Garis Usia: ${currentAgeMonths.toFixed(1)}m
+                        </div>
+                        <div class="w-0.5 bg-rose-500 flex-1 shadow-sm"></div>
+                    </div>
+            `;
+
+            activeSectors.forEach(secKey => {
+                const meta = sectorMeta[secKey];
+                const items = denverItems.filter(i => i.sector === secKey);
+
+                html += `
+                    <div class="bg-slate-900/60 border border-slate-700/80 rounded-xl p-3">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <span class="w-3 h-3 rounded-full" style="background-color: ${meta.hex}"></span>
+                            <h4 class="font-bold text-xs text-white uppercase tracking-wider">${meta.title}</h4>
+                        </div>
+                        <div class="space-y-1.5">
+                `;
+
+                items.forEach(item => {
+                    const startPx = monthToPx(item.p25);
+                    const p50Px = monthToPx(item.p50);
+                    const p75Px = monthToPx(item.p75);
+                    const endPx = monthToPx(item.p90);
+                    const barWidth = Math.max(40, endPx - startPx);
+                    const score = scores[item.id] || null;
+                    const isIntersecting = currentAgeMonths >= item.p25 && currentAgeMonths <= item.p90;
+
+                    html += `
+                        <div class="flex items-center text-xs group hover:bg-slate-800/80 p-1 rounded-lg transition">
+                            <div class="w-[140px] pr-2 shrink-0 flex items-center justify-between cursor-pointer" onclick="openModal('instructionModal', '${item.id}')">
+                                <span class="font-medium text-slate-300 hover:text-emerald-400 truncate text-[11px]" title="${item.name}">${item.name}</span>
+                                <i data-lucide="help-circle" class="w-3 h-3 text-slate-500 group-hover:text-emerald-400 shrink-0 ml-1"></i>
+                            </div>
+                            <div class="flex-1 relative h-6 flex items-center">
+                                <div class="absolute h-5 rounded flex border border-slate-700 overflow-hidden cursor-pointer ${isIntersecting ? 'ring-2 ring-emerald-500/50' : ''}"
+                                     style="left: ${startPx}px; width: ${barWidth}px;" onclick="openModal('instructionModal', '${item.id}')">
+                                    <div class="h-full bg-slate-700 flex items-center justify-center text-[8px] text-slate-400 font-bold border-r border-slate-600" style="width: ${((p50Px - startPx)/barWidth)*100}%">25%</div>
+                                    <div class="h-full bg-slate-600 flex items-center justify-center text-[8px] text-slate-300 font-bold border-r border-slate-500" style="width: ${((p75Px - p50Px)/barWidth)*100}%">50%</div>
+                                    <div class="h-full bg-slate-500 flex items-center justify-center text-[8px] text-white font-bold" style="width: ${((endPx - p75Px)/barWidth)*100}%">90%</div>
+                                </div>
+                                <div class="absolute flex items-center space-x-1" style="left: ${startPx + barWidth + 8}px">
+                                    <button onclick="setScore('${item.id}', 'P')" class="w-5 h-5 rounded text-[10px] font-black flex items-center justify-center border transition ${score==='P'?'bg-emerald-500 text-slate-950 border-emerald-400':'bg-slate-800 text-slate-400 hover:bg-emerald-500/20 border-slate-700'}">P</button>
+                                    <button onclick="setScore('${item.id}', 'F')" class="w-5 h-5 rounded text-[10px] font-black flex items-center justify-center border transition ${score==='F'?'bg-rose-500 text-white border-rose-400':'bg-slate-800 text-slate-400 hover:bg-rose-500/20 border-slate-700'}">F</button>
+                                    <button onclick="setScore('${item.id}', 'R')" class="w-5 h-5 rounded text-[10px] font-black flex items-center justify-center border transition ${score==='R'?'bg-amber-500 text-slate-950 border-amber-400':'bg-slate-800 text-slate-400 hover:bg-amber-500/20 border-slate-700'}">R</button>
+                                    <button onclick="setScore('${item.id}', 'NO')" class="w-5 h-5 rounded text-[10px] font-black flex items-center justify-center border transition ${score==='NO'?'bg-slate-600 text-white border-slate-500':'bg-slate-800 text-slate-400 hover:bg-slate-700 border-slate-700'}">N</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+            });
+            html += `</div>`;
+            container.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // Render Checklist
+        function renderChecklist() {
+            const container = document.getElementById('checklistContainer');
+            if (!container) return;
+
+            let items = denverItems;
+            if (activeSector !== 'all') items = items.filter(i => i.sector === activeSector);
+            if (filterAgeLineOnly) items = items.filter(i => (currentAgeMonths >= i.p25 && currentAgeMonths <= i.p90) || (currentAgeMonths > i.p90 && !scores[i.id]));
+
+            if (items.length === 0) {
+                container.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500 text-xs">Tidak ada item yang cocok dengan filter.</div>`;
+                return;
+            }
+
+            let html = '';
+            items.forEach(item => {
+                const meta = sectorMeta[item.sector];
+                const score = scores[item.id] || null;
+                const isIntersecting = currentAgeMonths >= item.p25 && currentAgeMonths <= item.p90;
+
+                html += `
+                    <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-4 space-y-3 relative overflow-hidden flex flex-col justify-between">
+                        ${isIntersecting ? '<div class="absolute top-0 right-0 bg-emerald-500 text-slate-950 text-[9px] font-black uppercase px-2 py-0.5 rounded-bl">Garis Usia</div>' : ''}
+                        <div class="space-y-1">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-2.5 h-2.5 rounded-full" style="background-color: ${meta.hex}"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">${meta.title}</span>
+                            </div>
+                            <h4 class="font-bold text-white text-sm">${item.name}</h4>
+                            <p class="text-xs text-slate-400">Rentang Normal: <span class="text-slate-200 font-mono">${item.p25} - ${item.p90} Bulan</span></p>
+                        </div>
+                        <div class="bg-slate-900/60 rounded-lg p-2.5 text-[11px] text-slate-300 border border-slate-700/50 flex items-start justify-between gap-2">
+                            <p class="line-clamp-2">${item.guide}</p>
+                            <button onclick="openModal('instructionModal', '${item.id}')" class="text-emerald-400 hover:underline shrink-0 font-semibold">Detail</button>
+                        </div>
+                        <div class="grid grid-cols-4 gap-1.5 pt-1">
+                            <button onclick="setScore('${item.id}', 'P')" class="py-1.5 rounded text-xs font-bold transition border ${score==='P'?'bg-emerald-500 text-slate-950 border-emerald-400':'bg-slate-900 text-slate-400 hover:bg-emerald-500/10 border-slate-700'}">P</button>
+                            <button onclick="setScore('${item.id}', 'F')" class="py-1.5 rounded text-xs font-bold transition border ${score==='F'?'bg-rose-500 text-white border-rose-400':'bg-slate-900 text-slate-400 hover:bg-rose-500/10 border-slate-700'}">F</button>
+                            <button onclick="setScore('${item.id}', 'R')" class="py-1.5 rounded text-xs font-bold transition border ${score==='R'?'bg-amber-500 text-slate-950 border-amber-400':'bg-slate-900 text-slate-400 hover:bg-amber-500/10 border-slate-700'}">R</button>
+                            <button onclick="setScore('${item.id}', 'NO')" class="py-1.5 rounded text-xs font-bold transition border ${score==='NO'?'bg-slate-600 text-white border-slate-500':'bg-slate-900 text-slate-400 hover:bg-slate-800 border-slate-700'}">NO</button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // Clinical Evaluation Engine
+        function evaluateClinicalStatus() {
+            let totalDelays = 0;
+            let totalCautions = 0;
+            let totalUntestable = 0;
+
+            const sectorStats = {
+                personal_social: { tested: 0, passed: 0, delays: 0, cautions: 0 },
+                fine_motor: { tested: 0, passed: 0, delays: 0, cautions: 0 },
+                language: { tested: 0, passed: 0, delays: 0, cautions: 0 },
+                gross_motor: { tested: 0, passed: 0, delays: 0, cautions: 0 }
+            };
+
+            denverItems.forEach(item => {
+                const score = scores[item.id];
+                const stat = sectorStats[item.sector];
+
+                if (score) {
+                    stat.tested++;
+                    if (score === 'P') stat.passed++;
+                }
+
+                // Delay: Item completely to the left of age line (>90% age) with Fail or Refusal
+                if (currentAgeMonths > item.p90 && (score === 'F' || score === 'R')) {
+                    totalDelays++;
+                    stat.delays++;
+                }
+
+                // Caution: Age line falls between 75% and 90% with Fail or Refusal
+                if (currentAgeMonths >= item.p75 && currentAgeMonths <= item.p90 && (score === 'F' || score === 'R')) {
+                    totalCautions++;
+                    stat.cautions++;
+                }
+
+                if (score === 'R' && currentAgeMonths > item.p75) {
+                    totalUntestable++;
+                }
+            });
+
+            // Denver II Official Diagnosis Rules
+            let status = 'NORMAL';
+            let bgClass = 'bg-emerald-950/40 border-emerald-500/50 text-emerald-200';
+            let icon = 'check-circle-2';
+            let desc = 'Perkembangan anak saat ini berada dalam batas normal sesuai usianya. Lanjutkan stimulasi rutin.';
+
+            if (totalDelays >= 1 || totalCautions >= 2) {
+                status = 'SUSPEK (PERLU EVALUASI KLINIS)';
+                bgClass = 'bg-rose-950/40 border-rose-500/50 text-rose-200';
+                icon = 'alert-triangle';
+                desc = `Ditemukan ${totalDelays} keterlambatan (Delay) dan ${totalCautions} peringatan (Caution). Disarankan untuk pemeriksaan ulang dalam 1-2 minggu atau rujukan spesialis tumbuh kembang.`;
+            } else if (totalUntestable >= 2) {
+                status = 'UNTESTABLE (TIDAK DAPAT DINILAI)';
+                bgClass = 'bg-amber-950/40 border-amber-500/50 text-amber-200';
+                icon = 'help-circle';
+                desc = 'Anak menolak pada beberapa item kunci. Jadwalkan ulang pemeriksaan saat kondisi anak kooperatif.';
+            }
+
+            // Render Banner
+            const banner = document.getElementById('diagnosisBanner');
+            if (banner) {
+                banner.className = `rounded-2xl p-6 border shadow-lg ${bgClass} transition-all relative overflow-hidden`;
+                banner.innerHTML = `
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div class="space-y-1.5 max-w-2xl">
+                            <div class="flex items-center space-x-2 text-[11px] font-bold uppercase tracking-wider bg-black/20 w-fit px-3 py-1 rounded-full">
+                                <i data-lucide="${icon}" class="w-4 h-4"></i>
+                                <span>Hasil Interpretasi Denver II</span>
+                            </div>
+                            <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight text-white">${status}</h2>
+                            <p class="text-xs sm:text-sm opacity-90 leading-relaxed">${desc}</p>
+                            <div class="text-[11px] opacity-75 pt-1 font-mono">
+                                Pasien: <strong>${patientMeta.name}</strong> | No. RM: <strong>${patientMeta.rm}</strong> | Pemeriksa: <strong>${patientMeta.examiner}</strong>
+                            </div>
+                        </div>
+                        <div class="bg-black/30 rounded-xl p-4 border border-white/10 text-center shrink-0 space-y-1">
+                            <div class="text-[11px] opacity-80">Ringkasan Temuan</div>
+                            <div class="flex items-center justify-center gap-2 font-mono text-xs font-bold">
+                                <span class="bg-rose-500/20 text-rose-300 px-2 py-1 rounded">${totalDelays} Delay</span>
+                                <span class="bg-amber-500/20 text-amber-300 px-2 py-1 rounded">${totalCautions} Caution</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Render Sector Scorecards
+            Object.keys(sectorStats).forEach(sec => {
+                const st = sectorStats[sec];
+                document.getElementById(`badge_${sec}`).innerText = `${st.passed} Lulus / ${st.tested} Diuji`;
+                const pct = st.tested > 0 ? (st.passed / st.tested) * 100 : 0;
+                document.getElementById(`bar_${sec}`).style.width = `${pct}%`;
+                document.getElementById(`list_${sec}`).innerHTML = `
+                    <div>Delay: <strong class="${st.delays>0?'text-rose-400':'text-slate-300'}">${st.delays}</strong></div>
+                    <div>Caution: <strong class="${st.cautions>0?'text-amber-400':'text-slate-300'}">${st.cautions}</strong></div>
+                `;
+            });
+
+            renderRecommendations(status);
+            lucide.createIcons();
+        }
+
+        function renderRecommendations(status) {
+            const container = document.getElementById('recommendationsContainer');
+            if (!container) return;
+
+            let html = `
+                <div class="p-3.5 bg-slate-900/60 rounded-xl border border-slate-700 space-y-1">
+                    <h4 class="font-bold text-white flex items-center gap-1.5 text-xs"><i data-lucide="sparkles" class="w-4 h-4 text-emerald-400"></i> Stimulasi Usia ${currentAgeMonths.toFixed(1)} Bulan</h4>
+                    <p class="text-slate-400 leading-relaxed">Fasilitasi interaksi sosial, stimulasi motorik dengan permainan aktif, serta ajak berbicara secara interaktif setiap hari.</p>
+                </div>
+            `;
+
+            if (status.includes('SUSPEK')) {
+                html += `
+                    <div class="p-3.5 bg-rose-950/30 rounded-xl border border-rose-500/30 space-y-1">
+                        <h4 class="font-bold text-rose-300 flex items-center gap-1.5 text-xs"><i data-lucide="alert-circle" class="w-4 h-4 text-rose-400"></i> Rencana Intervensi & Tindak Lanjut</h4>
+                        <p class="text-rose-200/80 leading-relaxed">Berikan latihan terfokus pada sektor yang mengalami keterlambatan selama 2 minggu, lalu lakukan re-skrining Denver II atau rujuk ke Dokter Spesialis Anak Konsultan Tumbuh Kembang.</p>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="p-3.5 bg-emerald-950/30 rounded-xl border border-emerald-500/30 space-y-1">
+                        <h4 class="font-bold text-emerald-300 flex items-center gap-1.5 text-xs"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> Jadwal Skrining Berikutnya</h4>
+                        <p class="text-emerald-200/80 leading-relaxed">Perkembangan anak terpantau optimal. Lakukan penapisan rutin berkala sesuai jadwal imunisasi / posyandu berikutnya.</p>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        // Modal Controls
+        function openModal(modalId, itemId = null) {
+            if (itemId) {
+                modalItemId = itemId;
+                const item = denverItems.find(i => i.id === itemId);
+                if (item) {
+                    const meta = sectorMeta[item.sector];
+                    document.getElementById('modalTitle').innerText = item.name;
+                    document.getElementById('modalAgeRange').innerText = `Rentang Usia Normal: ${item.p25} - ${item.p90} Bulan`;
+                    document.getElementById('modalGuideText').innerText = item.guide;
+                    document.getElementById('modalSectorIcon').className = `w-10 h-10 rounded-xl bg-${meta.color}-500/10 text-${meta.color}-400 flex items-center justify-center font-bold border border-${meta.color}-500/20`;
+                }
+            }
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            modalItemId = null;
+        }
+
+        function applyScoreFromModal(score) {
+            if (modalItemId) {
+                setScore(modalItemId, score);
+                closeModal('instructionModal');
+            }
+        }
+
+        function loadSamplePatient(type) {
+            if (type === 'infant') {
+                document.getElementById('childName').value = 'An. Budi Santoso';
+                document.getElementById('medRecordNo').value = 'RM-2026-554';
+                const today = new Date();
+                const birth = new Date();
+                birth.setMonth(today.getMonth() - 9);
+                document.getElementById('birthDate').value = formatDate(birth);
+                document.getElementById('isPremature').checked = false;
+                togglePremature();
+
+                scores = {
+                    'ps_1': 'P', 'ps_2': 'P', 'ps_3': 'P', 'ps_4': 'P', 'ps_5': 'P', 'ps_6': 'P',
+                    'fm_1': 'P', 'fm_2': 'P', 'fm_3': 'P', 'fm_4': 'P', 'fm_5': 'P',
+                    'lg_1': 'P', 'lg_2': 'P', 'lg_3': 'P', 'lg_4': 'P', 'lg_5': 'F',
+                    'gm_1': 'P', 'gm_2': 'P', 'gm_3': 'P', 'gm_4': 'P', 'gm_5': 'P', 'gm_6': 'P'
+                };
+                calculateAge();
+            }
+        }
+
+        function resetScreening() {
+            scores = {};
+            document.getElementById('childName').value = 'An. A';
+            document.getElementById('medRecordNo').value = 'RM-2026-998';
+            calculateAge();
+        }
+    </script>
+</body>
+</html>
